@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kirtash Music</title>
+    
+    <link type="image/png" href="/favicon.png" rel="icon" sizes="32x32"/>
+
+    <script type="text/javascript" src="/file_js/functions.js"></script>
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+    
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link type="text/css" href="/assets/css/blk-design-system.css" rel="stylesheet">
+
+    <!--   Core JS Files   -->
+    <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
+    <script src="/assets/js/blk-design-system.js" type="text/javascript"></script>
+    
+    <script>
+      $(document).ready(function() {
+      blackKit.initDatePicker();
+      blackKit.initSliders();
+      });
+
+      function scrollToDownload() {
+
+      if ($('.section-download').length != 0) {
+        $("html, body").animate({
+        scrollTop: $('.section-download').offset().top
+        }, 1000);
+      }
+      }
+    </script>	
+</head>
+<body class="index-page">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-transparent ">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="index.html" rel="tooltip" title="" data-placement="bottom">
+          <span>KRH•</span> Kirtash Music
+        </a>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a>
+                KRH•
+              </a>
+            </div>
+            <div class="col-6 collapse-close text-right">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul class="navbar-nav">
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+  <div class="wrapper">
+    <div class="squares square1"></div>
+    <div class="squares square2"></div>
+    <div class="squares square3"></div>
+    <div class="squares square4"></div>
+    <div class="squares square5"></div>
+    <div class="squares square6"></div>
+    <div class="squares square7"></div>
+    <div class="page-header">
+      <div class="content">
+        <div class="container">
+
+          <div class="row">
+          
+            <div class="col-lg-5 col-md-6 offset-lg-0 offset-md-3">
+              <div id="square7" class="square square-7"></div>
+              <div id="square8" class="square square-8"></div>
+              <div class="card card-register">
+                <div class="card-header">
+                  <img class="card-img" src="/assets/img/square1.png" alt="Card image">
+                  <h4 class="card-title">Register</h4>
+                </div> <!--card-header --->
+                <div class="card-body">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-single-02"></i>
+                        </div>
+                      </div> <!--input-group-prepend --->
+					            <input type="text" class="form-control" name="username" id="username_signup" placeholder="Username" onkeyup="onKeyUpSignUp()">
+                    </div> <!--input-group --->
+					          <!-- Input2 -->
+                    <div class="input-group" id="pus1">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-lock-circle"></i>
+                        </div>
+                      </div>
+					            <input type="password" class="form-control" name="pass_user" id="pass_user_signup" placeholder="Password" onkeyup="onKeyUpSignUp()">
+					          </div> <!--input-group --->
+					        <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-lock-circle"></i>
+                        </div>
+                      </div>
+					            <input type="password" class="form-control" name="pass_user2" id="pass_user_signup2" placeholder="Confirm password" onkeyup="onKeyUpSignUp()">
+                    </div><!--input-group --->
+					        <div id="result"></div>
+                  <div class="card-footer">
+                    <input type="submit" class="btn btn-info btn-round btn-lg" name="enviar" value="Register" onclick="checkSignUp()">
+                  </div><!-- card-footer --->
+                </div> <!-- card-body -->
+              </div> <!-- card card-register -->
+            </div><!-- col-lg-5-->
+            
+			      <!-- SIGN IN -->
+            <div class="col-lg-5 col-md-6 offset-lg-0 offset-md-3">
+              <div id="square7" class="square square-7"></div>
+              <div id="square8" class="square square-8"></div>
+              <div class="card card-register">
+                <div class="card-header">
+                  <img class="card-img" src="/assets/img/square1.png" alt="Card image">
+                  <h4 class="card-title">Sign In</h4>
+                </div><!-- card card-register--->
+                <div class="card-body">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-single-02"></i>
+                        </div>
+                      </div>
+					            <input type="text" class="form-control" name="username_signin" id="username_signin" placeholder="Username"  onkeyup="onKeyUpSignIn()">
+                     </div><!--input-group --->
+					          <!-- Input2 -->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-lock-circle"></i>
+                        </div>
+                      </div>
+					            <input type="password" class="form-control" name="pass_user_signin" id="pass_user_signin" placeholder="Password" onkeyup="onKeyUpSignIn()">
+                      </div><!-- input-group--->
+					          <div id="result2"></div>
+                    <div class="card-footer">
+                      <input type="submit" class="btn btn-info btn-round btn-lg" name="enviar" value="Sign In" onclick="checkSignIn()">
+                    </div>
+                </div> <!-- card-body-->
+              </div> <!--col lg 5 --->
+
+            </div> <!-- row -->
+          <!--</div>-->
+
+          <!--<div class="register-bg"></div>
+          <div id="square1" class="square square-1"></div>
+          <div id="square2" class="square square-2"></div>
+          <div id="square3" class="square square-3"></div>
+          <div id="square4" class="square square-4"></div>
+          <div id="square5" class="square square-5"></div>
+          <div id="square6" class="square square-6"></div>-->
+          
+
+        </div><!-- --->
+      </div><!-- --->
+    </div><!-- --->
+  </div> 
+  <br><br><br><br>
+
+  <!--<script src="/socket.io/socket.io.js"></script>
+  <script src="/index/index_functions.js"></script>-->
+</body>
+</html>
+
