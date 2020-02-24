@@ -534,13 +534,11 @@ function m_updateMark(id_session,id_cancion,number,req,callback){
                 console.log("ERROR");
                 callback(-1);
             } else {
-                console.log("ANTES DE SELECT");
                 //We obtain the mark stored in the database
                 connection.query("SELECT mark FROM lista_reproduccion WHERE id_cancion ='" + id_cancion+"'",function(error,results,fields){
                     mark = results[0].mark;
                     new_mark = parseInt(mark) + parseInt(number);
 
-                    console.log("ACTUALIZANDOOOLOOO");
                     connection.query("UPDATE lista_reproduccion SET mark ='"+ new_mark +"' WHERE id_cancion ='" + id_cancion+"'",function(error,results,fields){
                         console.log("hiii");
                         if (error){
@@ -556,7 +554,7 @@ function m_updateMark(id_session,id_cancion,number,req,callback){
 }
 
 function m_checkVote(id_cancion,id_user,id_session,callback){
-    connection.query("SELECT vote FROM likes WHERE id_session =" + id_session +" AND id_user = "+ id_user +" AND id_cancion =" + id_cancion,function(error,results,fields){
+    connection.query("SELECT vote FROM likes WHERE id_session ='" + id_session +"' AND id_user ='"+ id_user +"' AND id_cancion ='"+ id_cancion+"'",function(error,results,fields){
         if ( error || results == undefined || Object.keys(results).length === 0){
             callback(undefined);
         } else {
@@ -1845,7 +1843,7 @@ function v_showPlaylist(id_session,req,callback){
                             content = content.replace(/##disabledadd##/g,"");
                             content = content.replace(/##disabledsub##/g,"");
                         } else {
-                            if (b["vote"] == 1){
+                            if (b == 1){
                                 content = content.replace(/##disabledadd##/g,"disabled");
                                 content = content.replace(/##disabledsub##/g,"");
                             } else {
