@@ -178,6 +178,7 @@ function substractMark(id_cancion) {
         url: "/checkregistration",
         type: "post",
         success: function (result) {
+            result = result["result"];
             if (result == 1) {
                 //We disable the button
                 $('#substract_' + id_cancion).attr('disabled', true);
