@@ -602,10 +602,17 @@ function noSong_SongAdded() {
                                 // You can add more event listeners here
                             }
                         });
+                        //Notify the server the player has been edited
+                        room = "session" + params.get('id_session');
+                        socket.emit('new_song_in_player',{"room" : room});
                     } else {
                         console.log("Enter 9");
                         player.loadVideoById(videoId);
                         player.playVideo();
+
+                        //Notify the server the player has been edited
+                        room = "session" + params.get('id_session');
+                        socket.emit('new_song_in_player',{"room" : room});
                     }
                     updatePlaylist();
                     //Send the new song added to the server
