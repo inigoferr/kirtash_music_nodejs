@@ -644,7 +644,7 @@ function retireActualSong() {
                 //We need to obtain the next song and update the page
                 $.ajax({
                     url: "/obtainFirstVideo",
-                    data: { id_session: params.get('id_session'), accion: "" },
+                    data: { id_session: params.get('id_session')},
                     type: "post",
                     success: function (result) {
                         result = result["result"];

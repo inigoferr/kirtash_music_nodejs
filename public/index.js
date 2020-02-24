@@ -490,7 +490,7 @@ function m_obtainFirstVideo(id_session,callback){
 
     connection.query("SELECT id_cancion FROM playing WHERE id_session='" + id_session +"'",function(error,results,fields){
         if(error || results[0] == undefined || Object.keys(results).length === 0){ //No video is being played
-            connection.query("SELECT * FROM lista_reproduccion WHERE id_sesion ="+ id_session + "ORDER BY mark DESC",function(error,results,fields){
+            connection.query("SELECT * FROM lista_reproduccion WHERE id_sesion ='"+ id_session + "' ORDER BY mark DESC",function(error,results,fields){
                 callback(results);
             });
         } else {
@@ -505,9 +505,9 @@ function m_obtainFirstVideo(id_session,callback){
 function m_insertSongInPlaying(id_session,id_cancion,callback){
     //First we have to check if the song we receive it's already inserted in 'playing' or not
 
-    connection.query("SELECT id_playing FROM playing WHERE id_session = "+ id_session +" AND id_cancion =" + id_cancion,function(error,results,fields){
+    connection.query("SELECT id_playing FROM playing WHERE id_session ='"+ id_session +"' AND id_cancion ='" + id_cancion + "'",function(error,results,fields){
         if(error || results == undefined || Object.keys(results).length === 0){
-            connection.query("INSERT INTO playing (id_session,id_cancion) VALUES ("+id_session+","+id_cancion+")",function(error,results,fields){
+            connection.query("INSERT INTO playing (id_session,id_cancion) VALUES ('"+id_session+"','"+id_cancion+"')",function(error,results,fields){
                 if(error){
                     callback(1);
                 } else {
@@ -1034,7 +1034,7 @@ function obtainFirstVideo(id_session,callback){
     m_obtainFirstVideo(id_session,function(result){
         //We obtain all the playlist but we will get only the first song
         //IMPORTANT: We need to check if the playlist is empty or not
-        if (result == undefined){ //The playlist is empty
+        if (result == undefined || result[0] == undefined || Object.keys(result).length === 0){ //The playlist is empty
             callback({"result": -1});
         } else { //The playlist has songs/videos to play
             //Obtain the videoId and the title and return them
