@@ -1838,7 +1838,7 @@ function v_showPlaylist(id_session,req,callback){
                 //We check if the user has liked or disliked the song, or neither
                 if (req.session.id_user != undefined){
                     m_checkVote(datos["id_cancion"],req.session.id_user,id_session,function(b){
-                    
+                        console.log("B = "+b);
                         if (b == undefined){
                             content = content.replace(/##disabledadd##/g,"");
                             content = content.replace(/##disabledsub##/g,"");
