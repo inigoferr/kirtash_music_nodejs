@@ -9,7 +9,8 @@ var OAUTH2_SCOPES = [
 ];
 
 //clave de la API: AIzaSyDna3QpWLLNoVotm6zszgqIzVCOXgSGep0
-
+var link = "https://accounts.google.com/o/oauth2/auth?client_id=516987808043-jadu0vup2dv508lg7urrls6oqd43uu38.apps.googleusercontent.com&redirect_uri=https://www.kirtash-music.me&scope=https://www.googleapis.com/auth/youtube&response_type=token";
+document.getElementById('login-link').href = link;
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 googleApiClientReady = function() {

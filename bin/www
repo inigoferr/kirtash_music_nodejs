@@ -27,11 +27,113 @@ var io = require('socket.io')(server);
 /**
  * Listen on provided port, on all network interfaces.
  */
+var waiting_users = {"rooms":{}};
+
 
 //create socket io
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
   console.log('a user connected');
+
+
+  //The user joins a specific room where are all the users of the session
+  socket.on('join_room', function (room) {
+    socket.join(room);
+    console.log("User joins room = " + room);
+    id = socket.id;
+    
+    //New user needs to know the time of the song being played
+    //1º: Ask one user of the room for the time
+    var clients_in_the_room = io.sockets.adapter.rooms[room]; 
+    console.log(clients_in_the_room);
+    console.log(clients_in_the_room.sockets);
+    console.log(clients_in_the_room.sockets[0]);
+    console.log(clients_in_the_room.length);
+    if(clients_in_the_room.length > 1){
+
+      for (var clave in clients_in_the_room.sockets){ //Obtain socket id's of the room
+        if (clave.localeCompare(id) != 0){
+          var client_socket = io.sockets.connected[clave];//Do whatever you want with this
+          client_socket.emit('ask_time_player');
+      
+          //We add the socket of the new user to send him after the time
+          waiting_users.rooms[room] = socket;
+          console.log(waiting_users);
+
+          break;
+        }
+      }
+      
+    }
+  });
+
+  /**
+   * Send the time of the player to the new users
+   */
+  socket.on('answer_time_player',function(data){
+    time = data["time"];
+    room = data["room"];
+
+    waiting_users.rooms.forEach(function(elem){
+      console.log(elem);
+      if(elem.localeCompare(room) == 0){
+        (waiting_users.rooms[elem]).emit('time_player',time);
+        delete waiting_users.rooms.elem;
+        break;
+      }
+    });
+
+  });
+
+  //The user leaves the session, automatically he leaves the room he was too
+  socket.on('disconnect', function (reason) {
+    console.log("Disconnection");
+    console.log(reason);
+  });
+
+  //New Vote
+  socket.on('new_vote', function (data) {
+    //We have to send to the rest of the users in the room they must update the playlist
+    room = Object.keys(socket.rooms)[0];
+    socket.to(room).emit('update_playlist');
+  });
+
+  //New Song in the playlist
+  socket.on('new_song', function (data) {
+    room = Object.keys(socket.rooms)[0];
+    socket.to(room).emit('update_playlist');
+  });
+
+  //Song retired
+  socket.on('song_retired', function (data) {
+
+  });
+
+  //Song ended??
+
+  //CHAT
+  //Nuevo mensaje
+  socket.on('new-message', function (data) {
+
+  });
+
 });
+
+
+/* socket.emit('messages',messages);
+
+    //El servidor recibe el evento 'new-message' y hace lo que le digamos en la función
+    socket.on('new-message',function(data){
+        messages.push(data);
+
+        //Utilizamos el servidor completo 'io' para avisar a TODOS los clientes de que hay un nuevo mensaje
+        io.sockets.emit('messages',messages);
+    });
+
+    /*socket.on('checksignin',function(data){
+        result = sign_in(data["username"],data["pass_user"],req);
+
+        socket.emit('checksignin_answer',);
+    });*/
 
 server.listen(port);
 server.on('error', onError);

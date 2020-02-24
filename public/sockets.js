@@ -1,5 +1,6 @@
 //El cliente al conectarse manda el mensaje 'connection' al servidor
-var socket = io.connect("http://localhost:7000",{ 'forceNew':true});
+//var socket = io.connect("http://localhost:7000",{ 'forceNew':true});
+//var socket = io();
 
 //Evento a escuchar
 socket.on('messages',function(data){

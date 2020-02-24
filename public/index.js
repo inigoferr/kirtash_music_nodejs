@@ -7,47 +7,12 @@ const path = require('path');
 const session = require('express-session');
 let fs = require('fs');
 
-const io = require('socket.io')(server);
-/*
-server.listen(7000,function(result){
-    console.log("Servidor corriendo...");
-});*/
-
 //Session User
 router.use(session({
   secret: 'ssshhhhh',
   saveUninitialized: true,
   resave: true
-}));
-
-/**** SOCKETS ****/
-//Servidor de Sockets = io, al recibir el mensaje connect hará lo que pongamos en la función
-//socket = Cliente Web que ha mandado el mensaje
-//Cuando alguien inicia conexión = cliente se conecta
-io.on("connection",function(socket){
-    console.log('Alguien se ha conectado con Sockets');
-    socket.emit('messages',messages);
-
-    //El servidor recibe el evento 'new-message' y hace lo que le digamos en la función
-    socket.on('new-message',function(data){
-        messages.push(data);
-
-        //Utilizamos el servidor completo 'io' para avisar a TODOS los clientes de que hay un nuevo mensaje
-        io.sockets.emit('messages',messages);
-    });
-
-    /*socket.on('checksignin',function(data){
-        result = sign_in(data["username"],data["pass_user"],req);
-
-        socket.emit('checksignin_answer',);
-    });*/
-});
-
-/*io.listen(7000,function(){
-    console.log("Iniciando Servidor en puerto 000");
-});*/
-
-
+}));    
 /*************/
 
 router.post('/checksignup',function(req,res,next){
@@ -375,6 +340,14 @@ var connection = mysql.createConnection({
   password : "kirtashtfgbbdd",
   database : "dbkirtash"
 });
+
+/*
+var connection = mysql.createConnection({
+    host : "localhost",
+    user : "root",
+    password : "tfg",
+    database : "tfg"
+});*/
 connection.connect(function(err){
     if (err){
         console.log(err.stack);
