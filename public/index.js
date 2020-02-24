@@ -1824,6 +1824,8 @@ function v_showPlaylist(id_session,req,callback){
                 callback(result);
             }
 
+            console.log("Playlist = " + res);
+
             i = 1;
             res.forEach(function(datos){
                 content = template;
