@@ -1045,12 +1045,13 @@ function obtainFirstVideo(id_session,callback){
             //arr = array('title' => result[0].title, "videoId" => result[0].videoId,"id_cancion" => result[0].id_cancion);
             //info = json_encode(arr);
 
-            info = {'title' : result[0].title,
+            info = {"title" : result[0].title,
                     "videoId" : result[0].videoId,
                     "id_cancion" : result[0].id_cancion,
                     "result" : 1};
             //Insert the video in the table 'playing'
             m_insertSongInPlaying(id_session,result[0].id_cancion,function(result2){
+                console.log("INFO = " + info);
                 if (result2 == 1){
                     callback(info);
                 } else { //ERROR

@@ -566,6 +566,7 @@ function noSong_SongAdded() {
             data: { id_session: params.get('id_session') },
             type: "post",
             success: function (result) { //We received the information from the server
+                obj = result;
                 result = result["result"];
                 if (result == -3 || result == -4) {
                     console.log("ERROR = " + result);
@@ -582,7 +583,6 @@ function noSong_SongAdded() {
                     console.log("Enter 7");
                     no_song = 0;
 
-                    obj = result;
                     $('#title_video_playing').html("<small class='text-muted'>Playing: </small>" + obj["title"]);
                     videoId = obj["videoId"];
                     id_cancion = obj["id_cancion"];
@@ -654,6 +654,7 @@ function retireActualSong() {
                     data: { id_session: params.get('id_session')},
                     type: "post",
                     success: function (result) {
+                        obj = result;
                         result = result["result"];
                         if (result == -1) { //There aren't songs to play in the playlist
                             no_song = 1;
@@ -673,7 +674,7 @@ function retireActualSong() {
                             console.log("ERROR AQUI");
                         } else { //There are songs to play in the playlist    
                             no_song = 0;
-                            obj = JSON.parse(result);
+                            
                             $('#title_video_playing').html("<small class='text-muted'>Playing: </small>" + obj["title"]);
                             videoId = obj["videoId"];
                             id_cancion = obj["id_cancion"];
