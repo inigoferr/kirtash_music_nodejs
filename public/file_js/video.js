@@ -698,7 +698,7 @@ socket.on('update_playlist',function(data){
  * User is asked to tell the time
  */
 socket.on('ask_time_player',function(data){
-    if(no_player == 0){ //No player, so no time to tell
+    if(no_player == 0){ //There is aplayer, so time to tell
         answer = player.getCurrentTime();
         let params = new URLSearchParams(location.search);
         room = "session" + params.get("id_session");

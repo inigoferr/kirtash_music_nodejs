@@ -27,7 +27,13 @@ var io = require('socket.io')(server);
 /**
  * Listen on provided port, on all network interfaces.
  */
-var waiting_users = {"rooms":{}};
+var mysql = require('mysql');
+var connection2 = mysql.createConnection({
+  host     : "tfgkirtashdb.cdynp72jpqch.us-east-1.rds.amazonaws.com",
+  user     : "masterUsername",
+  password : "kirtashtfgbbdd",
+  database : "dbkirtash"
+});
 
 
 //create socket io
@@ -53,10 +59,9 @@ io.on('connection', function (socket) {
           client_socket.emit('ask_time_player');
       
           //We add the socket of the new user to send him after the time
-          waiting_users.rooms[room] = socket;
-          console.log("Waiting users = "+waiting_users);
+          connection2.query(`INSERT INTO waiting_users(room,socket) VALUES ('${room}','${socket}') `,function(error,results,fields){
+          });
 
-          break;
         }
       }
       
@@ -70,12 +75,14 @@ io.on('connection', function (socket) {
     time = data["time"];
     room = data["room"];
 
-    console.log("Lista 1 => " + waiting_users);
-    console.log("Lista 2 => "+ waiting_users.rooms);
-    console.log("Lista 3 => " + waiting_users.rooms[room]);
-    waiting_users.rooms[room].forEach(function(elem){
-        (waiting_users.rooms[elem]).emit('time_player',time);
-        delete waiting_users.rooms.elem;
+    connection2.query(`SELECT socket FROM waiting_users WHERE room='${room}'`,function(error,results,fields){
+      if(error || results[0] == undefined || Object.keys(results).length === 0){
+        console.log("ERROR IN ANSWER_TIME_PLAYER");
+      } else {
+        results.forEach(function(elem){
+          results[0].emit('time_player',time);
+        });
+      }
     });
 
   });
