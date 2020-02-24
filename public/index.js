@@ -1829,7 +1829,7 @@ function v_showPlaylist(id_session,req,callback){
                 } else {
                     template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"),'utf-8');
                 }
-                
+
                 content = template;
     
                 content = content.replace(/##number##/g,i);
@@ -1855,8 +1855,12 @@ function v_showPlaylist(id_session,req,callback){
                                 content = content.replace(/##disabledsub##/g,"disabled");
                             }
                         }
+                        console.log("++++++");
+                        console.log("Content = "+content);
+                        console.log("++++++");
                         result = result.concat(content);
-
+                        console.log("Result "+result);
+                        console.log("++++++");
                         num_x_playlist++;
                         if (num_x_playlist == total_songs){
                             callback(result);
