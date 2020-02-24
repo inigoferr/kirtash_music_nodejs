@@ -153,7 +153,8 @@ function addMark(id_cancion) {
                         updatePlaylist();
 
                         //We notify the server that we have update the mark of one song
-                        socket.emit('new_vote',);
+                        room = "session" + params.get('id_session'); 
+                        socket.emit('new_vote',{"room" : room});
                     }
                 });
             } else {//User not registered, he can't votes
@@ -598,12 +599,17 @@ function noSong_SongAdded() {
                         player.playVideo();
                     }
                     updatePlaylist();
+                    //Send the new song added to the server
+                    room = "session" + params.get('id_session'); 
+                    socket.emit('new_song',{"room" : room});
                 }
             }
         });
     } else { //A song is being played
         console.log("Enter 10");
         updatePlaylist();
+        room = "session" + params.get('id_session'); 
+        socket.emit('new_song',{"room" : room});
     }
 }
 
@@ -652,6 +658,10 @@ function retireActualSong() {
                             //We add the black rectangle
                             $('#player').html("<img src='/assets/img/black_player.png'></img>");
 
+                            //Notify the server the song actual has being retired
+                            room = "session" + params.get('id_session');
+                            socket.emit('song_retired_no_more_songs',{"room" : room});
+
                         } else if (result == -3 || result == -4) {
                             console.log("ERROR AQUI");
                         } else { //There are songs to play in the playlist    
@@ -663,6 +673,10 @@ function retireActualSong() {
                             player.loadVideoById(videoId);
                             player.playVideo();
                             updatePlaylist();
+
+                            //Notify the server the song actual has being retired
+                            room = "session" + params.get('id_session');
+                            socket.emit('song_retired',{"room" : room});
                         }
                     }
                 });
@@ -699,4 +713,19 @@ socket.on('ask_time_player',function(data){
  */
 socket.on('time_player',function(time){
     player.seekTo(time);
+});
+
+/**
+ * User has to put the black box because there are no more songs
+ */
+socket.on('no_more_songs_black_image',function(data){
+
+    no_song = 1;
+    $('#title_video_playing').html("<small class='text-muted'>Waiting your music... </small>");
+    //We destroy the player
+    player.destroy();
+    no_player = 1;
+    $('#player_above').html("<div id='player'></div>");
+    //We add the black rectangle
+    $('#player').html("<img src='/assets/img/black_player.png'></img>");
 });

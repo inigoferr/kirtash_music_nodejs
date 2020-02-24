@@ -93,20 +93,27 @@ io.on('connection', function (socket) {
   //New Vote
   socket.on('new_vote', function (data) {
     //We have to send to the rest of the users in the room they must update the playlist
-    room = Object.keys(socket.rooms)[0];
+    room = data["room"];
     socket.to(room).emit('update_playlist');
   });
 
   //New Song in the playlist
   socket.on('new_song', function (data) {
-    room = Object.keys(socket.rooms)[0];
+    room = data["room"];
     socket.to(room).emit('update_playlist');
   });
 
-  //Song retired
+  //Song retired but there are more songs to play
   socket.on('song_retired', function (data) {
-
+    room = data["room"];
+    socket.to(room).emit('update_playlist');
   });
+
+  //Song retired and no more songs
+  socket.on('song_retired_no_more_songs',function(data){
+    room = data["room"];
+    socket.to(room).emit('no_more_songs_black_image');
+  })
 
   //Song ended??
 
