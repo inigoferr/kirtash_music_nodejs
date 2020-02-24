@@ -153,7 +153,7 @@ router.post('/checkregistration',function(req,res,next){
 });
 
 router.post('/updateMark',function(req,res,next){
-    updateMark(req.body.id_session,req.body.id_cancion,req.body.number,function(result){
+    updateMark(req.body.id_session,req.body.id_cancion,req.body.number,req,function(result){
         res.send({"result":result});
     });
 });
@@ -997,9 +997,9 @@ function create_session(name_session,pass_user,pass_user2,description,min_votes,
 /**
  * Function that updates the mark of a song
  */
-function updateMark(id_session,id_cancion,number,callback){
+function updateMark(id_session,id_cancion,number,req,callback){
     console.log("Entrando aqui...");
-    m_updateMark(id_session,id_cancion,number,function(result){
+    m_updateMark(id_session,id_cancion,number,req,function(result){
         callback(result);
     });
 }
