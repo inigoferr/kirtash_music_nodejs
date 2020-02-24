@@ -1820,8 +1820,7 @@ function v_showPlaylist(id_session,req,callback){
                 callback(result);
             }
 
-            console.log("Playlist = " + res[0]);
-            console.log("Playlist = " +res[1]);
+            
             i = 1;
             res.forEach(function(datos){
                 if (admin == 1){
@@ -1829,6 +1828,8 @@ function v_showPlaylist(id_session,req,callback){
                 } else {
                     template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"),'utf-8');
                 }
+
+                console.log("TITLE = " + datos["title"]);
 
                 content = template;
     
@@ -1842,7 +1843,7 @@ function v_showPlaylist(id_session,req,callback){
                 //We check if the user has liked or disliked the song, or neither
                 if (req.session.id_user != undefined){
                     m_checkVote(datos["id_cancion"],req.session.id_user,id_session,function(b){
-                        console.log("B = "+b);
+                        
                         if (b == undefined){
                             content = content.replace(/##disabledadd##/g,"");
                             content = content.replace(/##disabledsub##/g,"");
@@ -1855,12 +1856,8 @@ function v_showPlaylist(id_session,req,callback){
                                 content = content.replace(/##disabledsub##/g,"disabled");
                             }
                         }
-                        console.log("++++++");
-                        console.log("Content = "+content);
-                        console.log("++++++");
                         result = result.concat(content);
-                        console.log("Result "+result);
-                        console.log("++++++");
+                        
                         num_x_playlist++;
                         if (num_x_playlist == total_songs){
                             callback(result);
