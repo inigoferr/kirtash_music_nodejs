@@ -528,7 +528,7 @@ function m_updateMark(id_session,id_cancion,number,req,callback){
         if (results == undefined || Object.keys(results).length === 0){ //The user has never voted to this song before
             query = "INSERT INTO likes (id_session,id_user,id_cancion,vote) VALUES ('"+ id_session +"','"+ req.session.id_user+"','"+ id_cancion+"','"+ number+"')";
         } else {
-            query = "UPDATE likes SET vote = "+ number +" WHERE id_like = " + $results[0].id_like;
+            query = "UPDATE likes SET vote = "+ number +" WHERE id_like = " + results[0].id_like;
         }
         console.log("Pasandoo");
         connection.query(query,function(error,results,fields){ //Once we have stored the vote we update the mark in lista_reproduccion
