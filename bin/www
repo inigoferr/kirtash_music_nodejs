@@ -60,6 +60,7 @@ io.on('connection', function (socket) {
       
           //We make the user to add a new room where there are all the users waiting for that specific session
           waiting_room = room + "_waiting";
+          console.log("Waiting room joining...");
           socket.join(waiting_room);
         }
       }
@@ -77,12 +78,16 @@ io.on('connection', function (socket) {
     waiting_room = room + "_waiting";
     socket.to(waiting_room).emit('time_player',time);    
 
-    //We clear the room
-    io.sockets.clients(waiting_room).forEach(function(s){
-      s.leave(someRoom);
-    });
+    socket.to(waiting_room).emit('leave_waiting_room');
 
   });
+
+  /**
+   * User wants to leave waiting room
+   */
+  socket.on('leave_room',function(room){
+    socket.leave(room);
+  })
 
   //The user leaves the session, automatically he leaves the room he was too
   socket.on('disconnect', function (reason) {

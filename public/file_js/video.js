@@ -729,3 +729,12 @@ socket.on('no_more_songs_black_image',function(data){
     //We add the black rectangle
     $('#player').html("<img src='/assets/img/black_player.png'></img>");
 });
+
+/**
+ * User can leaves the waiting room
+ */
+socket.on('leave_waiting_room',function(data){
+    params = new URLSearchParams(location.search);
+    waiting_room = "room" + params.get('id_session') + "_waiting";
+    socket.emit('leave_room',waiting_room); 
+});
