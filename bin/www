@@ -44,10 +44,7 @@ io.on('connection', function (socket) {
     //New user needs to know the time of the song being played
     //1º: Ask one user of the room for the time
     var clients_in_the_room = io.sockets.adapter.rooms[room]; 
-    console.log(clients_in_the_room);
-    console.log(clients_in_the_room.sockets);
-    console.log(clients_in_the_room.sockets[0]);
-    console.log(clients_in_the_room.length);
+
     if(clients_in_the_room.length > 1){
 
       for (var clave in clients_in_the_room.sockets){ //Obtain socket id's of the room
@@ -57,7 +54,7 @@ io.on('connection', function (socket) {
       
           //We add the socket of the new user to send him after the time
           waiting_users.rooms[room] = socket;
-          console.log(waiting_users);
+          console.log("Waiting users = "+waiting_users);
 
           break;
         }
@@ -73,6 +70,9 @@ io.on('connection', function (socket) {
     time = data["time"];
     room = data["room"];
 
+    console.log("Lista 1 => " + waiting_users);
+    console.log("Lista 2 => "+ waiting_users.rooms);
+    console.log("Lista 3 => " + waiting_users.rooms[room]);
     waiting_users.rooms[room].forEach(function(elem){
         (waiting_users.rooms[elem]).emit('time_player',time);
         delete waiting_users.rooms.elem;
@@ -83,7 +83,6 @@ io.on('connection', function (socket) {
   //The user leaves the session, automatically he leaves the room he was too
   socket.on('disconnect', function (reason) {
     console.log("Disconnection");
-    console.log(reason);
   });
 
   //New Vote
