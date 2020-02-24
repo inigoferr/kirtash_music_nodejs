@@ -558,9 +558,10 @@ function onPlayerStateChange(event) {
 };
 
 function noSong_SongAdded() {
+    let params = new URLSearchParams(location.search);
     if (no_song == 1) { //No Song in the player
         console.log("Enter 5");
-        let params = new URLSearchParams(location.search);
+        
         $.ajax({
             url: "/obtainFirstVideo",
             data: { id_session: params.get('id_session') },
@@ -750,4 +751,12 @@ socket.on('leave_waiting_room',function(data){
     params = new URLSearchParams(location.search);
     waiting_room = "room" + params.get('id_session') + "_waiting";
     socket.emit('leave_room',waiting_room); 
+});
+
+/**
+ * User has to update the player
+ */
+socket.on('update_player',function(data){
+    console.log("Actualizando player...");
+
 });

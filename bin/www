@@ -131,7 +131,14 @@ io.on('connection', function (socket) {
     room = data["room"];
     socket.to(room).emit('update_playlist',4);
   });
-  
+
+  //The player has a song and the rest of the user most know it
+  socket.on('new_song_in_player',function(data){
+    console.log("Enviando evento en new_song_in_player");
+    room = data["room"];
+    socket.to.apply(room).emit('update_player');
+  });
+
   //Song ended??
 
   //CHAT
