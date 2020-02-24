@@ -1113,7 +1113,7 @@ function deleteSession(id_session,callback){
 function checkAdmin(id_session,req,callback){
     if (req.session.username != undefined){ //We check if the user is registered or not
         m_isAdmin(id_session,req.session.id_user,function(result){
-            if (result == undefined || error || Object.keys(result).length === 0){
+            if (result == undefined || Object.keys(result).length === 0){
                 req.session.admin = 0;
                 callback(1);
             } else {
