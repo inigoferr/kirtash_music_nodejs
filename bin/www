@@ -75,12 +75,15 @@ io.on('connection', function (socket) {
     time = data["time"];
     room = data["room"];
 
-    connection2.query(`SELECT socket FROM waiting_users WHERE room='${room}'`,function(error,results,fields){
+    connection2.query(`SELECT id_waiting_user,socket FROM waiting_users WHERE room='${room}'`,function(error,results,fields){
       if(error || results[0] == undefined || Object.keys(results).length === 0){
         console.log("ERROR IN ANSWER_TIME_PLAYER");
       } else {
         results.forEach(function(elem){
-          results[0].emit('time_player',time);
+          elem["socket"].emit('time_player',time);
+          connection2.query(`DELETE FROM waiting_users WHERE id_waiting_user='${elem["id_waiting_user"]}'`,function(error,results,fields){
+            
+          });
         });
       }
     });
