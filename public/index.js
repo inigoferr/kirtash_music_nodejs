@@ -1821,11 +1821,12 @@ function v_showPlaylist(id_session,req,callback){
                 callback(result);
             }
 
-            
+            i = 0;
             res.forEach(function(datos){
                 content = template;
     
                 content = content.replace(/##number##/g,i);
+                i++;
                 content = content.replace(/##title##/g,datos["title"]);
                 content = content.replace(/##duration##/g,datos["duration"]);
                 content = content.replace(/##mark##/g,datos["mark"]);
@@ -1858,7 +1859,7 @@ function v_showPlaylist(id_session,req,callback){
                 if (num_x_playlist == total_songs){
                     callback(result);
                 }
-
+                
             });    
         });
     });
