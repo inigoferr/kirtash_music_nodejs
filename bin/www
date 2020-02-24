@@ -73,13 +73,9 @@ io.on('connection', function (socket) {
     time = data["time"];
     room = data["room"];
 
-    waiting_users.rooms.forEach(function(elem){
-      console.log(elem);
-      if(elem.localeCompare(room) == 0){
+    waiting_users.rooms[room].forEach(function(elem){
         (waiting_users.rooms[elem]).emit('time_player',time);
         delete waiting_users.rooms.elem;
-        break;
-      }
     });
 
   });
