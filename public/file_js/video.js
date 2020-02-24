@@ -190,6 +190,9 @@ function substractMark(id_cancion) {
                     success: function (result) { //We received the information from the server
                         //We update the playlist and maybe his order
                         updatePlaylist();
+                        //We notify the server that we have update the mark of one song
+                        room = "session" + params.get('id_session'); 
+                        socket.emit('new_vote',{"room" : room});
                     }
                 });
             } else {
@@ -691,6 +694,7 @@ function retireActualSong() {
  * User has to update his playlist
  */
 socket.on('update_playlist',function(data){
+    console.log("Tengo que actualizar playlist = " + data);
     updatePlaylist();
 });
 
@@ -698,6 +702,7 @@ socket.on('update_playlist',function(data){
  * User is asked to tell the time
  */
 socket.on('ask_time_player',function(data){
+    console.log("Enviando time_player");
     if(no_player == 0){ //There is aplayer, so time to tell
         answer = player.getCurrentTime();
         let params = new URLSearchParams(location.search);
@@ -712,6 +717,7 @@ socket.on('ask_time_player',function(data){
  * User receives the time of the player
  */
 socket.on('time_player',function(time){
+    console.log("Time_player set");
     player.seekTo(time);
 });
 
@@ -719,6 +725,7 @@ socket.on('time_player',function(time){
  * User has to put the black box because there are no more songs
  */
 socket.on('no_more_songs_black_image',function(data){
+    console.log("Actualizando porque no hay mas canciones");
 
     no_song = 1;
     $('#title_video_playing').html("<small class='text-muted'>Waiting your music... </small>");
@@ -734,6 +741,7 @@ socket.on('no_more_songs_black_image',function(data){
  * User can leaves the waiting room
  */
 socket.on('leave_waiting_room',function(data){
+    console.log("Solicitando abandonar waiting_room");
     params = new URLSearchParams(location.search);
     waiting_room = "room" + params.get('id_session') + "_waiting";
     socket.emit('leave_room',waiting_room); 

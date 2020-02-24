@@ -72,6 +72,7 @@ io.on('connection', function (socket) {
    * Send the time of the player to the new users
    */
   socket.on('answer_time_player',function(data){
+    console.log("Enviando evento en answer_time_player");
     time = data["time"];
     room = data["room"];
 
@@ -86,6 +87,7 @@ io.on('connection', function (socket) {
    * User wants to leave waiting room
    */
   socket.on('leave_room',function(room){
+    console.log("Usuario abandonado sala = " + room);
     socket.leave(room);
   })
 
@@ -97,24 +99,28 @@ io.on('connection', function (socket) {
   //New Vote
   socket.on('new_vote', function (data) {
     //We have to send to the rest of the users in the room they must update the playlist
+    console.log("Enviando evento en new_vote...");
     room = data["room"];
-    socket.to(room).emit('update_playlist');
+    socket.to(room).emit('update_playlist',1);
   });
 
   //New Song in the playlist
   socket.on('new_song', function (data) {
+    console.log("Enviando evento en new_song");
     room = data["room"];
-    socket.to(room).emit('update_playlist');
+    socket.to(room).emit('update_playlist',2);
   });
 
   //Song retired but there are more songs to play
   socket.on('song_retired', function (data) {
+    console.log("Enviando evento en song_retired ")
     room = data["room"];
-    socket.to(room).emit('update_playlist');
+    socket.to(room).emit('update_playlist',3);
   });
 
   //Song retired and no more songs
   socket.on('song_retired_no_more_songs',function(data){
+    console.log("Enviando evento en song_retired_no_more_songs");
     room = data["room"];
     socket.to(room).emit('no_more_songs_black_image');
   })
