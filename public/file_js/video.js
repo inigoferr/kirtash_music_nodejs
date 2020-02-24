@@ -537,6 +537,7 @@ function onPlayerStateChange(event) {
         });
     }
     else if (event.data == YT.PlayerState.PLAYING) {
+        console.log("EMEPZAMOS A PLAYEAAARR");
         currentState = "Playing";
     }
     else if (event.data == YT.PlayerState.PAUSED) {
@@ -758,5 +759,5 @@ socket.on('leave_waiting_room',function(data){
  */
 socket.on('update_player',function(data){
     console.log("Actualizando player...");
-
+    noSong_SongAdded();
 });
