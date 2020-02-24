@@ -1865,25 +1865,6 @@ function v_showPlaylist(id_session,req,callback){
                             callback(result);
                         }
                     });
-                        /*if (b == undefined){
-                            content = content.replace(/##disabledadd##/g,"");
-                            content = content.replace(/##disabledsub##/g,"");
-                        } else {
-                            if (b == 1){
-                                content = content.replace(/##disabledadd##/g,"disabled");
-                                content = content.replace(/##disabledsub##/g,"");
-                            } else {
-                                content = content.replace(/##disabledadd##/g,"");
-                                content = content.replace(/##disabledsub##/g,"disabled");
-                            }
-                        }*/
-                        /*result = result.concat(content);
-                        
-                        num_x_playlist++;
-                        if (num_x_playlist == total_songs){
-                            callback(result);
-                        }*/
-                    //});
                 } else {
                     content = content.replace(/##disabledadd##/g,"");
                     content = content.replace(/##disabledsub##/g,"");

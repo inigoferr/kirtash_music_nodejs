@@ -125,6 +125,13 @@ io.on('connection', function (socket) {
     socket.to(room).emit('no_more_songs_black_image');
   })
 
+  //Song removed by one admin
+  socket.on('song_removed',function(data){
+    console.log("Enviando evento en song_removed");
+    room = data["room"];
+    socket.to(room).emit('update_playlist',4);
+  });
+  
   //Song ended??
 
   //CHAT

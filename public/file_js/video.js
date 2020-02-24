@@ -219,6 +219,10 @@ function removeSong(id_cancion) {
         success: function (result) { //We received the information from the server
             //We update the playlist and maybe his order
             updatePlaylist();
+
+            //Notify the server we have removed one song, so we have to update the playlist
+            room = "session" + params.get('id_session');
+            socket.emit('song_removed',{"room" : room});
         }
     });
 }
