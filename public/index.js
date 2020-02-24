@@ -1851,16 +1851,23 @@ function v_showPlaylist(id_session,req,callback){
                                 content = content.replace(/##disabledsub##/g,"disabled");
                             }
                         }
+                        result = result.concat(content);
+
+                        num_x_playlist++;
+                        if (num_x_playlist == total_songs){
+                            callback(result);
+                        }
                     });
                 } else {
                     content = content.replace(/##disabledadd##/g,"");
                     content = content.replace(/##disabledsub##/g,"");
-                }
-                result = result.concat(content);
 
-                num_x_playlist++;
-                if (num_x_playlist == total_songs){
-                    callback(result);
+                    result = result.concat(content);
+
+                    num_x_playlist++;
+                    if (num_x_playlist == total_songs){
+                        callback(result);
+                    }
                 }
                 
             });    
