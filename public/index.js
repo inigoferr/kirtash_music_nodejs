@@ -1808,10 +1808,8 @@ function v_showPlaylist(id_session,req,callback){
             } else {
                 admin = 0;
             }
-            
-            
-
-            result = "";
+        
+            var result = "";
 
             num_x_playlist = 0;
             total_songs = res.length;
@@ -1824,14 +1822,14 @@ function v_showPlaylist(id_session,req,callback){
             i = 1;
             res.forEach(function(datos){
                 if (admin == 1){
-                    template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_admin.html"),'utf-8');
+                    var template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_admin.html"),'utf-8');
                 } else {
-                    template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"),'utf-8');
+                    var template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"),'utf-8');
                 }
 
                 console.log("TITLE = " + datos["title"]);
 
-                content = template;
+                var content = template;
     
                 content = content.replace(/##number##/g,i);
                 i++;
@@ -1842,12 +1840,16 @@ function v_showPlaylist(id_session,req,callback){
     
                 //We check if the user has liked or disliked the song, or neither
                 if (req.session.id_user != undefined){
-                    m_checkVote(datos["id_cancion"],req.session.id_user,id_session,function(b){
-                        
-                        if (b == undefined){
+                    //m_checkVote(datos["id_cancion"],req.session.id_user,id_session,function(b){
+                    
+                    id_cancion = datos["id_cancion"];
+                    id_user = req.session.id_user;
+                    connection.query("SELECT vote FROM likes WHERE id_session ='" + id_session +"' AND id_user ='"+ id_user +"' AND id_cancion ='"+ id_cancion+"'",function(error,results,fields){
+                        if ( error || results == undefined || Object.keys(results).length === 0){
                             content = content.replace(/##disabledadd##/g,"");
                             content = content.replace(/##disabledsub##/g,"");
                         } else {
+                            b = results["vote"];
                             if (b == 1){
                                 content = content.replace(/##disabledadd##/g,"disabled");
                                 content = content.replace(/##disabledsub##/g,"");
@@ -1863,6 +1865,25 @@ function v_showPlaylist(id_session,req,callback){
                             callback(result);
                         }
                     });
+                        /*if (b == undefined){
+                            content = content.replace(/##disabledadd##/g,"");
+                            content = content.replace(/##disabledsub##/g,"");
+                        } else {
+                            if (b == 1){
+                                content = content.replace(/##disabledadd##/g,"disabled");
+                                content = content.replace(/##disabledsub##/g,"");
+                            } else {
+                                content = content.replace(/##disabledadd##/g,"");
+                                content = content.replace(/##disabledsub##/g,"disabled");
+                            }
+                        }*/
+                        /*result = result.concat(content);
+                        
+                        num_x_playlist++;
+                        if (num_x_playlist == total_songs){
+                            callback(result);
+                        }*/
+                    //});
                 } else {
                     content = content.replace(/##disabledadd##/g,"");
                     content = content.replace(/##disabledsub##/g,"");
