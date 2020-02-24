@@ -394,9 +394,7 @@ window.onload = function () {
                                                                             });
                                                                         } else {
                                                                             $('#body-section').show();
-                                                                            
-                                                                            
-                                                                                                                                                    
+                                                                                                                     
                                                                             var room = 'session' + params.get('id_session');
                                                                             socket.emit('join_room',room);
                                                                         }
@@ -570,9 +568,10 @@ function noSong_SongAdded() {
             success: function (result) { //We received the information from the server
                 result = result["result"];
                 if (result == -3 || result == -4) {
-                    console.log("ERROR");
+                    console.log("ERROR = " + result);
                     no_song = 1;
                 }
+
                 if (result == -1) { //No songs in the playlist
                     console.log("Enter 6");
                     no_song = 1;

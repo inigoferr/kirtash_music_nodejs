@@ -232,6 +232,7 @@ router.post('/retireActualSong',function(req,res,next){
 
 router.post('/checkadmin',function(req,res,next){
     checkAdmin(req.body.id_session,req,function(result){
+        console.log("ADMIN = " + req.session.admin);
         res.send({"result":1});
     });
 });
@@ -509,9 +510,9 @@ function m_insertSongInPlaying(id_session,id_cancion,callback){
         if(error || results == undefined || Object.keys(results).length === 0){
             connection.query("INSERT INTO playing (id_session,id_cancion) VALUES ('"+id_session+"','"+id_cancion+"')",function(error,results,fields){
                 if(error){
-                    callback(1);
-                } else {
                     callback(-4);
+                } else {
+                    callback(1);
                 }
             });
         } else {
@@ -574,7 +575,7 @@ function m_addToPlaylist(id_session,title,videoId,duration,callback){
 }
 
 function m_deleteFirstSong(id_session,id_cancion,callback){
-    connection.query("DELETE FROM lista_reproduccion WHERE id_sesion ="+id_session+" AND id_cancion ="+id_cancion,function(error,results,fields){
+    connection.query("DELETE FROM lista_reproduccion WHERE id_sesion ='"+id_session+"' AND id_cancion ='"+id_cancion+"'",function(error,results,fields){
         if(error){
             callback(-1);
         } else {
@@ -1112,12 +1113,13 @@ function deleteSession(id_session,callback){
 function checkAdmin(id_session,req,callback){
     if (req.session.username != undefined){ //We check if the user is registered or not
         m_isAdmin(id_session,req.session.id_user,function(result){
-            if (result == undefined ||  Object.keys(result).length === 0){
+            if (result == undefined || error || Object.keys(result).length === 0){
                 req.session.admin = 0;
+                callback(1);
             } else {
               req.session.admin = 1;
+              callback(1);
             }
-            callback(1);
         });
     } else {
       req.session.admin = 0;
