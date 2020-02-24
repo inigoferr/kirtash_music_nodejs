@@ -523,14 +523,12 @@ function m_insertSongInPlaying(id_session,id_cancion,callback){
 function m_updateMark(id_session,id_cancion,number,req,callback){
     //First we store the vote in the database OR we update the vote
 
-    console.log("1111111111");
     connection.query("SELECT id_like FROM likes WHERE id_session ='"+ id_session+"' AND id_user ='"+ req.session.id_user + "' AND id_cancion ='"+ id_cancion+"'",function(error,results,fields){
         if (results == undefined || Object.keys(results).length === 0){ //The user has never voted to this song before
             query = "INSERT INTO likes (id_session,id_user,id_cancion,vote) VALUES ('"+ id_session +"','"+ req.session.id_user+"','"+ id_cancion+"','"+ number+"')";
         } else {
             query = "UPDATE likes SET vote = "+ number +" WHERE id_like = " + results[0].id_like;
         }
-        console.log("Pasandoo");
         connection.query(query,function(error,results,fields){ //Once we have stored the vote we update the mark in lista_reproduccion
             if (error){
                 console.log("ERROR");
@@ -540,7 +538,7 @@ function m_updateMark(id_session,id_cancion,number,req,callback){
                 //We obtain the mark stored in the database
                 connection.query("SELECT mark FROM lista_reproduccion WHERE id_cancion ='" + id_cancion+"'",function(error,results,fields){
                     mark = results[0].mark;
-                    new_mark = mark + number;
+                    new_mark = parseInt(mark) + parseInt(number);
 
                     console.log("ACTUALIZANDOOOLOOO");
                     connection.query("UPDATE lista_reproduccion SET mark ='"+ new_mark +"' WHERE id_cancion ='" + id_cancion+"'",function(error,results,fields){
