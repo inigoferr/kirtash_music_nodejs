@@ -1809,6 +1809,12 @@ function v_showPlaylist(id_session,req,callback){
                 admin = 0;
             }
             
+            if (admin == 1){
+                template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_admin.html"),'utf-8');
+            } else {
+                template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"),'utf-8');
+            }
+
             result = "";
 
             num_x_playlist = 0;
@@ -1822,12 +1828,7 @@ function v_showPlaylist(id_session,req,callback){
             console.log("Playlist = " +res[1]);
             i = 1;
             res.forEach(function(datos){
-                if (admin == 1){
-                    template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_admin.html"),'utf-8');
-                } else {
-                    template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"),'utf-8');
-                }
-
+               
                 content = template;
     
                 content = content.replace(/##number##/g,i);
@@ -1861,11 +1862,6 @@ function v_showPlaylist(id_session,req,callback){
                         }
                     });
                 } else {
-                    if (admin == 1){
-                        template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_admin.html"),'utf-8');
-                    } else {
-                        template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"),'utf-8');
-                    }
                     content = template;
 
                     content = content.replace(/##disabledadd##/g,"");
