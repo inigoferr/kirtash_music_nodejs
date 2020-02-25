@@ -494,6 +494,7 @@ function onPlayerStateChange(event) {
             type: "post",
             success: function (result) {
                 result = result["result"];
+                console.log("Deleted first song");
                 if (result == 1) { //The first song has being deleted
                     //We need to obtain the next song and update the page
                     $.ajax({

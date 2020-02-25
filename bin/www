@@ -136,7 +136,7 @@ io.on('connection', function (socket) {
   socket.on('new_song_in_player',function(data){
     console.log("Enviando evento en new_song_in_player");
     room = data["room"];
-    socket.to.apply(room).emit('update_player');
+    socket.to(room).emit('update_player');
   });
 
   //Song ended??
