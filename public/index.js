@@ -219,7 +219,7 @@ router.post('/obtainFirstVideo',function(req,res,next){
 });
 
 router.post('/deleteFirstSong',function(req,res,next){
-    deleteFirstSong(req.body.id_session,function(result){
+    deleteFirstSong(req.body.id_session,req.body.id_cancion,function(result){
         res.send(result);
     });
 });
