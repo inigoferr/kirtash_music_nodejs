@@ -2,12 +2,12 @@ function checkSignUp(){
     var username =  $('#username_signup').val();
     var pass_user = $('#pass_user_signup').val();
     var pass_user2 = $('#pass_user_signup2').val()
-
+    var email = $('#email_user').val();
     /*
     * Perform some validation here.
     */
     $.ajax({url:'/checksignup',
-            data: {username: username,pass_user:pass_user,pass_user2:pass_user2},
+            data: {username: username,pass_user:pass_user,pass_user2:pass_user2, email: email},
             type: "post",
             success: function(result){  
                 result = result["result"]; 
@@ -38,7 +38,6 @@ function checkSignUp(){
 }
 
 function checkSignIn(){
-    console.log("HII");
     console.log($('#username_signin').val());
     $.ajax({url:'/checksignin',
             data: {username: $('#username_signin').val(),pass_user:$('#pass_user_signin').val()},

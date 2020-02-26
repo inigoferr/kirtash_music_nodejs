@@ -16,7 +16,7 @@ router.use(session({
 /*************/
 
 router.post('/checksignup',function(req,res,next){
-  sign_up(req.body.username,req.body.pass_user,req.body.pass_user2,req,function(result){
+  sign_up(req.body.username,req.body.pass_user,req.body.pass_user2,req.body.email,req,function(result){
     answer = {"result" : result};
     res.send(answer);
   });
@@ -378,7 +378,7 @@ function m_registrarusuario(username,pass_user,req,callback){
     });
 }
 
-function m_signup(username,pass_user,req,callback){
+function m_signup(username,pass_user,email,req,callback){
    //Aplicar MD5
   var pass = md5(pass_user);
 
@@ -392,7 +392,7 @@ function m_signup(username,pass_user,req,callback){
     }
   });
 
-  connection.query("INSERT INTO users (username,pass_user) VALUES('"+username+"','" + pass + "')",function(error,results,fields){
+  connection.query("INSERT INTO users (username,pass_user,email) VALUES('"+username+"','" + pass + "','"+ email +"')",function(error,results,fields){
     if(error){
         callback(-1);
     } else {
@@ -917,7 +917,7 @@ const { JSDOM } = jsdom;
  * -1 --> Something wasn't correct
  * 1 --> Everything was correct and the user has signed up
  */
-function sign_up(username,pass_user,pass_user2,req,callback){
+function sign_up(username,pass_user,pass_user2,email,req,callback){
     
     //We erase the spaces
     username = username.replace(" ","");
@@ -937,7 +937,7 @@ function sign_up(username,pass_user,pass_user2,req,callback){
     } else if ( pass_user2.localeCompare("") == 0){
         callback(-4);
     } else if ( pass_user.localeCompare(pass_user2) == 0){
-        m_signup(username,pass_user,req,function(result){
+        m_signup(username,pass_user,email,req,function(result){
             callback(result);
         });
     } else {
