@@ -32,9 +32,11 @@ function checkSignUp() {
                 $('#result').html(alert.replace("##MSG##", "The password must have at least 5 characters without spaces"));
             } else if (result == -6) {
                 $('#result').html(alert.replace("##MSG##", "The username must have at least 5 characters, without spaces"));
-            } else if(result == -7){
+            } else if (result == -7) {
                 $('#result').html(alert.replace("##MSG##", "This e-mail is already used"));
-            } else if (result == 1) {
+            } else if(result == -8){
+                $('#result').html(alert.replace("##MSG##", "You have to write an e-mail"));       
+            }else if (result == 1) {
                 let params = new URLSearchParams(location.search);
                 if (params.get('id_session') != null) {
                     window.location = "/public/session.html?id_session=" + params.get('id_session');
@@ -765,23 +767,23 @@ function enterPasswordSession() {
     });
 }
 
-function checkrecoverEmail(){
+function checkrecoverEmail() {
     var keycode = event.keyCode;
     if (keycode == '13') {
         recoverEmail();
-    }    
+    }
 }
 
 function recoverEmail() {
     var email = $('#email_recovery').val();
-    var alert = ` <div class="alert alert-success alert-with-icon">
-    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-      <i class="tim-icons icon-simple-remove"></i>
-    </button>
-    <span data-notify="icon" class="tim-icons icon-bell-55"></span>
-    <span>
-      <b> Done! - </b> If the e-mail was correct you'll receive it in a few seconds</span>
-  </div>`;
+    var alert = `<div class="alert alert-success alert-with-icon">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <span data-notify="icon" class="tim-icons icon-bell-55"></span>
+                    <span>
+                    <b> Done! - </b> If the e-mail was correct you'll receive it in a few seconds</span>
+                </div>`;
     $.ajax({
         type: "post",
         url: "/checkemail",

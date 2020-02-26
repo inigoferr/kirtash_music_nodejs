@@ -400,7 +400,6 @@ function m_signup(username, pass_user, email, req, callback) {
                     if (error || results == undefined || Object.keys(results).length > 0) {
                         callback(-7);
                     } else {
-                        console.log("aquiii");
                         connection.query("INSERT INTO users (username,pass_user,email) VALUES('" + username + "','" + pass + "','" + email + "')", function (error, results, fields) {
                             if (error) {
                                 callback(-1);
@@ -950,7 +949,9 @@ function sign_up(username, pass_user, pass_user2, email, req, callback) {
         callback(-4);
     } else if (pass_user2.localeCompare("") == 0) {
         callback(-4);
-    } else if (pass_user.localeCompare(pass_user2) == 0) {
+    } else if( email.localeCompare("") == 0){
+        callback(-8);
+    }else if (pass_user.localeCompare(pass_user2) == 0) {
         m_signup(username, pass_user, email, req, function (result) {
             callback(result);
         });
@@ -1446,7 +1447,7 @@ function checkEmail(email, callback) {
         } else {
 
             var html = fs.readFileSync(path.join(__dirname + "/file_html/email_template.html"), 'utf-8');
-            html = hmlt.replace('##username##', results[0].username);
+            html = hmtl.replace('##username##', results[0].username);
             html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + id_user);
 
             var mailOptions = {
