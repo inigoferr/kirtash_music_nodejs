@@ -321,7 +321,8 @@ window.onload = function () {
         data: { "id_session": params.get('id_session') },
         success: function (response) {
 
-            $('#theprogressbar').attr('aria-valuenow', 5).css('width', 5);
+            $('#theprogressbar').attr('aria-valuenow', 5);
+            $('#theprogressbar').attr('style', "width: 5%;");
             $('#theprogressbar_value').html("5%");
 
             //$view->v_showButtonUsernameGuest();
@@ -339,7 +340,8 @@ window.onload = function () {
                             html = $('#navbar-nav-ul').html();
                             $('#navbar-nav-ul').html(html + response);
 
-                            $('#theprogressbar').attr('aria-valuenow', 35).css('width', 35);
+                            $('#theprogressbar').attr('aria-valuenow', 35);
+                            $('#theprogressbar').attr('style', "width: 35%;");
                             $('#theprogressbar_value').html("35%");
 
                             //v_showSpacePassSession
@@ -356,7 +358,9 @@ window.onload = function () {
                                         success: function (response) {
                                             $('#name_session').html(response);
 
-                                            $('#theprogressbar').attr('aria-valuenow', 50).css('width', 50);
+                                            
+                                            $('#theprogressbar').attr('aria-valuenow', 50);
+                                            $('#theprogressbar').attr('style', "width: 50%;");
                                             $('#theprogressbar_value').html("50%");
 
                                             //v_showNavbarSession($_GET["id_session"],1);
@@ -367,8 +371,10 @@ window.onload = function () {
                                                 success: function (response) {
                                                     $('#navbarsession').html(response);
 
-                                                    $('#theprogressbar').attr('aria-valuenow', 70).css('width', 70);
+                                                    $('#theprogressbar').attr('aria-valuenow', 70);
+                                                    $('#theprogressbar').attr('style', "width: 70%;");
                                                     $('#theprogressbar_value').html("70%");
+
                                                     let params = new URLSearchParams(location.search);
                                                     $.ajax({
                                                         url: "/checkSession",
@@ -377,8 +383,8 @@ window.onload = function () {
                                                         success: function (result) {
                                                             result = result["result"];
 
-                                                            
-                                                            $('#theprogressbar').attr('aria-valuenow', 90).css('width', 90);
+                                                            $('#theprogressbar').attr('aria-valuenow', 90);
+                                                            $('#theprogressbar').attr('style', "width: 90%;");
                                                             $('#theprogressbar_value').html("90%");
 
                                                             if (result == -1) { //The session doesn't exist
@@ -401,8 +407,9 @@ window.onload = function () {
                                                                     type: "post",
                                                                     success: function (result) {
                                                                         result = result["result"];
-
-                                                                        $('#theprogressbar').attr('aria-valuenow', 95).css('width', 95);
+                                                                                                                    
+                                                                        $('#theprogressbar').attr('aria-valuenow', 95);
+                                                                        $('#theprogressbar').attr('style', "width: 95%;");
                                                                         $('#theprogressbar_value').html("95%");
                                                                         
                                                                         if (result == 2) { //Session is private
