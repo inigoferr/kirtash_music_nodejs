@@ -1448,7 +1448,7 @@ function checkEmail(email, callback) {
 
             var html = fs.readFileSync(path.join(__dirname + "/file_html/email_template.html"), 'utf-8');
             html = html.replace('##username##', results[0].username);
-            html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + id_user);
+            html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + results[0].id_user);
 
             var mailOptions = {
                 from: 'Kirtash Music <no-reply@kirtash-music.me>',
