@@ -237,6 +237,12 @@ router.post('/checkadmin',function(req,res,next){
     });
 });
 
+router.post('/checkemail',function(req,res,next){
+    checkEmail(req.body.email,function(result){
+        res.send({"result" : 1});
+    });
+});
+
 /* Llamadas a Vista desde Cliente */
 router.post('/v_showusername',function(req,res,next){
     v_showUsername(req,function(result){
@@ -1421,6 +1427,33 @@ function modifyProportion(min_votes,min_users,id_session,callback){
     }
 }
 
+function checkEmail(email,callback){
+    query = `SELECT email FROM users WHERE email = ${email}`;
+
+    connection.query(query,function(error,results,fields){
+        if (error || results == undefined || Object.keys(results).length == 0){
+            callback(-1);
+        } else {
+            var mailOptions = {
+                from: 'Kirtash Music <no-reply@kirtash-music.me>',
+                to: 'fernandezinigo5@yahoo.es',
+                subject: 'Recovery of your Password',
+                text: 'Hello'
+              };
+              
+              transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                  callback(-1);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                  callback(1);
+                }
+              });
+        }
+    });
+}
+
 
 /**********  VISTA ***********/
 
@@ -2022,20 +2055,7 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-var mailOptions = {
-  from: 'Kirtash Music <no-reply@kirtash-music.me>',
-  to: 'fernandezinigo5@yahoo.es',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
 
-/*transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});*/
 
 
 

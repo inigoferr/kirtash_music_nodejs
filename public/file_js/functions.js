@@ -762,3 +762,23 @@ function enterPasswordSession() {
         }
     });
 }
+
+function recoverEmail() {
+    var email = $('#email_recovery').val();
+    var alert = ` <div class="alert alert-success alert-with-icon">
+    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+      <i class="tim-icons icon-simple-remove"></i>
+    </button>
+    <span data-notify="icon" class="tim-icons icon-bell-55"></span>
+    <span>
+      <b> Done! - </b> If the e-mail was correct you'll receive it in a few seconds</span>
+  </div>`;
+    $.ajax({
+        type: "post",
+        url: "/checkemail",
+        data: { "email": email },
+        success: function (result) {
+            $('#alert_email_modal').html(alert);
+        }
+    });
+}

@@ -101,7 +101,7 @@
                 <!--card-header --->
                 <div class="card-body">
 
-                  <form onsubmit="return checkSignUp()">
+                  <div>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -151,7 +151,7 @@
                     <button type="submit" class="btn btn-info btn-round btn-lg float-right" data-placement="right"
                       name="enviar" onclick="checkSignUp()">Register</button>
 
-                  </form>
+                  </div>
                 </div> <!-- card-body -->
               </div> <!-- card card-register -->
             </div><!-- col-lg-5-->
@@ -166,7 +166,7 @@
                   <h4 class="card-title">Sign In</h4>
                 </div><!-- card card-register--->
                 <div class="card-body">
-                  <form onsubmit="return checkSignIn()">
+                  <div>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -201,7 +201,7 @@
                         </a>
                       </u>
                     </p>
-                  </form>
+                  </div>
                 </div> <!-- card-body-->
               </div>
               <!--col lg 5 --->
@@ -257,7 +257,8 @@
               <div class="text-center">
                 <button type="button" class="btn btn-primary my-4" onclick="recoverEmail()">Send email</button>
               </div>
-            </form>
+              <div id="alert_email_modal"></div>
+            </div>
           </div>
         </div>
       </div>
