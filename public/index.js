@@ -400,13 +400,11 @@ function m_signup(username,pass_user,email,req,callback){
   console.log("---------");
   //Check the e-mail
   connection.query(`SELECT email FROM users WHERE email='${email}'`,function(error,results,fields){
-    if(error || results == undefined || Object.keys(results).length == 0){
-        callback(-1);
-    } else {
+    if(Object.keys(results).length == 1){
         callback(-7);
     }
   });
-  console.log("+++++++");
+
   connection.query("INSERT INTO users (username,pass_user,email) VALUES('"+username+"','" + pass + "','"+ email +"')",function(error,results,fields){
     if(error){
         callback(-1);
