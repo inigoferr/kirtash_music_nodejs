@@ -339,6 +339,9 @@ window.onload = function () {
                             html = $('#navbar-nav-ul').html();
                             $('#navbar-nav-ul').html(html + response);
 
+                            $('#theprogressbar').attr('aria-valuenow', 35).css('width', 35);
+                            $('#theprogressbar_value').html("35%");
+
                             //v_showSpacePassSession
                             $.ajax({
                                 type: "post",
@@ -353,6 +356,9 @@ window.onload = function () {
                                         success: function (response) {
                                             $('#name_session').html(response);
 
+                                            $('#theprogressbar').attr('aria-valuenow', 50).css('width', 50);
+                                            $('#theprogressbar_value').html("50%");
+
                                             //v_showNavbarSession($_GET["id_session"],1);
                                             $.ajax({
                                                 type: "post",
@@ -361,6 +367,8 @@ window.onload = function () {
                                                 success: function (response) {
                                                     $('#navbarsession').html(response);
 
+                                                    $('#theprogressbar').attr('aria-valuenow', 70).css('width', 70);
+                                                    $('#theprogressbar_value').html("70%");
                                                     let params = new URLSearchParams(location.search);
                                                     $.ajax({
                                                         url: "/checkSession",
@@ -368,12 +376,20 @@ window.onload = function () {
                                                         type: "post",
                                                         success: function (result) {
                                                             result = result["result"];
+
+                                                            
+                                                            $('#theprogressbar').attr('aria-valuenow', 90).css('width', 90);
+                                                            $('#theprogressbar_value').html("90%");
+
                                                             if (result == -1) { //The session doesn't exist
                                                                 $.ajax({
                                                                     url: "/showNoSession",
                                                                     data: { id_session: params.get('id_session') },
                                                                     type: "post",
                                                                     success: function (result) {
+                                                                        //Hide the progress Bar
+                                                                        $('#progress_bar').hide();
+
                                                                         $('#body-section').html(result);
                                                                         $('#body-section').show();
                                                                     }
@@ -385,6 +401,10 @@ window.onload = function () {
                                                                     type: "post",
                                                                     success: function (result) {
                                                                         result = result["result"];
+
+                                                                        $('#theprogressbar').attr('aria-valuenow', 95).css('width', 95);
+                                                                        $('#theprogressbar_value').html("95%");
+                                                                        
                                                                         if (result == 2) { //Session is private
                                                                             //We see if the user is Admin or not
                                                                             $.ajax({
