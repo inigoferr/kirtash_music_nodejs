@@ -765,6 +765,13 @@ function enterPasswordSession() {
     });
 }
 
+function checkrecoverEmail(){
+    var keycode = event.keyCode;
+    if (keycode == '13') {
+        recoverEmail();
+    }    
+}
+
 function recoverEmail() {
     var email = $('#email_recovery').val();
     var alert = ` <div class="alert alert-success alert-with-icon">
