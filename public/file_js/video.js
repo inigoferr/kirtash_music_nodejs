@@ -2,6 +2,8 @@
 var playlistId, channelId;
 var socket = io();//We connect the user to the Socket.io Server
 
+
+
 // After the API loads, call a function to enable the search box.
 function handleAPILoaded() {
     $('#search-button').attr('disabled', false);
@@ -420,7 +422,10 @@ window.onload = function () {
 //EVENT_LISTENERS.JS
 var player;
 var id_cancion;
-var no_song, no_player;
+
+//Initialise no_song and no_player for registered users and not registered
+var no_song = 1, no_player = 1;
+
 /* Callback for when the YouTube iFrame player is ready
    Function that is called at the beginning, when we load the page
 */
