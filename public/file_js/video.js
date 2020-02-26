@@ -321,6 +321,9 @@ window.onload = function () {
         data: { "id_session": params.get('id_session') },
         success: function (response) {
 
+            $('#theprogressbar').attr('aria-valuenow', 5).css('width', 5);
+            $('#theprogressbar_value').html("5%");
+
             //$view->v_showButtonUsernameGuest();
             $.ajax({
                 type: "post",
@@ -391,7 +394,7 @@ window.onload = function () {
                                                                                     result = result["result"];
                                                                                     //Hide the progress Bar
                                                                                     $('#progress_bar').hide();
-                                                                                    
+
                                                                                     if (result == 0) { //User not admin, he needs password to enter
                                                                                         //We hide everything until, he enters the correct password
                                                                                         $('#body-section').hide();
