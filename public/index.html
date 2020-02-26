@@ -101,7 +101,7 @@
                 <!--card-header --->
                 <div class="card-body">
 
-                  <form>
+                  <div>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -151,7 +151,7 @@
                     <button type="submit" class="btn btn-info btn-round btn-lg float-right" data-placement="right"
                       name="enviar" onclick="checkSignUp()">Register</button>
 
-                  </form>
+                  </div>
                 </div> <!-- card-body -->
               </div> <!-- card card-register -->
             </div><!-- col-lg-5-->
@@ -166,7 +166,7 @@
                   <h4 class="card-title">Sign In</h4>
                 </div><!-- card card-register--->
                 <div class="card-body">
-                  <form>
+                  <div>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -194,8 +194,9 @@
                     <button type="submit" class="btn btn-info btn-round btn-lg float-right" name="enviar"
                       data-placement="right" onclick="checkSignIn()">Sign In</button>
 
-                    <a href="#modalEmailRecovery">Do you forget your password?</a>
-                  </form>
+                    <a href="#modalEmailRecovery" data-target="#modalEmailRecovery" data-toggle="modal"
+                      class="text-muted">Do you forget your password?</a>
+                  </div>
                 </div> <!-- card-body-->
               </div>
               <!--col lg 5 --->
@@ -220,8 +221,8 @@
 
     <!-- Modal for the Email-->
     <!-- Form Modal -->
-    <div class="modal fade modal-black" id="modalEmailRecovery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-      aria-hidden="true">
+    <div class="modal fade modal-black" id="modalEmailRecovery" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header justify-content-center">
@@ -244,7 +245,8 @@
                       <i class="tim-icons icon-email-85"></i>
                     </span>
                   </div>
-                  <input class="form-control" placeholder="Email" type="email" id="email_recovery" onkeyup="recoverEmail()">
+                  <input class="form-control" placeholder="Email" type="email" id="email_recovery"
+                    onkeyup="recoverEmail()">
                 </div>
               </div>
               <div class="text-center">
