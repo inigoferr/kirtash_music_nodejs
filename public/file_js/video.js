@@ -515,6 +515,11 @@ function onPlayerStateChange(event) {
                                 //We add the black rectangle
                                 $('#player').html("<img src='/assets/img/black_player.png'></img>");
 
+                                //Notify the server that the users have to update the player
+                                //We send the event new_song_in_the_player because it's has the same effect as adding --> We need to update the player
+                                room = "session" + params.get('id_session');
+                                socket.emit('new_song_in_player',{"room" : room});
+
                             } else if (result == -3 || result == -4) {
                                 console.log("ERROR -----");
                             } else { //There are songs to play in the playlist
@@ -528,6 +533,11 @@ function onPlayerStateChange(event) {
                                 player.loadVideoById(videoId);
                                 player.playVideo();
                                 updatePlaylist();
+
+                                //Notify the server that the other users have to update the player
+                                //We send the event new_song_in_the_player because it's has the same effect as adding --> We need to update the player
+                                room = "session" + params.get('id_session');
+                                socket.emit('new_song_in_player',{"room" : room});
                             }
                         }
                     });
