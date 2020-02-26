@@ -100,53 +100,58 @@
                 </div>
                 <!--card-header --->
                 <div class="card-body">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="tim-icons icon-single-02"></i>
+
+                  <form>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-single-02"></i>
+                        </div>
                       </div>
+                      <!--input-group-prepend --->
+                      <input type="text" class="form-control" name="username" id="username_signup"
+                        placeholder="Username" onkeyup="onKeyUpSignUp()">
                     </div>
-                    <!--input-group-prepend --->
-                    <input type="text" class="form-control" name="username" id="username_signup" placeholder="Username"
-                      onkeyup="onKeyUpSignUp()">
-                  </div>
-                  <!--input-group --->
-                  <!-- Input2 -->
-                  <div class="input-group" id="pus1">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="tim-icons icon-lock-circle"></i>
+                    <!--input-group --->
+                    <!-- Input2 -->
+                    <div class="input-group" id="pus1">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-lock-circle"></i>
+                        </div>
                       </div>
+                      <input type="password" class="form-control" name="pass_user" id="pass_user_signup"
+                        placeholder="Password" onkeyup="onKeyUpSignUp()">
                     </div>
-                    <input type="password" class="form-control" name="pass_user" id="pass_user_signup"
-                      placeholder="Password" onkeyup="onKeyUpSignUp()">
-                  </div>
-                  <!--input-group --->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="tim-icons icon-lock-circle"></i>
+                    <!--input-group --->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-lock-circle"></i>
+                        </div>
                       </div>
+                      <input type="password" class="form-control" name="pass_user2" id="pass_user_signup2"
+                        placeholder="Confirm password" onkeyup="onKeyUpSignUp()">
                     </div>
-                    <input type="password" class="form-control" name="pass_user2" id="pass_user_signup2"
-                      placeholder="Confirm password" onkeyup="onKeyUpSignUp()">
-                  </div>
-                  <!--input-group --->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="tim-icons icon-email-85"></i>
+                    <!--input-group --->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-email-85"></i>
+                        </div>
                       </div>
+                      <input type="email" class="form-control" id="email_user" aria-describedby="emailHelp"
+                        placeholder="Enter email" onkeyup="onKeyUpSignUp()">
                     </div>
-                    <input type="email" class="form-control" id="email_user" aria-describedby="emailHelp"
-                      placeholder="Enter email" onkeyup="onKeyUpSignUp()">
-                  </div>
-                  <!--input-group --->
-                  <div id="result"></div>
-                  <div class="card-footer">
-                    <input type="submit" class="btn btn-info btn-round btn-lg" name="enviar" value="Register"
-                      onclick="checkSignUp()">
-                  </div><!-- card-footer --->
+                    <!--input-group --->
+                    <div id="result"></div>
+                    <div class="card-footer">
+                      <!--<input type="submit" class="btn btn-info btn-round btn-lg" name="enviar" value="Register"
+                        onclick="checkSignUp()">-->
+                      <button type="submit" class="btn btn-info btn-round btn-lg float-right" data-placement="right" name="enviar"
+                        onclick="checkSignUp()">Register</button>
+                    </div><!-- card-footer --->
+                  </form>
                 </div> <!-- card-body -->
               </div> <!-- card card-register -->
             </div><!-- col-lg-5-->
@@ -161,31 +166,35 @@
                   <h4 class="card-title">Sign In</h4>
                 </div><!-- card card-register--->
                 <div class="card-body">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="tim-icons icon-single-02"></i>
+                  <form>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-single-02"></i>
+                        </div>
                       </div>
+                      <input type="text" class="form-control" name="username_signin" id="username_signin"
+                        placeholder="Username" onkeyup="onKeyUpSignIn()">
                     </div>
-                    <input type="text" class="form-control" name="username_signin" id="username_signin"
-                      placeholder="Username" onkeyup="onKeyUpSignIn()">
-                  </div>
-                  <!--input-group --->
-                  <!-- Input2 -->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="tim-icons icon-lock-circle"></i>
+                    <!--input-group --->
+                    <!-- Input2 -->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tim-icons icon-lock-circle"></i>
+                        </div>
                       </div>
+                      <input type="password" class="form-control" name="pass_user_signin" id="pass_user_signin"
+                        placeholder="Password" onkeyup="onKeyUpSignIn()">
+                    </div><!-- input-group--->
+                    <div id="result2"></div>
+                    <div class="card-footer">
+                      <!--<input type="submit" class="btn btn-info btn-round btn-lg" name="enviar" value="Sign In"
+                        onclick="checkSignIn()">-->
+                      <button type="submit" class="btn btn-info btn-round btn-lg float-right" name="enviar" data-placement="right"
+                        onclick="checkSignIn()">Sign In</button>
                     </div>
-                    <input type="password" class="form-control" name="pass_user_signin" id="pass_user_signin"
-                      placeholder="Password" onkeyup="onKeyUpSignIn()">
-                  </div><!-- input-group--->
-                  <div id="result2"></div>
-                  <div class="card-footer">
-                    <input type="submit" class="btn btn-info btn-round btn-lg" name="enviar" value="Sign In"
-                      onclick="checkSignIn()">
-                  </div>
+                  </form>
                 </div> <!-- card-body-->
               </div>
               <!--col lg 5 --->
