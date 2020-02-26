@@ -27,24 +27,16 @@ var io = require('socket.io')(server);
 /**
  * Listen on provided port, on all network interfaces.
  */
-var mysql = require('mysql');
-var connection2 = mysql.createConnection({
-  host     : "tfgkirtashdb.cdynp72jpqch.us-east-1.rds.amazonaws.com",
-  user     : "masterUsername",
-  password : "kirtashtfgbbdd",
-  database : "dbkirtash"
-});
 
-
-//create socket io
+/**
+ * WebSockets: Connection of the users, events...
+ */
 io.on('connection', function (socket) {
-  console.log('a user connected');
-
+  console.log('User connected');
 
   //The user joins a specific room where are all the users of the session
   socket.on('join_room', function (room) {
     socket.join(room);
-    console.log("User joins room = " + room);
     id = socket.id;
     
     //New user needs to know the time of the song being played
@@ -132,6 +124,9 @@ io.on('connection', function (socket) {
     socket.to(room).emit('update_playlist',4);
   });
 
+  //Song ended we'll be treat by the server with the 2 following events: new_song_in_the_player or 
+  //no_song_in_player depending if there are more songs to be played or not
+
   //The player has a song and the rest of the user most know it
   socket.on('new_song_in_player',function(data){
     console.log("Enviando evento en new_song_in_player");
@@ -145,8 +140,6 @@ io.on('connection', function (socket) {
     socket.to(room).emit('update_player_no_song');
   });
 
-  //Song ended??
-
   //CHAT
   //Nuevo mensaje
   socket.on('new-message', function (data) {
@@ -154,23 +147,6 @@ io.on('connection', function (socket) {
   });
 
 });
-
-
-/* socket.emit('messages',messages);
-
-    //El servidor recibe el evento 'new-message' y hace lo que le digamos en la función
-    socket.on('new-message',function(data){
-        messages.push(data);
-
-        //Utilizamos el servidor completo 'io' para avisar a TODOS los clientes de que hay un nuevo mensaje
-        io.sockets.emit('messages',messages);
-    });
-
-    /*socket.on('checksignin',function(data){
-        result = sign_in(data["username"],data["pass_user"],req);
-
-        socket.emit('checksignin_answer',);
-    });*/
 
 server.listen(port);
 server.on('error', onError);

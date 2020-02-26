@@ -2,8 +2,6 @@
 var playlistId, channelId;
 var socket = io();//We connect the user to the Socket.io Server
 
-
-
 // After the API loads, call a function to enable the search box.
 function handleAPILoaded() {
     $('#search-button').attr('disabled', false);
@@ -11,6 +9,9 @@ function handleAPILoaded() {
 
 // Search for a specified string.
 function search() {
+    //We erase the results of the previous search, in the first search it makes no sense but it doesn't matter
+    $('#search-container').html("");
+
     //Show the loading animation
     $('#loader').addClass("loader");
 
@@ -155,8 +156,8 @@ function addMark(id_cancion) {
                         updatePlaylist();
 
                         //We notify the server that we have update the mark of one song
-                        room = "session" + params.get('id_session'); 
-                        socket.emit('new_vote',{"room" : room});
+                        room = "session" + params.get('id_session');
+                        socket.emit('new_vote', { "room": room });
                     }
                 });
             } else {//User not registered, he can't votes
@@ -194,8 +195,8 @@ function substractMark(id_cancion) {
                         //We update the playlist and maybe his order
                         updatePlaylist();
                         //We notify the server that we have update the mark of one song
-                        room = "session" + params.get('id_session'); 
-                        socket.emit('new_vote',{"room" : room});
+                        room = "session" + params.get('id_session');
+                        socket.emit('new_vote', { "room": room });
                     }
                 });
             } else {
@@ -224,7 +225,7 @@ function removeSong(id_cancion) {
 
             //Notify the server we have removed one song, so we have to update the playlist
             room = "session" + params.get('id_session');
-            socket.emit('song_removed',{"room" : room});
+            socket.emit('song_removed', { "room": room });
         }
     });
 }
@@ -309,6 +310,9 @@ function followSession(x) {
 }
 
 window.onload = function () {
+    //Show the Progress Bar
+    $('#progress_bar').show();
+
     /*We load the View */
     let params = new URLSearchParams(location.search);
     $.ajax({
@@ -385,6 +389,9 @@ window.onload = function () {
                                                                                 type: "post",
                                                                                 success: function (result) {
                                                                                     result = result["result"];
+                                                                                    //Hide the progress Bar
+                                                                                    $('#progress_bar').hide();
+                                                                                    
                                                                                     if (result == 0) { //User not admin, he needs password to enter
                                                                                         //We hide everything until, he enters the correct password
                                                                                         $('#body-section').hide();
@@ -395,10 +402,13 @@ window.onload = function () {
                                                                                 }
                                                                             });
                                                                         } else {
+                                                                            //Hide the progress Bar
+                                                                            $('#progress_bar').hide();
+
                                                                             $('#body-section').show();
-                                                                                                                     
+
                                                                             var room = 'session' + params.get('id_session');
-                                                                            socket.emit('join_room',room);
+                                                                            socket.emit('join_room', room);
                                                                         }
                                                                     }
                                                                 });
@@ -523,7 +533,7 @@ function onPlayerStateChange(event) {
                                 //Notify the server that the users have to update the player
                                 //We send the event new_song_in_the_player because it's has the same effect as adding --> We need to update the player
                                 room = "session" + params.get('id_session');
-                                socket.emit('no_song_in_player',{"room" : room});
+                                socket.emit('no_song_in_player', { "room": room });
 
                             } else if (result == -3 || result == -4) {
                                 console.log("ERROR -----");
@@ -542,7 +552,7 @@ function onPlayerStateChange(event) {
                                 //Notify the server that the other users have to update the player
                                 //We send the event new_song_in_the_player because it's has the same effect as adding --> We need to update the player
                                 room = "session" + params.get('id_session');
-                                socket.emit('new_song_in_player',{"room" : room});
+                                socket.emit('new_song_in_player', { "room": room });
                             }
                         }
                     });
@@ -578,7 +588,7 @@ function noSong_SongAdded() {
     let params = new URLSearchParams(location.search);
     if (no_song == 1) { //No Song in the player
         console.log("Enter 5");
-        
+
         $.ajax({
             url: "/obtainFirstVideo",
             data: { id_session: params.get('id_session') },
@@ -595,10 +605,11 @@ function noSong_SongAdded() {
                     console.log("Enter 6");
                     no_song = 1;
                     $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
-                    console.log("Player desapareciendo...");
+
+                    //We need to add the following line for the not registered users
                     $('#player_above').html("<div id='player'></div>");
+                    //We replace the player
                     $('#player').html("<img src='/assets/img/black_player.png'></img>");
-                    console.log("Todo quitado...");
                 } else {
                     console.log("Enter 7");
                     no_song = 0;
@@ -622,7 +633,7 @@ function noSong_SongAdded() {
                         });
                         //Notify the server the player has been edited
                         room = "session" + params.get('id_session');
-                        socket.emit('new_song_in_player',{"room" : room});
+                        socket.emit('new_song_in_player', { "room": room });
                     } else {
                         console.log("Enter 9");
                         player.loadVideoById(videoId);
@@ -630,20 +641,20 @@ function noSong_SongAdded() {
 
                         //Notify the server the player has been edited
                         room = "session" + params.get('id_session');
-                        socket.emit('new_song_in_player',{"room" : room});
+                        socket.emit('new_song_in_player', { "room": room });
                     }
                     updatePlaylist();
                     //Send the new song added to the server
-                    room = "session" + params.get('id_session'); 
-                    socket.emit('new_song',{"room" : room});
+                    room = "session" + params.get('id_session');
+                    socket.emit('new_song', { "room": room });
                 }
             }
         });
     } else { //A song is being played
         console.log("Enter 10");
         updatePlaylist();
-        room = "session" + params.get('id_session'); 
-        socket.emit('new_song',{"room" : room});
+        room = "session" + params.get('id_session');
+        socket.emit('new_song', { "room": room });
     }
 }
 
@@ -678,7 +689,7 @@ function retireActualSong() {
                 //We need to obtain the next song and update the page
                 $.ajax({
                     url: "/obtainFirstVideo",
-                    data: { id_session: params.get('id_session')},
+                    data: { id_session: params.get('id_session') },
                     type: "post",
                     success: function (result) {
                         obj = result;
@@ -695,13 +706,13 @@ function retireActualSong() {
 
                             //Notify the server the song actual has being retired
                             room = "session" + params.get('id_session');
-                            socket.emit('song_retired_no_more_songs',{"room" : room});
+                            socket.emit('song_retired_no_more_songs', { "room": room });
 
                         } else if (result == -3 || result == -4) {
                             console.log("ERROR AQUI");
                         } else { //There are songs to play in the playlist    
                             no_song = 0;
-                            
+
                             $('#title_video_playing').html("<small class='text-muted'>Playing: </small>" + obj["title"]);
                             videoId = obj["videoId"];
                             id_cancion = obj["id_cancion"];
@@ -711,7 +722,7 @@ function retireActualSong() {
 
                             //Notify the server the song actual has being retired
                             room = "session" + params.get('id_session');
-                            socket.emit('song_retired',{"room" : room});
+                            socket.emit('song_retired', { "room": room });
                         }
                     }
                 });
@@ -725,7 +736,7 @@ function retireActualSong() {
 /**
  * User has to update his playlist
  */
-socket.on('update_playlist',function(data){
+socket.on('update_playlist', function (data) {
     console.log("Tengo que actualizar playlist = " + data);
     updatePlaylist();
 });
@@ -733,22 +744,22 @@ socket.on('update_playlist',function(data){
 /**
  * User is asked to tell the time
  */
-socket.on('ask_time_player',function(data){
+socket.on('ask_time_player', function (data) {
     console.log("Enviando time_player");
-    if(no_player == 0){ //There is aplayer, so time to tell
+    if (no_player == 0) { //There is aplayer, so time to tell
         answer = player.getCurrentTime();
         let params = new URLSearchParams(location.search);
         room = "session" + params.get("id_session");
-        
-        data = {"time":answer,"room":room};
-        socket.emit('answer_time_player',data);
+
+        data = { "time": answer, "room": room };
+        socket.emit('answer_time_player', data);
     }
 });
 
 /**
  * User receives the time of the player
  */
-socket.on('time_player',function(time){
+socket.on('time_player', function (time) {
     console.log("Time_player set");
     player.seekTo(time);
 });
@@ -756,7 +767,7 @@ socket.on('time_player',function(time){
 /**
  * User has to put the black box because there are no more songs
  */
-socket.on('no_more_songs_black_image',function(data){
+socket.on('no_more_songs_black_image', function (data) {
     console.log("Actualizando porque no hay mas canciones");
 
     no_song = 1;
@@ -772,17 +783,17 @@ socket.on('no_more_songs_black_image',function(data){
 /**
  * User can leaves the waiting room
  */
-socket.on('leave_waiting_room',function(data){
+socket.on('leave_waiting_room', function (data) {
     console.log("Solicitando abandonar waiting_room");
     params = new URLSearchParams(location.search);
     waiting_room = "room" + params.get('id_session') + "_waiting";
-    socket.emit('leave_room',waiting_room); 
+    socket.emit('leave_room', waiting_room);
 });
 
 /**
  * User has to update the player
  */
-socket.on('update_player',function(data){
+socket.on('update_player', function (data) {
     console.log("Actualizando player...");
     noSong_SongAdded();
 });
@@ -790,7 +801,7 @@ socket.on('update_player',function(data){
 /**
  * User has to update the player but knowing there are no more songs to play
  */
-socket.on('update_player_no_song',function(data){
+socket.on('update_player_no_song', function (data) {
     console.log("Actualizando player sabiendo que no hay mas canciones...");
     no_song = 1; //We update the value of no_song, if not it'll try to play the next song (but there is any song)
     noSong_SongAdded();
