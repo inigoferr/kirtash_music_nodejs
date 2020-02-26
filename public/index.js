@@ -400,7 +400,7 @@ function m_signup(username,pass_user,email,req,callback){
   console.log("---------");
   //Check the e-mail
   connection.query(`SELECT email FROM users WHERE email='${email}'`,function(error,results,fields){
-    if(Object.keys(results).length == 1){
+    if(Object.keys(results).length > 0){
         callback(-7);
     }
   });
@@ -1435,7 +1435,7 @@ function modifyProportion(min_votes,min_users,id_session,callback){
 }
 
 function checkEmail(email,callback){
-    query = `SELECT id_user,username,email FROM users WHERE email = ${email}`;
+    query = `SELECT id_user,username,email FROM users WHERE email ='${email}'`;
 
     connection.query(query,function(error,results,fields){
         if (error || results == undefined || Object.keys(results).length == 0){
