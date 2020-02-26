@@ -512,7 +512,7 @@ function onPlayerStateChange(event) {
                             if (result == -1) { //There aren't songs to play in the playlist
                                 console.log("Enter 3");
                                 no_song = 1;
-                                $('#title_video_playing').html("<small class='text-muted'>Waiting your music... </small>");
+                                $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
                                 //We destroy the player
                                 player.destroy();
                                 no_player = 1;
@@ -523,7 +523,7 @@ function onPlayerStateChange(event) {
                                 //Notify the server that the users have to update the player
                                 //We send the event new_song_in_the_player because it's has the same effect as adding --> We need to update the player
                                 room = "session" + params.get('id_session');
-                                socket.emit('new_song_in_player',{"room" : room});
+                                socket.emit('no_song_in_player',{"room" : room});
 
                             } else if (result == -3 || result == -4) {
                                 console.log("ERROR -----");
@@ -782,5 +782,14 @@ socket.on('leave_waiting_room',function(data){
  */
 socket.on('update_player',function(data){
     console.log("Actualizando player...");
+    noSong_SongAdded();
+});
+
+/**
+ * User has to update the player but knowing there are no more songs to play
+ */
+socket.on('update_player_no_song',function(data){
+    console.log("Actualizando player sabiendo que no hay mas canciones...");
+    no_song = 1; //We update the value of no_song, if not it'll try to play the next song (but there is any song)
     noSong_SongAdded();
 });
