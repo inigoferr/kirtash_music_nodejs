@@ -401,6 +401,8 @@ function m_signup(username,pass_user,email,req,callback){
   //Check the e-mail
   connection.query(`SELECT email FROM users WHERE email='${email}'`,function(error,results,fields){
     if(error || results == undefined || Object.keys(results).length == 0){
+        callback(-1);
+    } else {
         callback(-7);
     }
   });
