@@ -595,8 +595,10 @@ function noSong_SongAdded() {
                     console.log("Enter 6");
                     no_song = 1;
                     $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
+                    console.log("Player desapareciendo...");
+                    $('#player_above').html("<div id='player'></div>");
                     $('#player').html("<img src='/assets/img/black_player.png'></img>");
-
+                    console.log("Todo quitado...");
                 } else {
                     console.log("Enter 7");
                     no_song = 0;
