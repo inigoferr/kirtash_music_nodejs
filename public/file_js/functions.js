@@ -32,6 +32,8 @@ function checkSignUp() {
                 $('#result').html(alert.replace("##MSG##", "The password must have at least 5 characters without spaces"));
             } else if (result == -6) {
                 $('#result').html(alert.replace("##MSG##", "The username must have at least 5 characters, without spaces"));
+            } else if(result == -7){
+                $('#result').html(alert.replace("##MSG##", "This e-mail is already used"));
             } else if (result == 1) {
                 let params = new URLSearchParams(location.search);
                 if (params.get('id_session') != null) {

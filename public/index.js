@@ -398,6 +398,13 @@ function m_signup(username,pass_user,email,req,callback){
     }
   });
 
+  //Check the e-mail
+  connection.query(`SELECT email FROM users WHERE email='${email}'`,function(error,results,fields){
+    if(error || results == undefined || Object.keys(results).length == 0){
+        callback(-7);
+    }
+  });
+
   connection.query("INSERT INTO users (username,pass_user,email) VALUES('"+username+"','" + pass + "','"+ email +"')",function(error,results,fields){
     if(error){
         callback(-1);
@@ -1428,17 +1435,23 @@ function modifyProportion(min_votes,min_users,id_session,callback){
 }
 
 function checkEmail(email,callback){
-    query = `SELECT email FROM users WHERE email = ${email}`;
+    query = `SELECT id_user,username,email FROM users WHERE email = ${email}`;
 
     connection.query(query,function(error,results,fields){
         if (error || results == undefined || Object.keys(results).length == 0){
             callback(-1);
         } else {
+
+            var html = fs.readFileSync(path.join(__dirname + "/file_html/email_template.html"),'utf-8');
+            html = hmlt.replace('##username##',results[0].username);
+            html = html.replace('##link##',"https://www.kirtash-music.me/recovery.html?id_user="+id_user);
+
             var mailOptions = {
                 from: 'Kirtash Music <no-reply@kirtash-music.me>',
-                to: 'fernandezinigo5@yahoo.es',
+                to: email,
                 subject: 'Recovery of your Password',
-                text: 'Hello'
+                text: 'Hello',
+                html: html
               };
               
               transporter.sendMail(mailOptions, function(error, info){
