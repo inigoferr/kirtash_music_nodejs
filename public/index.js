@@ -251,6 +251,12 @@ router.post('/newPasswordUser',function(req,res,next){
     });
 });
 
+router.post('/checkLinkEmail',function(req,res,next){
+    checkLinkEmail(req.body.cad,function(result){
+        res.send({"result" : result});
+    });
+});
+
 /* Llamadas a Vista desde Cliente */
 router.post('/v_showusername', function (req, res, next) {
     v_showUsername(req, function (result) {
@@ -1487,6 +1493,16 @@ function checkEmail(email, callback) {
     });
 }
 
+function checkLinkEmail(cadena,callback){
+    connection.query(`SELECT id_user FROM users WHERE randomstring='${cadena}'`,function(error,results,fields){
+        if(error || results == undefined || Object.keys(results).length == 0){
+            callback(-1);
+        } else {
+            callback(1);
+        }
+    });
+}
+
 function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
 
     var pass_user = pass_user.replace(/ /g,"");
@@ -1517,6 +1533,8 @@ function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
                         });
                     }
                 });
+            } else {
+                callback(5);
             }
         }
     });    

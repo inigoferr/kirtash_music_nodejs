@@ -20,6 +20,19 @@
 
 <body class="index-page">
 
+    <script>
+        let params = new URLSearchParams(location.search);
+        $.ajax({
+            type: "post",
+            url: "checkLinkEmail",
+            data: {"cad" : params.get("cad")},
+            success: function (result) {
+                if(result["result"] == -1){
+                    $('#section_recovery_email').html(`<h2 class='title'>Link already used or incorrect</h2>`);
+                }
+            }
+        });
+    </script>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-transparent">
         <div class="container">
@@ -49,7 +62,7 @@
         </div> <!-- container-->
     </nav>
 
-    <section class="section section-nucleo-icons">
+    <section class="section section-nucleo-icons" id="section_recovery_email">
         <div class="container" id="msg_space1"></div>
         <div class="container" id="msg_space_error2"></div>
         <div class="container" id="msg_space_error3"></div>
