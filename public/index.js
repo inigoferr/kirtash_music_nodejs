@@ -1457,8 +1457,8 @@ function checkEmail(email, callback) {
             var html = fs.readFileSync(path.join(__dirname + "/file_html/email_template.html"), 'utf-8');
             var string = randomstring.generate(100);
 
-            connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${results[0].id_user}'`, function (error, results, fields) {
-                if (error) {
+            connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${results[0].id_user}'`, function (error2, results2, fields2) {
+                if (error2) {
                     callback(-1);
                 } else {
                     html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + results[0].id_user + "?cad=" + string);
