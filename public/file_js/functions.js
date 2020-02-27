@@ -42,8 +42,14 @@ function checkSignUp() {
                     window.location = "/public/session.html?id_session=" + params.get('id_session');
                     //$.get("/session",{id_session: params.get('id_session')});
                 } else {
-                    window.location = "/menu.html";
-                    //$.get("/menu");
+                    //window.location = "/menu.html";
+                    $.ajax({
+                        type: "get",
+                        url: "/menu",
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    });
                 }
             }
         }
