@@ -1491,7 +1491,7 @@ function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
     var pass_user = pass_user.replace(/ /g,"");
     var pass_user2 = pass_user2.replace(/ /g,"");
 
-    connection.query(`SELECT id_user FROM users WHERE cad='${cad}'`,function(error,results,fields){
+    connection.query(`SELECT id_user FROM users WHERE randomstring='${cad}'`,function(error,results,fields){
         if(error || results == undefined || Object.keys(results) == 0){
             callback(2);
         } else {
@@ -1499,7 +1499,7 @@ function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
                 callback(3);
             } else if ( pass_user.localeCompare(pass_user2) != 0){
                 callback(4);
-            } else { //Everything is correct
+            } else if(id_user.localeCompare(results[0].id_user) == 0){ //Everything is correct
                 var pass = md5(pass_user);
                 connection.query(`UPDATE users SET pass_user='${pass}' WHERE id_user='${id_user}'`,function(error2,results2,fields2){
                     if(error){
