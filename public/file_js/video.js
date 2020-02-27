@@ -661,6 +661,7 @@ function noSong_SongAdded() {
                                 // You can add more event listeners here
                             }
                         });
+                        no_player = 0;
                         //Notify the server the player has been edited
                         room = "session" + params.get('id_session');
                         socket.emit('new_song_in_player', { "room": room });
