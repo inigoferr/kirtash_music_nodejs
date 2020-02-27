@@ -1508,7 +1508,7 @@ function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
                     } else {
                         //We create another string to avoid anyone changing the pass
                         var string = randomstring.generate(100);
-                        connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${id_user}`,function(error3,results3,fields3){
+                        connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${id_user}'`,function(error3,results3,fields3){
                             if(error){
                                 callback(5);
                             } else {
