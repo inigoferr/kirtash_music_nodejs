@@ -635,6 +635,7 @@ function noSong_SongAdded() {
                 if (result == -1) { //No songs in the playlist
                     console.log("Enter 6");
                     no_song = 1;
+                    no_player = 1;
                     $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
 
                     //We need to add the following line for the not registered users
