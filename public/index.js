@@ -569,7 +569,7 @@ function m_updateMark(id_session, id_cancion, number, req, callback) {
                     new_mark = parseInt(mark) + parseInt(number);
 
                     connection.query("UPDATE lista_reproduccion SET mark ='" + new_mark + "' WHERE id_cancion ='" + id_cancion + "'", function (error, results, fields) {
-                        console.log("hiii");
+                        
                         if (error) {
                             callback(-1);
                         } else {
@@ -1025,7 +1025,6 @@ function create_session(name_session, pass_user, pass_user2, description, min_vo
  * Function that updates the mark of a song
  */
 function updateMark(id_session, id_cancion, number, req, callback) {
-    console.log("Entrando aqui...");
     m_updateMark(id_session, id_cancion, number, req, function (result) {
         callback(result);
     });
