@@ -2106,20 +2106,11 @@ function v_showSearchTextAdmins(bbdd, callback) {
  */
 var nodemailer = require('nodemailer');
 
-/*var transporter = nodemailer.createTransport({
+var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'kirtashmusic@gmail.com',
         pass: 'apdesdhrtfpbjuqs'
-    }
-});*/
-var transporter = nodemailer.createTransport({
-    service: 'yahoo',
-    host: 'smtp.mail.yahoo.com',
-    port: 465,
-    auth: {
-        user: 'kirthashmusic@yahoo.com',
-        pass: 'kirtashtfg2'
     }
 });
 
