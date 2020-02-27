@@ -1,6 +1,7 @@
 // Define some variables used to remember state.
 var playlistId, channelId;
 var socket = io();//We connect the user to the Socket.io Server
+let params = new URLSearchParams(location.search);
 
 // After the API loads, call a function to enable the search box.
 function handleAPILoaded() {
@@ -776,15 +777,12 @@ socket.on('update_playlist', function (data) {
  * User is asked to tell the time
  */
 socket.on('ask_time_player', function (data) {
-    console.log("Enviando time_player");
     if (no_player == 0) { //There is a player, so time to tell
-        console.log("Obteniendo tiempo...");
-        answer = player.getCurrentTime();
-        let params = new URLSearchParams(location.search);
-        room = "session" + params.get("id_session");
+        //answer = player.getCurrentTime();
+        //room = "session" + params.get("id_session");
 
-        data = { "time": answer, "room": room };
-        socket.emit('answer_time_player', data);
+        //data = { "time": answer, "room": room };
+        socket.emit('answer_time_player', { "time": player.getCurrentTime(), "room": "session"+params.get("id_session") });
     }
 });
 
@@ -792,7 +790,6 @@ socket.on('ask_time_player', function (data) {
  * User receives the time of the player
  */
 socket.on('time_player', function (time) {
-    console.log("Time_player set");
     player.seekTo(time);
 });
 

@@ -51,9 +51,8 @@ io.on('connection', function (socket) {
           client_socket.emit('ask_time_player');
       
           //We make the user to add a new room where there are all the users waiting for that specific session
-          waiting_room = room + "_waiting";
-          console.log("Waiting room joining...");
-          socket.join(waiting_room);
+          //waiting_room = room + "_waiting";
+          socket.join(room + "_waiting");
         }
       }
       
@@ -64,14 +63,12 @@ io.on('connection', function (socket) {
    * Send the time of the player to the new users
    */
   socket.on('answer_time_player',function(data){
-    console.log("Enviando evento en answer_time_player");
-    time = data["time"];
-    room = data["room"];
-
-    waiting_room = room + "_waiting";
-    socket.to(waiting_room).emit('time_player',time);    
-
+    //time = data["time"];
+    //room = data["room"];
+    //waiting_room = room + "_waiting";
+    socket.to(room + "_waiting").emit('time_player',data["time"]);    
     socket.to(waiting_room).emit('leave_waiting_room');
+    console.log("Enviando evento en answer_time_player");
 
   });
 
