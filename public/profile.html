@@ -14,7 +14,19 @@
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link type="text/css" href="/assets/css/blk-design-system.min.css" rel="stylesheet">
-
+    
+    <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script>
+      $.ajax({
+        type: "post",
+        url: "/checkregistration",
+        success: function (response) {
+            if(response["result"] != 1){
+              window.location = "/index.html";
+            }
+        }
+      });
+    </script>
 </head>
 
 <body class="profile-page">
@@ -259,7 +271,6 @@
     </div>
     <!--  End Modal -->  
     <!--   Core JS Files   -->
-    <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
     <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
     <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
