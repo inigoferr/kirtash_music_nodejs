@@ -34,9 +34,9 @@ function checkSignUp() {
                 $('#result').html(alert.replace("##MSG##", "The username must have at least 5 characters, without spaces"));
             } else if (result == -7) {
                 $('#result').html(alert.replace("##MSG##", "This e-mail is already used"));
-            } else if(result == -8){
-                $('#result').html(alert.replace("##MSG##", "You have to write an e-mail"));       
-            }else if (result == 1) {
+            } else if (result == -8) {
+                $('#result').html(alert.replace("##MSG##", "You have to write an e-mail"));
+            } else if (result == 1) {
                 let params = new URLSearchParams(location.search);
                 if (params.get('id_session') != null) {
                     window.location = "/public/session.html?id_session=" + params.get('id_session');
@@ -790,21 +790,21 @@ function recoverEmail() {
         data: { "email": email },
         success: function (result) {
             result = result["result"];
-            if (result == 1){
+            if (result == 1) {
                 $('#alert_email_modal').html(alert);
             }
         }
     });
 }
 
-function onKeyUpNewPasswordUser(){
+function onKeyUpNewPasswordUser() {
     var keycode = event.keyCode;
     if (keycode == '13') {
         newPasswordUser();
     }
 }
 
-function newPasswordUser(){
+function newPasswordUser() {
 
     let params = new URLSearchParams(location.search);
     var pass_user = $('#enter_new_pass_user').val();
@@ -813,22 +813,73 @@ function newPasswordUser(){
     $.ajax({
         type: "post",
         url: "newPasswordUser",
-        data: {pass_user : pass_user, pass_user2: pass_user2, id_user : params.get("id_user"), cadena : params.get("cad")},
+        data: { pass_user: pass_user, pass_user2: pass_user2, id_user: params.get("id_user"), cadena: params.get("cad") },
         success: function (result) {
             result = result["result"];
             console.log("Result = " + result);
-            if (result == 1){
+
+            var msg1 = `<div class="container" id="msg_space1" style="display: none;">
+                                <div class="alert alert-info alert-with-icon">
+                                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                                        <i class="tim-icons icon-simple-remove"></i>
+                                    </button>
+                                    <span data-notify="icon" class="tim-icons icon-trophy"></span>
+                                    <span><b> Done! - </b> Password Reset</span>
+                                </div>
+                            </div>`;
+
+            var msg2 = `<div class="container" id="msg_space_error2" style="display: none;">
+                            <div class='alert alert-warning alert-with-icon'>
+                                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <i class='tim-icons icon-simple-remove'></i>
+                                </button>
+                                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                                <span>
+                                    <b> Warning! - </b> This reset link was already used or is incorrect</span>
+                            </div>
+                        </div>`;
+            var msg3 = `<div class="container" id="msg_space_error3" style="display: none;">
+                            <div class='alert alert-warning alert-with-icon'>
+                                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <i class='tim-icons icon-simple-remove'></i>
+                                </button>
+                                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                                <span>
+                                    <b> Warning! - </b> The password must have minimum 5 characters without spaces</span>
+                            </div>
+                        </div>`;
+            var msg4 = `<div class="container" id="msg_space_error4" style="display: none;">
+                            <div class='alert alert-warning alert-with-icon'>
+                                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <i class='tim-icons icon-simple-remove'></i>
+                                </button>
+                                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                                <span>
+                                    <b> Warning! - </b> The passwords are different</span>
+                            </div>
+                        </div>`;
+            var msg5 = `<div class="container" id="msg_space_error5" style="display: none;">
+                            <div class='alert alert-warning alert-with-icon'>
+                                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <i class='tim-icons icon-simple-remove'></i>
+                                </button>
+                                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                                <span>
+                                    <b> Warning! - </b> Try again later, something is wrong</span>
+                            </div>
+                        </div>`;
+            if (result == 1) {
                 $('#reset_space').hide();
-                $('#msg_space1').show();
-            } else if (result == 2){
+                $('#msg_space1').html(msg1);
+            } else if (result == 2) {
                 $('#reset_space').hide();
-                $('#msg_space_error2').show();
-            } else if(result == 3){
-                $('#msg_space_error3').show();
-            } else if(result == 4){
-                $('#msg_space_error4').show();
-            } else if(result == 5){
-                $('#msg_space_error5').show();                
+                $('#msg_space_error2').html(msg2);
+            } else if (result == 3) {
+                $('#msg_space_error3').html(msg3);
+            } else if (result == 4) {
+                $('#msg_space_error4').html(msg4);
+            } else if (result == 5) {
+                $('#msg_space_error5').html(msg5);
             }
         }
     });
