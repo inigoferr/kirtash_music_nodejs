@@ -257,6 +257,12 @@ router.post('/checkLinkEmail',function(req,res,next){
     });
 });
 
+router.post('/obtainProportionValues',function(req,res,next){
+    m_obtainProportionValues(req.body.id_session,function(result){
+        res.send(result);
+    });
+});
+
 /* Llamadas a Vista desde Cliente */
 router.post('/v_showusername', function (req, res, next) {
     v_showUsername(req, function (result) {
@@ -923,6 +929,23 @@ function m_modifyProportion(min_votes, min_users, id_session, callback) {
         } else {
             callback(1);
         }
+    });
+}
+
+function m_obtainProportionValues(id_session,callback){
+    connection.query(`SELECT min_votes,min_users FROM sesion WHERE id_sesion='${id_session}'`,function(error,results,fields){
+        if (error || results == undefined || Object.keys(results).length == 0 ){
+            callback({"response": -1});
+        } else {
+            connection.query(`SELECT MAX(mark) AS max_mark FROM lista_reproduccion WHERE id_sesion='${id_session}'`,function(error2,results2,fields2){
+                if (error2 || results2 == undefined || Object.keys(results2).length == 0 ){
+                    callback({"response": -1});
+                } else {
+                    callback({"response" : 1,"max_mark" : results2[0].max_mark, "min_votes" : results[0].min_votes,"min_users": results[0].min_users})
+                }
+            });
+        }
+        
     });
 }
 /*

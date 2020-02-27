@@ -37,7 +37,7 @@ io.on('connection', function (socket) {
   //The user joins a specific room where are all the users of the session
   socket.on('join_room', function (room) {
     socket.join(room);
-    id = socket.id;
+    var id = socket.id;
     
     //New user needs to know the time of the song being played
     //1º: Ask one user of the room for the time
@@ -78,7 +78,7 @@ io.on('connection', function (socket) {
    */
   socket.on('leave_room',function(room){
     console.log("Usuario abandonado sala = " + room);
-    socket.leave(room);
+    var socket.leave(room);
   })
 
   //The user leaves the session, automatically he leaves the room he was too
@@ -90,35 +90,35 @@ io.on('connection', function (socket) {
   socket.on('new_vote', function (data) {
     //We have to send to the rest of the users in the room they must update the playlist
     console.log("Enviando evento en new_vote...");
-    room = data["room"];
+    var room = data["room"];
     socket.to(room).emit('update_playlist',1);
   });
 
   //New Song in the playlist
   socket.on('new_song', function (data) {
     console.log("Enviando evento en new_song");
-    room = data["room"];
+    var room = data["room"];
     socket.to(room).emit('update_playlist',2);
   });
 
   //Song retired but there are more songs to play
   socket.on('song_retired', function (data) {
     console.log("Enviando evento en song_retired ")
-    room = data["room"];
+    var room = data["room"];
     socket.to(room).emit('update_playlist',3);
   });
 
   //Song retired and no more songs
   socket.on('song_retired_no_more_songs',function(data){
     console.log("Enviando evento en song_retired_no_more_songs");
-    room = data["room"];
+    var room = data["room"];
     socket.to(room).emit('no_more_songs_black_image');
   })
 
   //Song removed by one admin
   socket.on('song_removed',function(data){
     console.log("Enviando evento en song_removed");
-    room = data["room"];
+    var room = data["room"];
     socket.to(room).emit('update_playlist',4);
   });
 
@@ -128,14 +128,26 @@ io.on('connection', function (socket) {
   //The player has a song and the rest of the user most know it
   socket.on('new_song_in_player',function(data){
     console.log("Enviando evento en new_song_in_player");
-    room = data["room"];
+    var room = data["room"];
     socket.to(room).emit('update_player');
   });
 
   //The session hasn't more songs to play, the rest of the users must update his player
   socket.on('no_song_in_player',function(data){
-    room = data["room"];
+    var room = data["room"];
     socket.to(room).emit('update_player_no_song');
+  });
+
+  socket.on('check_proportion_values',function(data){
+    var room = data["room"];
+    var num_users = io.sockets.adapter.rooms[room].length;
+    console.log("Num.usuarios en " + room + " = "+num_users);
+    if(parseInt(num_users) >= parseInt(data["min_users"])){ //Check if there're enough users in the room
+      if (parseInt(data["max_mark"]) >= parseInt(data["min_votes"])){
+        socket.to(room).emit('proportion_correct');
+        socket.emit('proportion_correct');
+      }
+    }
   });
 
   //CHAT

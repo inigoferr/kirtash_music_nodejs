@@ -153,12 +153,38 @@ function addMark(id_cancion) {
                     data: { id_session: params.get('id_session'), id_cancion: id_cancion, number: 1 },
                     type: "post",
                     success: function (result) { //We received the information from the server
+                        result = result["result"];
+
+                        //Proportion
+                        $.ajax({
+                            type: "post",
+                            url: "/obtainProportionValues",
+                            data: { id_session: params.get('id_session') },
+                            success: function (result) {
+                                var response = result["response"];
+                                if (response != -1) {
+                                    var max_mark = result["max_mark"];
+                                    var min_votes = result["min_votes"];
+                                    var min_users = result["min_users"];
+                                    var room = "session" + params.get('id_session');
+
+                                    var proportion_values = {
+                                        "max_mark": max_mark,
+                                        "min_votes": min_votes,
+                                        "min_users": min_users,
+                                        "room": room
+                                    };
+                                    socket.emit('check_proportion_values', proportion_values);
+                                }
+                            }
+                        });
                         //We update the playlist and maybe his order
                         updatePlaylist();
 
                         //We notify the server that we have update the mark of one song
                         room = "session" + params.get('id_session');
                         socket.emit('new_vote', { "room": room });
+
                     }
                 });
             } else {//User not registered, he can't votes
@@ -359,7 +385,7 @@ window.onload = function () {
                                         success: function (response) {
                                             $('#name_session').html(response);
 
-                                            
+
                                             $('#theprogressbar').attr('aria-valuenow', 50);
                                             $('#theprogressbar').attr('style', "width: 50%;");
                                             $('#theprogressbar_value').html("50%");
@@ -408,11 +434,11 @@ window.onload = function () {
                                                                     type: "post",
                                                                     success: function (result) {
                                                                         result = result["result"];
-                                                                                                                    
+
                                                                         $('#theprogressbar').attr('aria-valuenow', 95);
                                                                         $('#theprogressbar').attr('style', "width: 95%;");
                                                                         $('#theprogressbar_value').html("95%");
-                                                                        
+
                                                                         if (result == 2) { //Session is private
                                                                             //We see if the user is Admin or not
                                                                             $.ajax({
@@ -778,13 +804,11 @@ socket.on('update_playlist', function (data) {
  * User is asked to tell the time
  */
 socket.on('ask_time_player', function (data) {
-    console.log("Estoy aqui...");
     if (no_player == 0) { //There is a player, so time to tell
         //answer = player.getCurrentTime();
         //room = "session" + params.get("id_session");
-        console.log("Ahora aqui++++...");
         //data = { "time": answer, "room": room };
-        socket.emit('answer_time_player', { "time": player.getCurrentTime(), "room": "session"+params.get("id_session") });
+        socket.emit('answer_time_player', { "time": player.getCurrentTime(), "room": "session" + params.get("id_session") });
     }
 });
 
@@ -837,4 +861,12 @@ socket.on('update_player_no_song', function (data) {
     console.log("Actualizando player sabiendo que no hay mas canciones...");
     no_song = 1; //We update the value of no_song, if not it'll try to play the next song (but there is any song)
     noSong_SongAdded();
+});
+
+/**
+ * The proportion of min_votes and min_users has been reached, so we have to play the first
+ * song of the playlist (the one with more votes)
+ */
+socket.on('proportion_correct',function(data){
+    player.stopVideo();
 });
