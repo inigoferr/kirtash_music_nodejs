@@ -7,6 +7,8 @@ const path = require('path');
 const session = require('express-session');
 let fs = require('fs');
 
+var randomstring = require('randomstring');
+
 //Session User
 router.use(session({
     secret: 'ssshhhhh',
@@ -240,6 +242,12 @@ router.post('/checkadmin', function (req, res, next) {
 router.post('/checkemail', function (req, res, next) {
     checkEmail(req.body.email, function (result) {
         res.send({ "result": 1 });
+    });
+});
+
+router.post('/newPasswordUser',function(req,res,next){
+    checkNewPasswordUser(req.body.pass_user,req.body.pass_user2,req.body.id_user,req.body.cad,function(result){
+        res.send({"result" : result});
     });
 });
 
@@ -933,8 +941,8 @@ const { JSDOM } = jsdom;
 function sign_up(username, pass_user, pass_user2, email, req, callback) {
 
     //We erase the spaces
-    username = username.replace(" ", "");
-    pass_user = pass_user.replace(" ", "");
+    username = username.replace(/ /g, "");
+    pass_user = pass_user.replace(/ /g, "");
 
     length = username.length;
     lengthp = pass_user.length;
@@ -949,9 +957,9 @@ function sign_up(username, pass_user, pass_user2, email, req, callback) {
         callback(-4);
     } else if (pass_user2.localeCompare("") == 0) {
         callback(-4);
-    } else if( email.localeCompare("") == 0){
+    } else if (email.localeCompare("") == 0) {
         callback(-8);
-    }else if (pass_user.localeCompare(pass_user2) == 0) {
+    } else if (pass_user.localeCompare(pass_user2) == 0) {
         m_signup(username, pass_user, email, req, function (result) {
             callback(result);
         });
@@ -1439,7 +1447,7 @@ function modifyProportion(min_votes, min_users, id_session, callback) {
 }
 
 function checkEmail(email, callback) {
-    query = `SELECT id_user,username,email FROM users WHERE email ='${email}'`;
+    query = `SELECT id_user,email FROM users WHERE email ='${email}'`;
 
     connection.query(query, function (error, results, fields) {
         if (error || results == undefined || Object.keys(results).length == 0) {
@@ -1447,28 +1455,62 @@ function checkEmail(email, callback) {
         } else {
 
             var html = fs.readFileSync(path.join(__dirname + "/file_html/email_template.html"), 'utf-8');
-            html = html.replace('##username##', results[0].username);
-            html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + results[0].id_user);
+            var string = randomstring.generate(100);
 
-            var mailOptions = {
-                from: 'Kirtash Music <no-reply@kirtash-music.me>',
-                to: email,
-                subject: 'Recovery of your Password',
-                text: 'Hello',
-                html: html
-            };
-
-            transporter.sendMail(mailOptions, function (error, info) {
+            connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${results[0].id_user}'`, function (error, results, fields) {
                 if (error) {
-                    console.log(error);
                     callback(-1);
                 } else {
-                    console.log('Email sent: ' + info.response);
-                    callback(1);
+                    html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + results[0].id_user + "?cad=" + string);
+
+                    var mailOptions = {
+                        from: 'Kirtash Music <no-reply@kirtash-music.me>',
+                        to: email,
+                        subject: 'Recovery of your Password',
+                        text: 'Hello',
+                        html: html
+                    };
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                            callback(-1);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                            callback(1);
+                        }
+                    });
                 }
             });
         }
     });
+}
+
+function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
+
+    var pass_user = pass_user.replace(/ /g,"");
+    var pass_user2 = pass_user2.replace(/ /g,"");
+
+    connection.query(`SELECT id_user FROM users WHERE cad='${cad}'`,function(error,results,fields){
+        if(error || results == undefined || Object.keys(results) == 0){
+            callback(2);
+        } else {
+            if(pass_user.length < 5){
+                callback(3);
+            } else if ( pass_user.localeCompare(pass_user2) != 0){
+                callback(4);
+            } else { //Everything is correct
+                var pass = md5(pass_user);
+                connection.query(`UPDATE users SET pass_user='${pass}' WHERE id_user='${id_user}'`,function(error2,results2,fields2){
+                    if(error){
+                        callback(5);
+                    } else {
+                        callback(1);
+                    }
+                });
+            }
+        }
+    });    
 }
 
 
@@ -2064,17 +2106,19 @@ function v_showSearchTextAdmins(bbdd, callback) {
  */
 var nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
+/*var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'kirtashmusic@gmail.com',
         pass: 'apdesdhrtfpbjuqs'
     }
+});*/
+var transporter = nodemailer.createTransport({
+    service: 'yahoo',
+    auth: {
+        user: 'kirthashmusic@yahoo.com',
+        pass: 'kirtashtfg2'
+    }
 });
-
-
-
-
-
 
 module.exports = router;

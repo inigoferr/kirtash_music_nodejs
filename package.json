@@ -21,6 +21,7 @@
     "nodemailer": "^6.4.3",
     "promise": "^8.0.3",
     "pug": "^2.0.4",
+    "randomstring": "^1.1.5",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

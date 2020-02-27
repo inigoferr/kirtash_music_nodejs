@@ -789,7 +789,46 @@ function recoverEmail() {
         url: "/checkemail",
         data: { "email": email },
         success: function (result) {
-            $('#alert_email_modal').html(alert);
+            result = result["result"];
+            if (result == 1){
+                $('#alert_email_modal').html(alert);
+            }
+        }
+    });
+}
+
+function onKeyUpNewPasswordUser(){
+    var keycode = event.keyCode;
+    if (keycode == '13') {
+        newPasswordUser();
+    }
+}
+
+function newPasswordUser(){
+
+    let params = new URLSearchParams(location.search);
+    var pass_user = $('#enter_new_pass_user').val();
+    var pass_user2 = $('#enter_new_pass_user2').val();
+
+    $.ajax({
+        type: "post",
+        url: "newPasswordUser",
+        data: {pass_user : pass_user, pass_user2: pass_user2, id_user = params.get("id_user"), cadena = params.get("cad")},
+        success: function (result) {
+            result = result["result"];
+            if (result == 1){
+                $('#reset_space').hide();
+                $('#msg_space1').show();
+            } else if (result == 2){
+                $('#reset_space').hide();
+                $('#msg_space_error2').show();
+            } else if(result == 3){
+                $('#msg_space_error3').show();
+            } else if(result == 4){
+                $('#msg_space_error4').show();
+            } else if(result == 5){
+                $('#msg_space_error5').show();                
+            }
         }
     });
 }

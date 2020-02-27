@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link type="image/png" href="/favicon.png" rel="icon" sizes="32x32" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link type="text/css" href="/assets/css/blk-design-system.css" rel="stylesheet">
+
+    <title>Kirtash Music</title>
+</head>
+
+<body class="index-page">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="index.html" rel="tooltip" title="" data-placement="bottom">
+                    <span>KRH•</span> Kirtash Music
+                </a>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                <div class="navbar-collapse-header">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a>
+                                KRH•
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close text-right">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse"
+                                data-target="#navigation" aria-controls="navigation-index" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                        </div><!-- col-6-->
+                    </div><!-- row-->
+                </div><!-- navbar-collapse-header -->
+            </div> <!-- collapse navbar... justify... id=navigation-->
+        </div> <!-- container-->
+    </nav>
+
+    <section class="section section-nucleo-icons">
+        <div class="container" id="msg_space1" style="display: none;">
+            <div class="alert alert-info alert-with-icon">
+                <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="tim-icons icon-simple-remove"></i>
+                </button>
+                <span data-notify="icon" class="tim-icons icon-trophy"></span>
+                <span><b> Done! - </b> Password Reset</span>
+            </div>
+        </div>
+        <div class="container" id="msg_space_error2" style="display: none;">
+            <div class='alert alert-warning alert-with-icon'>
+                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                    <i class='tim-icons icon-simple-remove'></i>
+                </button>
+                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                <span>
+                    <b> Warning! - </b> This reset link was already used or is incorrect</span>
+            </div>
+        </div>
+        <div class="container" id="msg_space_error3" style="display: none;">
+            <div class='alert alert-warning alert-with-icon'>
+                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                    <i class='tim-icons icon-simple-remove'></i>
+                </button>
+                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                <span>
+                    <b> Warning! - </b> The password must have minimum 5 characters without spaces</span>
+            </div>
+        </div>
+        <div class="container" id="msg_space_error4" style="display: none;">
+            <div class='alert alert-warning alert-with-icon'>
+                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                    <i class='tim-icons icon-simple-remove'></i>
+                </button>
+                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                <span>
+                    <b> Warning! - </b> The passwords are different</span>
+            </div>
+        </div>
+        <div class="container" id="msg_space_error5" style="display: none;">
+            <div class='alert alert-warning alert-with-icon'>
+                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                    <i class='tim-icons icon-simple-remove'></i>
+                </button>
+                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                <span>
+                    <b> Warning! - </b> Try again later, something is wrong</span>
+            </div>
+        </div>
+        <div class="container" id="reset_space">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-12">
+                    <h2 class="title">Reset password</h2>
+                    <h4 class="description">
+                        Type your new password
+                    </h4>
+                    <div id="space_alert_pass_session_recovery"></div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="tim-icons icon-key-25"></i></span>
+                        </div>
+                        <input type="password" class="form-control" name="enter_new_pass_user" id="enter_new_pass_user"
+                            onkeyup="onKeyUpNewPasswordUser()">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="tim-icons icon-key-25"></i></span>
+                        </div>
+                        <input type="password" class="form-control" name="enter_new_pass_user2"
+                            id="enter_new_pass_user2" onkeyup="onKeyUpNewPasswordUser()">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary my-4" onclick="newPasswordUser()">Enter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/assets/functions.js" type="text/javascript"></script>
+    <!--   Core JS Files   -->
+    <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+</body>
+
+</html>
