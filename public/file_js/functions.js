@@ -818,55 +818,45 @@ function newPasswordUser() {
             result = result["result"];
             console.log("Result = " + result);
 
-            var msg1 = `<div class="container" id="msg_space1" style="display: none;">
-                                <div class="alert alert-info alert-with-icon">
+            var msg1 = `<div class="alert alert-info alert-with-icon">
                                     <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
                                         <i class="tim-icons icon-simple-remove"></i>
                                     </button>
                                     <span data-notify="icon" class="tim-icons icon-trophy"></span>
                                     <span><b> Done! - </b> Password Reset</span>
-                                </div>
-                            </div>`;
+                        </div>`;
 
-            var msg2 = `<div class="container" id="msg_space_error2" style="display: none;">
-                            <div class='alert alert-warning alert-with-icon'>
+            var msg2 = `<div class='alert alert-warning alert-with-icon'>
                                 <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
                                     <i class='tim-icons icon-simple-remove'></i>
                                 </button>
                                 <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
                                 <span>
                                     <b> Warning! - </b> This reset link was already used or is incorrect</span>
-                            </div>
-                        </div>`;
-            var msg3 = `<div class="container" id="msg_space_error3" style="display: none;">
-                            <div class='alert alert-warning alert-with-icon'>
+                            </div>`;
+            var msg3 = `<div class='alert alert-warning alert-with-icon'>
                                 <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
                                     <i class='tim-icons icon-simple-remove'></i>
                                 </button>
                                 <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
                                 <span>
                                     <b> Warning! - </b> The password must have minimum 5 characters without spaces</span>
-                            </div>
-                        </div>`;
-            var msg4 = `<div class="container" id="msg_space_error4" style="display: none;">
-                            <div class='alert alert-warning alert-with-icon'>
+                            </div>`;
+            var msg4 = `<div class='alert alert-warning alert-with-icon'>
                                 <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
                                     <i class='tim-icons icon-simple-remove'></i>
                                 </button>
                                 <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
                                 <span>
                                     <b> Warning! - </b> The passwords are different</span>
-                            </div>
                         </div>`;
-            var msg5 = `<div class="container" id="msg_space_error5" style="display: none;">
-                            <div class='alert alert-warning alert-with-icon'>
+            var msg5 = `<div class='alert alert-warning alert-with-icon'>
                                 <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
                                     <i class='tim-icons icon-simple-remove'></i>
                                 </button>
                                 <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
                                 <span>
                                     <b> Warning! - </b> Try again later, something is wrong</span>
-                            </div>
                         </div>`;
             if (result == 1) {
                 $('#reset_space').hide();
