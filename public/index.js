@@ -410,7 +410,8 @@ function m_signup(username, pass_user, email, req, callback) {
                     if (error || results == undefined || Object.keys(results).length > 0) {
                         callback(-7);
                     } else {
-                        connection.query("INSERT INTO users (username,pass_user,email) VALUES('" + username + "','" + pass + "','" + email + "')", function (error, results, fields) {
+                        var string = randomstring.generate(100);
+                        connection.query("INSERT INTO users (username,pass_user,email,randomstring) VALUES('" + username + "','" + pass + "','" + email + "','"+ string +"')", function (error, results, fields) {
                             if (error) {
                                 callback(-1);
                             } else {
@@ -1463,7 +1464,7 @@ function checkEmail(email, callback) {
                 if (error2) {
                     callback(-1);
                 } else {
-                    html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + results[0].id_user + "?cad=" + string);
+                    html = html.replace('##link##', "https://www.kirtash-music.me/recovery.html?id_user=" + results[0].id_user + "&cad=" + string);
 
                     var mailOptions = {
                         from: 'Kirtash Music <no-reply@kirtash-music.me>',
@@ -1507,7 +1508,15 @@ function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
                     if(error){
                         callback(5);
                     } else {
-                        callback(1);
+                        //We create another string to avoid anyone changing the pass
+                        var string = randomstring.generate(100);
+                        connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${id_user}`,function(error3,results3,fields3){
+                            if(error){
+                                callback(5);
+                            } else {
+                                callback(1);
+                            }
+                        });
                     }
                 });
             }
