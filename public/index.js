@@ -2115,6 +2115,8 @@ var nodemailer = require('nodemailer');
 });*/
 var transporter = nodemailer.createTransport({
     service: 'yahoo',
+    host: 'smtp.mail.yahoo.com',
+    port: 465,
     auth: {
         user: 'kirthashmusic@yahoo.com',
         pass: 'kirtashtfg2'
