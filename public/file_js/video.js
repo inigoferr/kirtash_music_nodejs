@@ -778,10 +778,11 @@ socket.on('update_playlist', function (data) {
  * User is asked to tell the time
  */
 socket.on('ask_time_player', function (data) {
+    console.log("Estoy aqui...");
     if (no_player == 0) { //There is a player, so time to tell
         //answer = player.getCurrentTime();
         //room = "session" + params.get("id_session");
-
+        console.log("Ahora aqui++++...");
         //data = { "time": answer, "room": room };
         socket.emit('answer_time_player', { "time": player.getCurrentTime(), "room": "session"+params.get("id_session") });
     }
@@ -791,6 +792,7 @@ socket.on('ask_time_player', function (data) {
  * User receives the time of the player
  */
 socket.on('time_player', function (time) {
+    console.log("Recibiendo tiempo de player...");
     player.seekTo(time);
 });
 
