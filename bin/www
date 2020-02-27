@@ -67,7 +67,7 @@ io.on('connection', function (socket) {
     //room = data["room"];
     //waiting_room = room + "_waiting";
     console.log("Tengo respuesta...");
-    socket.to(room + "_waiting").emit('time_player',data["time"]);    
+    socket.to(data["room"] + "_waiting").emit('time_player',data["time"]);    
     socket.to(waiting_room).emit('leave_waiting_room');
     console.log("Enviando evento en answer_time_player");
 
