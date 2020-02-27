@@ -816,6 +816,7 @@ function newPasswordUser(){
         data: {pass_user : pass_user, pass_user2: pass_user2, id_user : params.get("id_user"), cadena : params.get("cad")},
         success: function (result) {
             result = result["result"];
+            console.log("Result = " + result);
             if (result == 1){
                 $('#reset_space').hide();
                 $('#msg_space1').show();
