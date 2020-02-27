@@ -246,6 +246,8 @@ router.post('/checkemail', function (req, res, next) {
 });
 
 router.post('/newPasswordUser',function(req,res,next){
+    console.log("Cadena = " + req.body.cadena);
+
     checkNewPasswordUser(req.body.pass_user,req.body.pass_user2,req.body.id_user,req.body.cadena,function(result){
         res.send({"result" : result});
     });
@@ -1492,7 +1494,7 @@ function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
     var pass_user2 = pass_user2.replace(/ /g,"");
 
     connection.query(`SELECT id_user FROM users WHERE randomstring='${cad}'`,function(error,results,fields){
-        if(error || results == undefined || Object.keys(results) == 0){
+        if(error || results == undefined || Object.keys(results).length == 0){
             callback(2);
         } else {
             if(pass_user.length < 5){
