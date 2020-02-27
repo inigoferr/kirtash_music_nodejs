@@ -868,5 +868,62 @@ socket.on('update_player_no_song', function (data) {
  * song of the playlist (the one with more votes)
  */
 socket.on('proportion_correct',function(data){
-    player.stopVideo();
+    $.ajax({
+        url: "/deleteFirstSong",
+        data: { id_session: params.get('id_session'), id_cancion: id_cancion },
+        type: "post",
+        success: function (result) {
+            result = result["result"];
+            console.log("Deleted first song");
+            if (result == 1) { //The first song has being deleted
+                //We need to obtain the next song and update the page
+                $.ajax({
+                    url: "/obtainFirstVideo",
+                    data: { id_session: params.get('id_session') },
+                    type: "post",
+                    success: function (result) {
+                        obj = result;
+                        result = result["result"];
+                        if (result == -1) { //There aren't songs to play in the playlist
+                            console.log("Enter 3");
+                            no_song = 1;
+                            $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
+                            //We destroy the player
+                            player.destroy();
+                            no_player = 1;
+                            $('#player_above').html("<div id='player'></div>");
+                            //We add the black rectangle
+                            $('#player').html("<img src='/assets/img/black_player.png'></img>");
+
+                            //Notify the server that the users have to update the player
+                            //We send the event new_song_in_the_player because it's has the same effect as adding --> We need to update the player
+                            room = "session" + params.get('id_session');
+                            socket.emit('no_song_in_player', { "room": room });
+
+                        } else if (result == -3 || result == -4) {
+                            console.log("ERROR -----");
+                        } else { //There are songs to play in the playlist
+                            console.log("Enter 4");
+                            no_song = 0;
+                            no_player = 0; //aqui
+
+                            $('#title_video_playing').html("<small class='text-muted'>Playing: </small>" + obj["title"]);
+                            videoId = obj["videoId"];
+                            id_cancion = obj["id_cancion"];
+                            player.loadVideoById(videoId);
+                            player.playVideo();
+                            updatePlaylist();
+
+                            //Notify the server that the other users have to update the player
+                            //We send the event new_song_in_the_player because it's has the same effect as adding --> We need to update the player
+                            room = "session" + params.get('id_session');
+                            socket.emit('new_song_in_player', { "room": room });
+                        }
+                    }
+                });
+            } else {
+                console.log("ERROR DELETING FIRST SONG");
+            }
+        }
+    });
 });
