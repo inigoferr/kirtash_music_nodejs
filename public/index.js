@@ -246,7 +246,7 @@ router.post('/checkemail', function (req, res, next) {
 });
 
 router.post('/newPasswordUser',function(req,res,next){
-    checkNewPasswordUser(req.body.pass_user,req.body.pass_user2,req.body.id_user,req.body.cad,function(result){
+    checkNewPasswordUser(req.body.pass_user,req.body.pass_user2,req.body.id_user,req.body.cadena,function(result){
         res.send({"result" : result});
     });
 });
