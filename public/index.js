@@ -953,8 +953,6 @@ connection.query("",function(error,results,fields){
 */
 
 /***** CONTROLADOR ********/
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
 
 /**
  * Function to sign up, it returns different results:
