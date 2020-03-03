@@ -234,7 +234,6 @@ router.post('/retireActualSong', function (req, res, next) {
 
 router.post('/checkadmin', function (req, res, next) {
     checkAdmin(req.body.id_session, req, function (result) {
-        console.log("ADMIN = " + req.session.admin);
         res.send({ "result": 1 });
     });
 });
@@ -566,7 +565,6 @@ function m_updateMark(id_session, id_cancion, number, req, callback) {
         }
         connection.query(query, function (error, results, fields) { //Once we have stored the vote we update the mark in lista_reproduccion
             if (error) {
-                console.log("ERROR");
                 callback(-1);
             } else {
                 //We obtain the mark stored in the database
@@ -1105,7 +1103,6 @@ function obtainFirstVideo(id_session, callback) {
             };
             //Insert the video in the table 'playing'
             m_insertSongInPlaying(id_session, result[0].id_cancion, function (result2) {
-                console.log("INFO = " + info);
                 if (result2 == 1) {
                     callback(info);
                 } else { //ERROR
@@ -1502,10 +1499,8 @@ function checkEmail(email, callback) {
 
                     transporter.sendMail(mailOptions, function (error, info) {
                         if (error) {
-                            console.log(error);
                             callback(-1);
                         } else {
-                            console.log('Email sent: ' + info.response);
                             callback(1);
                         }
                     });
@@ -1970,8 +1965,6 @@ function v_showPlaylist(id_session, req, callback) {
                 } else {
                     var template = fs.readFileSync(path.join(__dirname + "/file_html/playlist_noadmin.html"), 'utf-8');
                 }
-
-                console.log("TITLE = " + datos["title"]);
 
                 var content = template;
 
