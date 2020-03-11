@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kirtash Music</title>
-    <link type="image/png" href="/favicon.png" rel="icon" sizes="32x32"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Kirtash Music</title>
+  <link type="image/png" href="/favicon.png" rel="icon" sizes="32x32" />
 
-    <script type="text/javascript" src="/file_js/functions.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <script src="/file_js/functions.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
 
-    <!-- Nucleo Icons -->
-    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <!-- CSS Files -->
-    <link type="text/css" href="/assets/css/blk-design-system.min.css" rel="stylesheet">
-    
-    <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
-    <script>
-      $.ajax({
-        type: "post",
-        url: "/checkregistration",
-        success: function (response) {
-            if(response["result"] != 1){
-              window.location = "/index.html";
-            }
+  <!-- Nucleo Icons -->
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link type="text/css" href="/assets/css/blk-design-system.min.css" rel="stylesheet">
+
+  <script src="/assets/js/core/jquery.min.js"></script>
+  <script>
+    $.ajax({
+      type: "post",
+      url: "/checkregistration",
+      success: function (response) {
+        if (response["result"] != 1) {
+          window.location = "/index.html";
         }
-      });
-    </script>
+      }
+    });
+  </script>
 </head>
 
 <body class="profile-page">
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-transparent">
+
+  <nav class="navbar navbar-expand-lg navbar-transparent">
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="menu.html" rel="tooltip" title="" data-placement="bottom">
@@ -47,34 +48,33 @@
               </a>
             </div>
             <div class="col-6 collapse-close text-right">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="tim-icons icon-simple-remove"></i>
+              <button type="button" class="navbar-toggler">
+                <em class="tim-icons icon-simple-remove"></em>
               </button>
-            </div><!-- col-6-->
-          </div><!-- row-->
-        </div><!-- navbar-collapse-header -->
+            </div>
+          </div>
+        </div>
         <ul class="navbar-nav">
-            <li class="nav-item p-0">
-              <a href="menu.html">
-                <button class='btn btn-info btn-sm' type='button' id='button_username'>        
-                  <i class='tim-icons icon-molecule-40'></i>
-                  Back to menu
-                </button>
-              </a>
-            </li>
-            <li class="nav-item p-0">
-              <button class="btn btn-success btn-sm" type='button' onclick="closeSession()">Sign Out</button>
-            </li>
+          <li class="nav-item p-0">
+            <a href="menu.html">
+              <button class='btn btn-info btn-sm' type='button' id='button_username'>
+                <em class='tim-icons icon-molecule-40'></em>
+                Back to menu
+              </button>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <button class="btn btn-success btn-sm" type='button' onclick="closeSession()">Sign Out</button>
+          </li>
         </ul>
-      </div> <!-- collapse navbar... justify... id=navigation-->
-    </div> <!-- container-->  
+      </div>
+    </div>
   </nav>
 
-  <!-- End Navbar -->    
   <div class="wrapper">
     <div class="page-header">
-      <img src="/assets/img/dots.png" class="dots">
-      <img src="/assets/img/path4.png" class="path">
+      <img src="/assets/img/dots.png" class="dots" alt="Background image with a lot of little dots">
+      <img src="/assets/img/path4.png" class="path" alt="Background image used for the profile">
       <div class="container align-items-center">
         <div class="row">
           <div class="col-lg-6 col-md-6">
@@ -82,13 +82,14 @@
             <h5 class="text-on-back">Profile</h5>
             <p class="profile-description" id="description-user"></p>
             <div class="btn-wrapper profile pt-3">
-                <button type="button" class="btn btn-primary"data-toggle='modal' data-target='#myModal_editProfile'>Edit Profile</button>
+              <button type="button" class="btn btn-primary" data-toggle='modal' data-target='#myModal_editProfile'>Edit
+                Profile</button>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 ml-auto mr-auto">
             <div class="card card-coin card-plain">
               <div class="card-header">
-                <img src="/assets/img/james.jpg" class="img-center img-fluid rounded-circle">
+                <img src="/assets/img/james.jpg" class="img-center img-fluid rounded-circle" alt="Circle Image with the photo of the profile">
                 <h4 class="title">Activity</h4>
               </div>
               <div class="card-body">
@@ -128,7 +129,7 @@
                   </div>
                   <div class="tab-pane" id="linkc">
                     <div class="table-responsive">
-                      <table class="table tablesorter " id="plain-table">
+                      <table class="table tablesorter " id="plain-table2">
                         <thead class=" text-primary">
                           <tr>
                             <th class="header">
@@ -137,7 +138,7 @@
                           </tr>
                         </thead>
                         <tbody id="show_active_sessions">
-                            
+
                         </tbody>
                       </table>
                     </div>
@@ -149,7 +150,7 @@
         </div>
       </div>
     </div>
-   
+
     <footer class="footer">
       <div class="container">
         <div class="row">
@@ -199,86 +200,86 @@
     </footer>
   </div>
 
-    <!-- Form Modal -->
-    <div class="modal fade modal-black" id="myModal_editProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade modal-black" id="myModal_editProfile" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+      <div class="modal-content">
         <div class="modal-header justify-content-center">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-            <i class="tim-icons icon-simple-remove text-white"></i>
-            </button>
-            <div class="text-muted text-center ml-auto mr-auto">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <em class="tim-icons icon-simple-remove text-white"></em>
+          </button>
+          <div class="text-muted text-center ml-auto mr-auto">
             <h3 class="mb-0">Edit my profile</h3>
-            </div>
+          </div>
         </div>
         <div class="modal-body">
-            <div class="btn-wrapper text-center">
-            </div>
-            <span id="alert_modal"></span>
+          <div class="btn-wrapper text-center">
+          </div>
+          <span id="alert_modal"></span>
 
-            <label for="username_edit_modal_input">Change my username</label>
-            <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                    <i class="tim-icons icon-badge"></i>
-                    </span>
-                </div>
-                <input class="form-control" type="text" id="username_edit_modal_input">
-                </div>
+          <label for="username_edit_modal_input">Change my username</label>
+          <div class="form-group mb-3">
+            <div class="input-group input-group-alternative">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <em class="tim-icons icon-badge"></em>
+                </span>
+              </div>
+              <input class="form-control" type="text" id="username_edit_modal_input">
             </div>
-            <label for="pass_actual">Change my password</label>
-            <div class="form-group">
-                <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                    <i class="tim-icons icon-key-25"></i>
-                    </span>
-                </div>
-                <input class="form-control" placeholder="Type your password" type="password" id="pass_actual">
-                </div>
+          </div>
+          <label for="pass_actual">Change my password</label>
+          <div class="form-group">
+            <div class="input-group input-group-alternative">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <em class="tim-icons icon-key-25"></em>
+                </span>
+              </div>
+              <input class="form-control" placeholder="Type your password" type="password" id="pass_actual">
             </div>
-            <div class="form-group">
-                <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                    <i class="tim-icons icon-key-25"></i>
-                    </span>
-                </div>
-                <input class="form-control" placeholder="Type your new password" type="password" id="new_pass_1">
-                </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group input-group-alternative">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <em class="tim-icons icon-key-25"></em>
+                </span>
+              </div>
+              <input class="form-control" placeholder="Type your new password" type="password" id="new_pass_1">
             </div>
-            <div class="form-group">
-                <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                    <i class="tim-icons icon-key-25"></i>
-                    </span>
-                </div>
-                <input class="form-control" placeholder="Confirm your new password" type="password"id="new_pass_2">
-                </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group input-group-alternative">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <em class="tim-icons icon-key-25"></em>
+                </span>
+              </div>
+              <input class="form-control" placeholder="Confirm your new password" type="password" id="new_pass_2">
             </div>
-            <div class="form-group">
-                <label for="description_edit_modal">Change your description profile (Max.200 characters)</label>
-                <textarea class="form-control" id="description_edit_modal" rows="3" maxlength="200"></textarea>
-            </div>
-            <div class="text-center">
-                <button type="button" class="btn btn-primary my-4" onclick="editProfile()">Confirm changes</button>
-            </div>
+          </div>
+          <div class="form-group">
+            <label for="description_edit_modal">Change your description profile (Max.200 characters)</label>
+            <textarea class="form-control" id="description_edit_modal" rows="3" maxlength="200"></textarea>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary my-4" onclick="editProfile()">Confirm changes</button>
+          </div>
         </div>
-        </div>
+      </div>
     </div>
-    </div>
-    <!--  End Modal -->  
-    <!--   Core JS Files   -->
-    <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  </div>
 
-    <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-    <!-- Necesario para mostrar bien la tabla-->
-    <script src="/assets/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
+  <!--   Core JS Files   -->
+  <script src="/assets/js/core/popper.min.js"></script>
+  <script src="/assets/js/core/bootstrap.min.js"></script>
+  <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-    <script src="/view_js/load_profile.js" type="text/javascript"></script>
+  <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
+  <!-- Necesario para mostrar bien la tabla-->
+  <script src="/assets/js/blk-design-system.min.js?v=1.0.0"></script>
+
+  <script src="/view_js/load_profile.js"></script>
 </body>
+
 </html>
