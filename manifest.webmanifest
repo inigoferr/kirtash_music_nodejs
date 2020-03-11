@@ -5,7 +5,5 @@
     "description": "Web application to create your own music sessions",
     "short_name": "KRH",
     "start_url": "/index.html",
-    "theme_color": "#344675",
-    "background_color": "#344675",
     "display" : "browser"
 }
