@@ -514,7 +514,7 @@ function onYouTubeIframeAPIReady() {
 
                 $('#title_video_playing').html("<small class='text-muted'> Waiting your music... </small>");
                 //No player to display, so we show a black rectangle
-                $('#player').html("<img src='/assets/img/black_player.png'></img>");
+                $('#player').html("<img src='/assets/img/black_player.png' alt='' ></img>");
 
             } else if (result == -3 || result == -4) {
                 console.log("ERROR");
