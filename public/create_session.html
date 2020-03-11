@@ -8,7 +8,7 @@
 
   <link type="image/png" href="/favicon.png" rel="icon" sizes="32x32" />
 
-  <script type="text/javascript" src="/file_js/functions.js"></script>
+  <script src="/file_js/functions.js"></script>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -24,7 +24,7 @@
 </head>
 
 <body class="index-page">
-  <!-- Navbar -->
+
   <nav class="navbar navbar-expand-lg navbar-transparent">
     <div class="container">
       <div class="navbar-translate">
@@ -41,28 +41,24 @@
               </a>
             </div>
             <div class="col-6 collapse-close text-right">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation"
-                aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="tim-icons icon-simple-remove"></i>
+              <button type="button" class="navbar-toggler">
+                <em class="tim-icons icon-simple-remove"></em>
               </button>
-            </div><!-- col-6-->
-          </div><!-- row-->
-        </div><!-- navbar-collapse-header -->
+            </div>
+          </div>
+        </div>
         <ul class="navbar-nav">
           <li class="nav-item p-0">
-            <a href="profile.html">
-              <button class='btn btn-info btn-sm' type='button' id='button_username'>
-              </button>
+            <a href="profile.html" class='btn btn-info btn-sm'  id='button_username'>
             </a>
           </li>
           <li class="nav-item p-0">
             <button class="btn btn-success btn-sm" type='button' onclick="closeSession()">Sign Out</button>
           </li>
         </ul>
-      </div> <!-- collapse navbar... justify... id=navigation-->
-    </div> <!-- container-->
+      </div>
+    </div>
   </nav>
-  <!-- End Navbar -->
   <section class="section">
 
     <div class="container">
@@ -70,15 +66,15 @@
         <div class="col-md-6">
           <div class="card card-plain">
             <div class="card-header">
-              <h1 class="profile-title text-left">Create your own session</h1>
+              <h2 class="profile-title text-left">Create your own session</h2>
             </div>
             <div class="card-body">
 
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Name of the session</label>
-                    <input type="text" class="form-control" name="name_session" id="name_session">
+                    <label for="name_session">Name of the session</label>
+                    <input title="Name of the session" type="text" class="form-control" name="name_session" id="name_session">
                   </div>
                 </div>
               </div>
@@ -86,15 +82,15 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Password of the session</label>
-                    <input type="password" class="form-control" name="pass_session" id="pass_session"
+                    <label for="pass_session">Password of the session</label>
+                    <input title="Password of the session" type="password" class="form-control" name="pass_session" id="pass_session"
                       placeholder="Min. 5 characters">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Confirm password</label>
-                    <input type="password" class="form-control" name="pass_session2" id="pass_session2">
+                    <label for="pass_session2">Confirm password</label>
+                    <input title="Confirmation password" type="password" class="form-control" name="pass_session2" id="pass_session2">
                   </div>
                 </div>
               </div>
@@ -102,8 +98,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" class="form-control" name="description_session" id="description_session"
+                    <label for="description_session">Description</label>
+                    <input title="Description of the session" type="text" class="form-control" name="description_session" id="description_session"
                       placeholder="Little description of your session (max: 100 characters)">
                   </div>
                 </div>
@@ -115,15 +111,15 @@
                     <label for="inlineRadio1">Type of session</label><br>
 
                     <div class="form-check form-check-radio form-check-inline">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      <label for="inlineRadio1" class="form-check-label">
+                        <input title="Public option" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                           value="1" checked onclick="showInfoType()">Public
                         <span class="form-check-sign"></span>
                       </label>
                     </div>
                     <div class="form-check form-check-radio form-check-inline">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                      <label for="inlineRadio2" class="form-check-label">
+                        <input title="Private option" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
                           value="2" onclick="showInfoType()">Private
                         <span class="form-check-sign"></span>
                       </label>
@@ -145,11 +141,11 @@
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="min_votes">Minimum Votes</label>
-                  <input type="number" class="form-control" id="min_votes" value="75">
+                  <input title="Minimum votes" type="number" class="form-control" id="min_votes" value="75">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="total_users">Minimum Users</label>
-                  <input type="number" class="form-control" id="min_users" value="100">
+                  <label for="min_users">Minimum Users</label>
+                  <input title="Minimum users" type="number" class="form-control" id="min_users" value="100">
                 </div>
                 <div class="col-md-12">
                   Minimum of votes and users required to change the song is being played automatically
@@ -164,16 +160,15 @@
               </div>
 
               <br>
-              <input type="submit" class="btn btn-primary btn-round float-right" data-placement="right"
+              <button type="submit" class="btn btn-primary btn-round float-right" data-placement="right"
                 onclick="createSession()" value="Create"></button>
-              <input type="submit" class="btn btn-neutral btn-round float-right" data-placement="right"
+              <button type="submit" class="btn btn-neutral btn-round float-right" data-placement="right"
                 onclick="cancelCreation()" value="Cancel"></button>
             </div>
           </div>
         </div>
 
       </div>
-    </div>
     </div>
   </section>
 
@@ -226,13 +221,13 @@
   </footer>
 
   <!--   Core JS Files   -->
-  <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
-  <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/assets/js/core/jquery.min.js"></script>
+  <script src="/assets/js/core/popper.min.js"></script>
+  <script src="/assets/js/core/bootstrap.min.js"></script>
   <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-  <script src="/assets/js/blk-design-system.js" type="text/javascript"></script>
-  <script src="/view_js/load_createsession.js" type="text/javascript"></script>
+  <script src="/assets/js/blk-design-system.js"></script>
+  <script src="/view_js/load_createsession.js"></script>
 </body>
 
 </html>
