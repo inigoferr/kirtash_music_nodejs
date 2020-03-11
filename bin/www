@@ -10,9 +10,6 @@ var app = require('../app');
 var debug = require('debug')('kirtash-music-node:server');
 var http = require('http');
 
-const compression = require('compression');
-app.use(compression());
-
 /**
  * Get port from environment and store in Express.
  */
