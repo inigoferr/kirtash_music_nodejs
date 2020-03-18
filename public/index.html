@@ -8,46 +8,12 @@
   <meta name="Kirtash Music, creates your own music session">
   <title>Kirtash Music</title>
 
-  <meta name="theme-color" content="#344675"/>
+  <meta name="theme-color" content="#344675" />
   <link rel="canonical" href="https://www.kirtash-music.me">
 
   <link type="image/webp" href="/favicon.webp" rel="icon" sizes="32x32" />
 
-  <script src="/file_js/functions.js"></script>
 
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
-
-  <!-- Nucleo Icons -->
-  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link type="text/css" href="/assets/css/blk-design-system2.min.css" rel="stylesheet">
-
-  <!--   Core JS Files   -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-  <script src="/assets/js/core/popper.min.js"></script>
-  <script src="/assets/js/core/bootstrap.min.js"></script>
-  <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-  <script src="/assets/js/blk-design-system.js"></script>
-
-  <script>
-    $(document).ready(function () {
-      blackKit.initDatePicker();
-      blackKit.initSliders();
-    });
-
-    function scrollToDownload() {
-
-      if ($('.section-download').length != 0) {
-        $("html, body").animate({
-          scrollTop: $('.section-download').offset().top
-        }, 1000);
-      }
-    }
-  </script>
 </head>
 
 <body class="index-page">
@@ -111,8 +77,8 @@
                         </div>
                       </div>
                       <label for="username_signup"></label>
-                      <input title="Input Username Sign Up" type="text" class="form-control" name="username" id="username_signup"
-                        placeholder="Username" onkeyup="onKeyUpSignUp()">
+                      <input title="Input Username Sign Up" type="text" class="form-control" name="username"
+                        id="username_signup" placeholder="Username" onkeyup="onKeyUpSignUp()">
                     </div>
                     <div class="input-group" id="pus1">
                       <div class="input-group-prepend">
@@ -121,8 +87,8 @@
                         </div>
                       </div>
                       <label for="pass_user_signup"></label>
-                      <input title="Pasword Sign Up" type="password" class="form-control" name="pass_user" id="pass_user_signup"
-                        placeholder="Password" onkeyup="onKeyUpSignUp()">
+                      <input title="Pasword Sign Up" type="password" class="form-control" name="pass_user"
+                        id="pass_user_signup" placeholder="Password" onkeyup="onKeyUpSignUp()">
                     </div>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -131,8 +97,8 @@
                         </div>
                       </div>
                       <label for="pass_user_signup2"></label>
-                      <input title="Pasword Sign Up 2" type="password" class="form-control" name="pass_user2" id="pass_user_signup2"
-                        placeholder="Confirm password" onkeyup="onKeyUpSignUp()">
+                      <input title="Pasword Sign Up 2" type="password" class="form-control" name="pass_user2"
+                        id="pass_user_signup2" placeholder="Confirm password" onkeyup="onKeyUpSignUp()">
                     </div>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -141,8 +107,8 @@
                         </div>
                       </div>
                       <label for="email_user"></label>
-                      <input title="Email Sign Up" type="email" class="form-control" id="email_user" placeholder="Enter email"
-                        onkeyup="onKeyUpSignUp()">
+                      <input title="Email Sign Up" type="email" class="form-control" id="email_user"
+                        placeholder="Enter email" onkeyup="onKeyUpSignUp()">
                     </div>
                     <div id="result"></div>
                     <button type="submit" class="btn btn-info btn-round btn-lg float-right" data-placement="right"
@@ -170,8 +136,8 @@
                         </div>
                       </div>
                       <label for="username_signin"></label>
-                      <input title="User Sign In" type="text" class="form-control" name="username_signin" id="username_signin"
-                        placeholder="Username" onkeyup="onKeyUpSignIn()">
+                      <input title="User Sign In" type="text" class="form-control" name="username_signin"
+                        id="username_signin" placeholder="Username" onkeyup="onKeyUpSignIn()">
                     </div>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -180,8 +146,8 @@
                         </div>
                       </div>
                       <label for="pass_user_signin"></label>
-                      <input title="Password Sign In" type="password" class="form-control" name="pass_user_signin" id="pass_user_signin"
-                        placeholder="Password" onkeyup="onKeyUpSignIn()">
+                      <input title="Password Sign In" type="password" class="form-control" name="pass_user_signin"
+                        id="pass_user_signin" placeholder="Password" onkeyup="onKeyUpSignIn()">
                     </div>
                     <div id="result2"></div>
                     <button type="submit" class="btn btn-info btn-round btn-lg float-right" name="enviar"
@@ -229,8 +195,8 @@
                     </span>
                   </div>
                   <label for="email_recovery"></label>
-                  <input title="Email Recovery" class="form-control" placeholder="Email" type="email" id="email_recovery"
-                    onkeyup="checkrecoverEmail()">
+                  <input title="Email Recovery" class="form-control" placeholder="Email" type="email"
+                    id="email_recovery" onkeyup="checkrecoverEmail()">
                 </div>
               </div>
               <div class="text-center">
@@ -244,5 +210,41 @@
     </div>
   </div>
 </body>
+
+<script src="/file_js/functions.js"></script>
+
+<!--     Fonts and icons     -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+
+<!-- Nucleo Icons -->
+<link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<!-- CSS Files -->
+<link type="text/css" href="/assets/css/blk-design-system2.min.css" rel="stylesheet">
+
+<!--   Core JS Files   -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script src="/assets/js/core/popper.min.js"></script>
+<script src="/assets/js/core/bootstrap.min.js"></script>
+<script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
+<script src="/assets/js/blk-design-system.js"></script>
+
+<script>
+  $(document).ready(function () {
+    blackKit.initDatePicker();
+    blackKit.initSliders();
+  });
+
+  function scrollToDownload() {
+
+    if ($('.section-download').length != 0) {
+      $("html, body").animate({
+        scrollTop: $('.section-download').offset().top
+      }, 1000);
+    }
+  }
+</script>
 
 </html>
