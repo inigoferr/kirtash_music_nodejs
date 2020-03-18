@@ -4,7 +4,7 @@
     "name": "Kirtash Music",
     "description": "Web application to create your own music sessions",
     "short_name": "KRH",
-    "start_url": "https://www.kirtash-music.me",
+    "start_url": "https://www.kirtash-music.me/",
     "theme_color": "#344675",
     "background_color": "#344675",
     "display" : "fullscreen",
