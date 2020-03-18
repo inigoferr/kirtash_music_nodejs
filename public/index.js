@@ -9,8 +9,6 @@ let fs = require('fs');
 
 var randomstring = require('randomstring');
 
-
-
 //Session User
 router.use(session({
     secret: 'ssshhhhh',
@@ -394,7 +392,7 @@ connection.connect(function (err) {
 
 function m_registrarusuario(username, pass_user, req, callback) {
     req.session.username = username;
-    req.session.pass = pass_user;
+    
     connection.query("SELECT id_user FROM users WHERE username='" + username + "'", function (error, results, fields) {
         if (error) {
             callback(-1);

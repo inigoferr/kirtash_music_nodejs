@@ -51,7 +51,6 @@ function checkSignUp() {
 }
 
 function checkSignIn() {
-    console.log($('#username_signin').val());
     $.ajax({
         url: '/checksignin',
         data: { username: $('#username_signin').val(), pass_user: $('#pass_user_signin').val() },
@@ -60,23 +59,20 @@ function checkSignIn() {
             result = result["result"];
             if (result == -1) {
 
-                var alert = "<div class='alert alert-warning alert-with-icon'>" +
-                    "<button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>" +
-                    "<i class='tim-icons icon-simple-remove'></i>" +
-                    "</button>" +
-                    "<span data-notify='icon' class='tim-icons icon-bulb-63'></span>" +
-                    "<span>" +
-                    "<b> Warning! - </b>##MSG##</span>" +
-                    "</div>";
+                var alert = `<div class='alert alert-warning alert-with-icon'>
+                                <button type='button' aria-hidden='true' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <i class='tim-icons icon-simple-remove'></i>
+                                </button>
+                                <span data-notify='icon' class='tim-icons icon-bulb-63'></span>
+                                <span>
+                                <b> Warning! - </b>##MSG##</span>
+                            </div>`;
                 $('#result2').html(alert.replace("##MSG##", "Username or password are not correct"));
             } else if (result == 1) {
                 let params = new URLSearchParams(location.search);
                 if (params.get('id_session') != null) {
                     window.location = "/session.html?id_session=" + params.get('id_session');
-                    //$.get("/session",{id_session: params.get('id_session')});
                 } else {
-                    //window.location = "/menu.html";
-                    //$.get('/menu');
                     window.location = "/menu.html";
                 }
             }
