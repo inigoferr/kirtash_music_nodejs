@@ -4,13 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+
 var indexRouter = require('./public/index');
 //var usersRouter = require('./public/users');
 
 var app = express();
 
 const compression = require('compression');
+var sslRedirect = require('heroku-ssl-redirect');
+
 app.use(compression());
+
+// enable ssl redirect
+app.use(sslRedirect());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
