@@ -9,12 +9,12 @@
     "background_color": "#344675",
     "display" : "fullscreen",
     "icons" : [{
-        "src": "/favicon.webp",
+        "src": "/favicon.png",
         "sizes": "48x48",
-        "type": "image/webp"
+        "type": "image/png"
     },{
-        "src" : "/assets/img/james.webp",
+        "src" : "/assets/img/james.png",
         "sizes" : "72x72 96x96 128x128 256x256",
-        "type": "image/webp"
+        "type": "image/png"
     }]
 }
