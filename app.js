@@ -16,7 +16,7 @@ var sslRedirect = require('heroku-ssl-redirect');
 
 app.use(compression());
 
-// enable ssl redirect
+//Enable SSL redirect
 app.use(sslRedirect());
 
 // view engine setup
