@@ -1491,7 +1491,6 @@ function checkEmail(email, callback) {
                         from: 'Kirtash Music <no-reply@kirtash-music.me>',
                         to: email,
                         subject: 'Recovery of your Password',
-                        text: 'Hello',
                         html: html
                     };
 
