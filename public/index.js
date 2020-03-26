@@ -561,20 +561,20 @@ function m_updateMark(id_session, id_cancion, number, req, callback) {
         if (results == undefined || Object.keys(results).length === 0) { //The user has never voted to this song before
             query = "INSERT INTO likes (id_session,id_user,id_cancion,vote) VALUES ('" + id_session + "','" + req.session.id_user + "','" + id_cancion + "','" + number + "')";
         } else {
-            query = "UPDATE likes SET vote = " + number + " WHERE id_like = " + results[0].id_like;
+            query = "UPDATE likes SET vote ='" + number + "' WHERE id_like ='" + results[0].id_like+ "'";
         }
-        connection.query(query, function (error, results, fields) { //Once we have stored the vote we update the mark in lista_reproduccion
-            if (error) {
+        connection.query(query, function (error1, results, fields) { //Once we have stored the vote we update the mark in lista_reproduccion
+            if (error1) {
                 callback(-1);
             } else {
                 //We obtain the mark stored in the database
-                connection.query("SELECT mark FROM lista_reproduccion WHERE id_cancion ='" + id_cancion + "'", function (error, results, fields) {
-                    mark = results[0].mark;
+                connection.query("SELECT mark FROM lista_reproduccion WHERE id_cancion ='" + id_cancion + "'", function (error, results2, fields) {
+                    mark = results2[0].mark;
                     new_mark = parseInt(mark) + parseInt(number);
 
-                    connection.query("UPDATE lista_reproduccion SET mark ='" + new_mark + "' WHERE id_cancion ='" + id_cancion + "'", function (error, results, fields) {
+                    connection.query("UPDATE lista_reproduccion SET mark ='" + new_mark + "' WHERE id_cancion ='" + id_cancion + "'", function (error3, results, fields) {
                         
-                        if (error) {
+                        if (error3) {
                             callback(-1);
                         } else {
                             callback(1);
