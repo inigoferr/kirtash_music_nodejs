@@ -1983,7 +1983,7 @@ function v_showPlaylist(id_session, req, callback) {
                             content = content.replace(/##disabledadd##/g, "");
                             content = content.replace(/##disabledsub##/g, "");
                         } else {
-                            b = results["vote"];
+                            b = results[0].vote;
                             if (b == 1) {
                                 content = content.replace(/##disabledadd##/g, "disabled");
                                 content = content.replace(/##disabledsub##/g, "");
