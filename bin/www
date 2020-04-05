@@ -9,7 +9,7 @@
 var app = require('../app');
 var debug = require('debug')('kirtash-music-node:server');
 var http = require('http');
-var common = require('./common');
+var common = require('common');
 
 /**
  * Get port from environment and store in Express.
