@@ -4,7 +4,10 @@ var app = express();
 var server = require('http').Server(app);
 
 const path = require('path');
-const session = require('express-session');
+//const session = require('express-session');
+var session = require('cookie-session'); 
+//Change to cookie-session, check in the future to use MongoDB
+
 let fs = require('fs');
 
 var randomstring = require('randomstring');
