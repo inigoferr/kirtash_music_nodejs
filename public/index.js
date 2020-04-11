@@ -117,32 +117,51 @@ router.post('/enterPasswordSession', function (req, res, next) {
     });
 });
 
+/**
+    * Function that modifies the password of a particular session
+*/
 router.post('/modifyPasswordSession', function (req, res, next) {
-    modifyPasswordSession(req.body.new_pass, req.body.id_session, function (result) {
+    m_modifyPasswordSession(req.body.new_pass, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
 
+
+/**
+    * Function that modifies the description of a particular session
+*/
 router.post('/modifyDescriptionSession', function (req, res, next) {
-    modifyDescriptionSession(req.body.description, req.body.id_session, function (result) {
+    m_modifyDescriptionSession(req.body.description, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
 
-router.post('/modifyTypeSession', function (req, res, next) {
-    modifyTypeSession(req.body.type_session, req.body.id_session, function (result) {
+/**
+    * Function that modifies the type of the session
+    * Type = 1 --> Session
+    * Type = 2 --> Private Session
+*/
+router.post('/modifyTypeSession', function (req, res, next) {    
+    m_modifyTypeSession(req.body.type_session, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
 
+/**
+ * Function to modify the proportion min votes - min users
+ */
 router.post('/modifyProportion', function (req, res, next) {
     modifyProportion(req.body.min_votes, req.body.min_users, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
 
+
+/**
+ * Function that adds to the playlist of the sessions a new song
+ */
 router.post('/addToPlaylist', function (req, res, next) {
-    addToPlaylist(req.body.id_session, req.body.title, req.body.videoId, req.body.duration, function (result) {
+    m_addToPlaylist(req.body.id_session, req.body.title, req.body.videoId, req.body.duration, function (result) {
         res.send({ "result": result });
     });
 });
@@ -155,20 +174,30 @@ router.post('/checkregistration', function (req, res, next) {
     }
 });
 
+/**
+ * Function that updates the mark of a song
+ */
 router.post('/updateMark', function (req, res, next) {
-    updateMark(req.body.id_session, req.body.id_cancion, req.body.number, req, function (result) {
+    m_updateMark(req.body.id_session, req.body.id_cancion, req.body.number, req, function (result) {
         res.send({ "result": result });
     });
 });
 
+/**
+ * Function that removes/deletes the first song of the playlist
+ */
 router.post('/removeSong', function (req, res, next) {
-    removeSong(req.body.id_session, req.body.id_cancion, function (result) {
+    //We retire the song from the database
+    m_deleteFirstSong(req.body.id_session, req.body.id_cancion, function (result) {
         res.send({ "result": result });
     });
 });
 
+/**
+ * Function to update the playlist
+ */
 router.post('/updatePlaylist', function (req, res, next) {
-    updatePlaylist(req.body.id_session, req, function (result) {
+    v_showPlaylist(req.body.id_session, req, function (result) {
         res.send(result);
     });
 });
@@ -179,14 +208,21 @@ router.post('/exitSession', function (req, res, next) {
     });
 });
 
+
+/**
+ * Function to follow a session (by a user)
+ */
 router.post('/followSession', function (req, res, next) {
-    followSession(req.body.id_session, req, function (result) {
+    m_followSession(req.body.id_session, req, function (result) {
         res.send({ "result": result });
     });
 });
 
+/**
+ * Function that shows the Follow Button with CSS,HTML...
+ */
 router.post('/showFollowButton', function (req, res, next) {
-    showFollowButton(req.body.id_session, req, function (result) {
+    v_showFollowButton(req.body.id_session, req, function (result) {
         res.send(result);
     });
 });
@@ -197,8 +233,11 @@ router.post('/checkSession', function (req, res, next) {
     });
 });
 
+/**
+ * Function that in case a session doesn't exists shows an error message
+ */
 router.post('/showNoSession', function (req, res, next) {
-    showNoSession(function (result) {
+    v_showNoSession(function (result) {
         res.send(result);
     });
 });
@@ -221,8 +260,12 @@ router.post('/obtainFirstVideo', function (req, res, next) {
     });
 });
 
+/**
+ * Function that deletes the first song of the playlist, the one being played
+ */
 router.post('/deleteFirstSong', function (req, res, next) {
-    deleteFirstSong(req.body.id_session, req.body.id_cancion, function (result) {
+    //We retire the song from the database
+    m_deleteFirstSong(req.body.id_session, req.body.id_cancion, function (result) {
         res.send({ "result": result });
     });
 });
@@ -1016,45 +1059,6 @@ function create_session(name_session, pass_user, pass_user2, description, min_vo
 }
 
 /**
- * Function that updates the mark of a song
- */
-function updateMark(id_session, id_cancion, number, req, callback) {
-    m_updateMark(id_session, id_cancion, number, req, function (result) {
-        callback(result);
-    });
-}
-
-/**
- * Function that removes/deletes the first song of the playlist
- */
-function removeSong(id_session, id_cancion, callback) {
-    //We call deleteFirstSong() because despite of his name,
-    // the function deletes the song specified by the id_session and id_cancion
-    deleteFirstSong(id_session, id_cancion, function (result) {
-        callback(result);
-    });
-}
-
-/**
- * REVISAR ESTA FORMA DE IMPLEMENTARLO
- */
-function updatePlaylist(id_session, req, callback) {
-    v_showPlaylist(id_session, req, function (result) {
-        callback(result);
-    });
-}
-
-/**
-    * Function that adds to the playlist of the sessions a new song
-    */
-function addToPlaylist(id_session, title, videoId, duration, callback) {
-
-    m_addToPlaylist(id_session, title, videoId, duration, function (result) {
-        callback(result);
-    });
-}
-
-/**
     * Function that obtains the first song/video that has to be played
     */
 function obtainFirstVideo(id_session, callback) {
@@ -1083,16 +1087,6 @@ function obtainFirstVideo(id_session, callback) {
                 }
             });
         }
-    });
-}
-
-/**
-    * Function that deletes the first song of the playlist, the one being played
-    */
-function deleteFirstSong(id_session, id_cancion, callback) {
-    //We retire the song from the database
-    m_deleteFirstSong(id_session, id_cancion, function (result) {
-        callback(result);
     });
 }
 
@@ -1153,24 +1147,6 @@ function checkAdmin(id_session, req, callback) {
 }
 
 /**
-    * Function to follow a session (by a user)
-    */
-function followSession(id_session, req, callback) {
-    m_followSession(id_session, req, function (result) {
-        callback(result);
-    });
-}
-
-/**
-    * Function that shows the Follow Button with CSS,HTML...
-    */
-function showFollowButton(id_session, req, callback) {
-    v_showFollowButton(id_session, req, function (result) {
-        callback(result);
-    });
-}
-
-/**
     * Function to show the List of Sessions
     */
 function showListSessions(number) {
@@ -1194,15 +1170,6 @@ function checkSession(id_session, callback) {
         } else {
             callback(1);
         }
-    });
-}
-
-/**
-    * Function that in case a session doesn't exists shows an error message
-    */
-function showNoSession(callback) {
-    v_showNoSession(function (result) {
-        callback(result);
     });
 }
 
@@ -1321,18 +1288,6 @@ function checkUsername(username, req, callback) {
 }
 
 /**
-    * Function that modifies the type of the session
-    * Type = 1 --> Session
-    * Type = 2 --> Private Session
-    */
-function modifyTypeSession(new_type_session, id_session, callback) {
-
-    m_modifyTypeSession(new_type_session, id_session, function (result) {
-        callback(result);
-    });
-}
-
-/**
     * Function to obtain the type of the session
     */
 function checkTypeSession(id_session, callback) {
@@ -1346,26 +1301,6 @@ function checkTypeSession(id_session, callback) {
     */
 function isAdmin(req, callback) {
     callback(req.session.admin);
-}
-
-/**
-    * Function that modifies the password of a particular session
-    */
-function modifyPasswordSession(new_pass, id_session, callback) {
-
-    m_modifyPasswordSession(new_pass, id_session, function (result) {
-        callback(result);
-    });
-}
-
-/**
-    * Function that modifies the description of a particular session
-    */
-function modifyDescriptionSession(description, id_session, callback) {
-
-    m_modifyDescriptionSession(description, id_session, function (result) {
-        callback(result);
-    });
 }
 
 /**

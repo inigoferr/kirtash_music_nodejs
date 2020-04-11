@@ -448,7 +448,7 @@ function editSessionSettings() {
                     if ($('#pass_actual').val().localeCompare('') != 0) {
                         //Check if the password typed is the actual password of the session
                         $.ajax({
-                            url: "/enterPasswordSession",
+                        url: "/enterPasswordSession",
                             data: { pass: $('#pass_actual').val(), id_session: params.get('id_session') },
                             type: "post",
                             success: function (result) {
