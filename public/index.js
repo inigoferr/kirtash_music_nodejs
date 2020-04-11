@@ -28,7 +28,11 @@ router.post('/checksignup', function (req, res, next) {
 });
 
 router.post('/checksignin', function (req, res, next) {
-    sign_in(req.body.username, req.body.pass_user, req, function (result) {
+    /*sign_in(req.body.username, req.body.pass_user, req, function (result) {
+        answer = { "result": result };
+        res.send(answer);
+    });*/
+    m_signin(req.body.username, req.body.pass_user, req, function (result) {
         answer = { "result": result };
         res.send(answer);
     });
