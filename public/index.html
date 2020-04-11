@@ -6,28 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="author" content="Iñigo Fernández Arrizabalaga">
-  <meta name="description" content="Kirtash Music, creates your own music session">
+  <meta name="description" content="Kirtash Music, create your own music session">
   <meta name="keywords" content="music,playlist,session">
-  <meta name="theme-color" content="#344675"/>
+  <meta name="theme-color" content="#344675" />
 
   <title>Kirtash Music</title>
 
-  <link rel="canonical" href="https://www.kirtash-music.me/index.html"/>
-  <link type="image/webp" href="/favicon.webp" rel="icon" sizes="32x32"/>
+  <link rel="canonical" href="https://www.kirtash-music.me/index.html" />
+  <link type="image/webp" href="/favicon.webp" rel="icon" sizes="32x32" />
 
   <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="/apple_touch_icon.png"/>
+  <link rel="apple-touch-icon" href="/apple_touch_icon.png" />
 </head>
 
 <body class="index-page">
-   <!-- Navbar Info -->
-   <nav class="navbar navbar-expand-lg navbar-transparent">
+  <!-- Navbar Info -->
+  <nav class="navbar navbar-expand-lg navbar-transparent">
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="/" rel="tooltip" title="" data-placement="bottom">
           <span>KRH•</span> Kirtash Music
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-info" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-info"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar bar1"></span>
           <span class="navbar-toggler-bar bar2"></span>
           <span class="navbar-toggler-bar bar3"></span>
@@ -62,115 +63,9 @@
     <div class="page-header">
       <div class="content">
         <div class="container">
-
-          <div class="row">
-
-            <div class="col-lg-5 col-md-10 offset-lg-0 offset-md-3">
-              <div id="square7" class="square square-7"></div>
-              <div id="square8" class="square square-8"></div>
-              <div class="card card-register">
-                <div class="card-header">
-                  <img class="card-img" src="/assets/img/square1.webp" alt="">
-                  <h4 class="card-title">Register</h4>
-                </div>
-                <div class="card-body">
-
-                  <div>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <em class="tim-icons icon-single-02"></em>
-                        </div>
-                      </div>
-                      <label for="username_signup"></label>
-                      <input title="Input Username Sign Up" type="text" class="form-control" name="username"
-                        id="username_signup" placeholder="Username" onkeyup="onKeyUpSignUp()">
-                    </div>
-                    <div class="input-group" id="pus1">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <em class="tim-icons icon-lock-circle"></em>
-                        </div>
-                      </div>
-                      <label for="pass_user_signup"></label>
-                      <input title="Pasword Sign Up" type="password" class="form-control" name="pass_user"
-                        id="pass_user_signup" placeholder="Password" onkeyup="onKeyUpSignUp()">
-                    </div>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <em class="tim-icons icon-lock-circle"></em>
-                        </div>
-                      </div>
-                      <label for="pass_user_signup2"></label>
-                      <input title="Pasword Sign Up 2" type="password" class="form-control" name="pass_user2"
-                        id="pass_user_signup2" placeholder="Confirm password" onkeyup="onKeyUpSignUp()">
-                    </div>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <em class="tim-icons icon-email-85"></em>
-                        </div>
-                      </div>
-                      <label for="email_user"></label>
-                      <input title="Email Sign Up" type="email" class="form-control" id="email_user"
-                        placeholder="Enter email" onkeyup="onKeyUpSignUp()">
-                    </div>
-                    <div id="result"></div>
-                    <button type="submit" class="btn btn-info btn-round btn-lg float-right" data-placement="right"
-                      name="enviar" onclick="checkSignUp()">Register</button>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-5 col-md-6 offset-lg-0 offset-md-3">
-              <div id="square9" class="square square-7"></div>
-              <div id="square10" class="square square-8"></div>
-              <div class="card card-register">
-                <div class="card-header">
-                  <img class="card-img" src="/assets/img/square1.webp" alt="">
-                  <h4 class="card-title">Sign In</h4>
-                </div>
-                <div class="card-body">
-                  <div>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <em class="tim-icons icon-single-02"></em>
-                        </div>
-                      </div>
-                      <label for="username_signin"></label>
-                      <input title="User Sign In" type="text" class="form-control" name="username_signin"
-                        id="username_signin" placeholder="Username" onkeyup="onKeyUpSignIn()">
-                    </div>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <em class="tim-icons icon-lock-circle"></em>
-                        </div>
-                      </div>
-                      <label for="pass_user_signin"></label>
-                      <input title="Password Sign In" type="password" class="form-control" name="pass_user_signin"
-                        id="pass_user_signin" placeholder="Password" onkeyup="onKeyUpSignIn()">
-                    </div>
-                    <div id="result2"></div>
-                    <button type="submit" class="btn btn-info btn-round btn-lg float-right" name="enviar"
-                      data-placement="right" onclick="checkSignIn()">Sign In</button>
-
-                    <p class="text-muted">
-                      <u>
-                        <a href="#modalEmailRecovery" data-target="#modalEmailRecovery" data-toggle="modal"
-                          class="text-muted">Do you forget your password?
-                        </a>
-                      </u>
-                    </p>
-
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="content-center brand">
+            <h1 class="h1-seo">KRH•</h1>
+            <h3>Kirtash Music, create your music</h3>
           </div>
         </div>
       </div>
