@@ -390,12 +390,20 @@ router.get('/menu', function (req, res, next) {
 
 /* PROFILE PAGE*/
 router.get('/profile', function (req, res, next) {
-    res.sendFile(path.join(__dirname + "/profile.html"));
+    if (req.session.username == undefined && req.session.id_user == undefined) {
+        res.sendFile(path.join(__dirname + "/index.html"));
+    } else {
+        res.sendFile(path.join(__dirname + "/profile.html"));
+    }
 });
 
 /* CREATE SESSION PAGE*/
 router.get('/createsession', function (req, res, next) {
-    res.sendFile(path.join(__dirname + "/createsession.html"));
+    if (req.session.username == undefined && req.session.id_user == undefined) {
+        res.sendFile(path.join(__dirname + "/index.html"));
+    } else {
+        res.sendFile(path.join(__dirname + "/createsession.html"));
+    }
 });
 
 /* SESSION PAGE*/
