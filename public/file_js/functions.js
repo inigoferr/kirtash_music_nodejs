@@ -128,8 +128,9 @@ function closeSession() {
         url: "/close_session",
         type: "post",
         success: function (result) { //We received the information from the server
+            console.log("Result = " + result);
             if (result["result"] == 1) {
-                window.location = "/index.html";
+                window.location = "/";
             }
         }
     });
