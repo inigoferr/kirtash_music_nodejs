@@ -4,8 +4,7 @@ var app = express();
 var server = require('http').Server(app);
 
 const path = require('path');
-//const session = require('express-session');
-var session = require('cookie-session'); 
+var session = require('cookie-session');
 //Change to cookie-session, check in the future to use MongoDB
 
 let fs = require('fs');
@@ -22,22 +21,19 @@ router.use(session({
 
 router.post('/checksignup', function (req, res, next) {
     sign_up(req.body.username, req.body.pass_user, req.body.pass_user2, req.body.email, req, function (result) {
-        answer = { "result": result };
-        res.send(answer);
+        res.send({ "result": result });
     });
 });
 
 router.post('/checksignin', function (req, res, next) {
     m_signin(req.body.username, req.body.pass_user, req, function (result) {
-        answer = { "result": result };
-        res.send(answer);
+        res.send({ "result": result });
     });
 });
 
 router.post('/create_session', function (req, res, next) {
     create_session(req.body.name_session, req.body.pass_session, req.body.pass_session2, req.body.description, req.body.min_votes, req.body.min_users, req.body.type_session, req, function (result) {
-        answer = { "result": result };
-        res.send(answer);
+        res.send({ "result": result });
     });
 });
 
@@ -90,13 +86,13 @@ router.post('/checkActualPassword', function (req, res, next) {
 });
 
 router.post('/modifyPassword', function (req, res, next) {
-    m_modifyPassword(req.body.new_pass,req.session.id_user, function (result) {
+    m_modifyPassword(req.body.new_pass, req.session.id_user, function (result) {
         res.send({ "result": result });
     });
 });
 
 router.post('/modifyDescription', function (req, res, next) {
-    m_modifyDescription(req.body.description,  req.session.id_user, function (result) {
+    m_modifyDescription(req.body.description, req.session.id_user, function (result) {
         res.send({ "result": result });
     });
 });
@@ -108,9 +104,9 @@ router.post('/checkNameSession', function (req, res, next) {
 });
 
 /**
-    * Function to check if the password of the session typed by the user, 
-    * it's the correct one
-*/
+  * Function to check if the password of the session typed by the user, 
+  * it's the correct one
+  */
 router.post('/enterPasswordSession', function (req, res, next) {
     m_checkPasswordSession(req.body.pass, req.body.id_session, function (result) {
         res.send({ "result": result });
@@ -118,8 +114,8 @@ router.post('/enterPasswordSession', function (req, res, next) {
 });
 
 /**
-    * Function that modifies the password of a particular session
-*/
+  * Function that modifies the password of a particular session
+  */
 router.post('/modifyPasswordSession', function (req, res, next) {
     m_modifyPasswordSession(req.body.new_pass, req.body.id_session, function (result) {
         res.send({ "result": result });
@@ -128,8 +124,8 @@ router.post('/modifyPasswordSession', function (req, res, next) {
 
 
 /**
-    * Function that modifies the description of a particular session
-*/
+  * Function that modifies the description of a particular session
+  */
 router.post('/modifyDescriptionSession', function (req, res, next) {
     m_modifyDescriptionSession(req.body.description, req.body.id_session, function (result) {
         res.send({ "result": result });
@@ -137,11 +133,11 @@ router.post('/modifyDescriptionSession', function (req, res, next) {
 });
 
 /**
-    * Function that modifies the type of the session
-    * Type = 1 --> Session
-    * Type = 2 --> Private Session
-*/
-router.post('/modifyTypeSession', function (req, res, next) {    
+  * Function that modifies the type of the session
+  * Type = 1 --> Session
+  * Type = 2 --> Private Session
+  */
+router.post('/modifyTypeSession', function (req, res, next) {
     m_modifyTypeSession(req.body.type_session, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
@@ -242,8 +238,12 @@ router.post('/showNoSession', function (req, res, next) {
     });
 });
 
+
+/**
+ * Function to obtain the type of the session
+ */
 router.post('/checkTypeSession', function (req, res, next) {
-    checkTypeSession(req.body.id_session, function (result) {
+    m_obtainTypeSession(req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
@@ -288,20 +288,20 @@ router.post('/checkemail', function (req, res, next) {
     });
 });
 
-router.post('/newPasswordUser',function(req,res,next){
-    checkNewPasswordUser(req.body.pass_user,req.body.pass_user2,req.body.id_user,req.body.cadena,function(result){
-        res.send({"result" : result});
+router.post('/newPasswordUser', function (req, res, next) {
+    checkNewPasswordUser(req.body.pass_user, req.body.pass_user2, req.body.id_user, req.body.cadena, function (result) {
+        res.send({ "result": result });
     });
 });
 
-router.post('/checkLinkEmail',function(req,res,next){
-    checkLinkEmail(req.body.cad,function(result){
-        res.send({"result" : result});
+router.post('/checkLinkEmail', function (req, res, next) {
+    checkLinkEmail(req.body.cad, function (result) {
+        res.send({ "result": result });
     });
 });
 
-router.post('/obtainProportionValues',function(req,res,next){
-    m_obtainProportionValues(req.body.id_session,function(result){
+router.post('/obtainProportionValues', function (req, res, next) {
+    m_obtainProportionValues(req.body.id_session, function (result) {
         res.send(result);
     });
 });
@@ -429,7 +429,7 @@ connection.connect(function (err) {
 
 function m_registrarusuario(username, pass_user, req, callback) {
     req.session.username = username;
-    
+
     connection.query("SELECT id_user FROM users WHERE username='" + username + "'", function (error, results, fields) {
         if (error) {
             callback(-1);
@@ -457,7 +457,7 @@ function m_signup(username, pass_user, email, req, callback) {
                         callback(-7);
                     } else {
                         var string = randomstring.generate(100);
-                        connection.query("INSERT INTO users (username,pass_user,email,randomstring) VALUES('" + username + "','" + pass + "','" + email + "','"+ string +"')", function (error, results, fields) {
+                        connection.query("INSERT INTO users (username,pass_user,email,randomstring) VALUES('" + username + "','" + pass + "','" + email + "','" + string + "')", function (error, results, fields) {
                             if (error) {
                                 callback(-1);
                             } else {
@@ -493,7 +493,7 @@ function m_signin(username, pass_user, req, callback) {
 
 function m_close_session(req, callback) {
     req.session = null;
-    if (req.session == null){
+    if (req.session == null) {
         callback(1);
     } else {
         callback(-1);
@@ -597,7 +597,7 @@ function m_updateMark(id_session, id_cancion, number, req, callback) {
         if (results == undefined || Object.keys(results).length === 0) { //The user has never voted to this song before
             query = "INSERT INTO likes (id_session,id_user,id_cancion,vote) VALUES ('" + id_session + "','" + req.session.id_user + "','" + id_cancion + "','" + number + "')";
         } else {
-            query = "UPDATE likes SET vote ='" + number + "' WHERE id_like ='" + results[0].id_like+ "'";
+            query = "UPDATE likes SET vote ='" + number + "' WHERE id_like ='" + results[0].id_like + "'";
         }
         connection.query(query, function (error1, results, fields) { //Once we have stored the vote we update the mark in lista_reproduccion
             if (error1) {
@@ -609,7 +609,7 @@ function m_updateMark(id_session, id_cancion, number, req, callback) {
                     new_mark = parseInt(mark) + parseInt(number);
 
                     connection.query("UPDATE lista_reproduccion SET mark ='" + new_mark + "' WHERE id_cancion ='" + id_cancion + "'", function (error3, results, fields) {
-                        
+
                         if (error3) {
                             callback(-1);
                         } else {
@@ -966,29 +966,22 @@ function m_modifyProportion(min_votes, min_users, id_session, callback) {
     });
 }
 
-function m_obtainProportionValues(id_session,callback){
-    connection.query(`SELECT min_votes,min_users FROM sesion WHERE id_sesion='${id_session}'`,function(error,results,fields){
-        if (error || results == undefined || Object.keys(results).length == 0 ){
-            callback({"response": -1});
+function m_obtainProportionValues(id_session, callback) {
+    connection.query(`SELECT min_votes,min_users FROM sesion WHERE id_sesion='${id_session}'`, function (error, results, fields) {
+        if (error || results == undefined || Object.keys(results).length == 0) {
+            callback({ "response": -1 });
         } else {
-            connection.query(`SELECT MAX(mark) AS max_mark FROM lista_reproduccion WHERE id_sesion='${id_session}'`,function(error2,results2,fields2){
-                if (error2 || results2 == undefined || Object.keys(results2).length == 0 ){
-                    callback({"response": -1});
+            connection.query(`SELECT MAX(mark) AS max_mark FROM lista_reproduccion WHERE id_sesion='${id_session}'`, function (error2, results2, fields2) {
+                if (error2 || results2 == undefined || Object.keys(results2).length == 0) {
+                    callback({ "response": -1 });
                 } else {
-                    callback({"response" : 1,"max_mark" : results2[0].max_mark, "min_votes" : results[0].min_votes,"min_users": results[0].min_users})
+                    callback({ "response": 1, "max_mark": results2[0].max_mark, "min_votes": results[0].min_votes, "min_users": results[0].min_users })
                 }
             });
         }
-        
+
     });
 }
-/*
-connection.query("",function(error,results,fields){
-
-});
-*/
-
-/***** CONTROLADOR ********/
 
 /**
  * Function to sign up, it returns different results:
@@ -1091,8 +1084,8 @@ function obtainFirstVideo(id_session, callback) {
 }
 
 /**
-    * Function that deletes/removes the song that it's being played
-    */
+ * Function that deletes/removes the song that it's being played
+ */
 function retireActualSong(id_session, callback) {
     m_obtainIdSongActual(id_session, function (res) {
         if (res != undefined) {
@@ -1107,8 +1100,8 @@ function retireActualSong(id_session, callback) {
 }
 
 /**
-    * Function to exit a Session
-    */
+ * Function to exit a Session
+ */
 function exitSession(req, callback) {
     if (req.session.username != undefined) {
         callback(1);
@@ -1144,20 +1137,6 @@ function checkAdmin(id_session, req, callback) {
         req.session.admin = 0;
         callback(1);
     }
-}
-
-/**
-    * Function to show the List of Sessions
-    */
-function showListSessions(number) {
-    return v_showListSessions(number);
-}
-
-/**
-    * Function to show the list of Followed Session
-    */
-function showFollowedSessions(number) {
-    return v_showFollowedSessions(number);
 }
 
 /**
@@ -1218,61 +1197,6 @@ function deleteAdmin(username, id_session, callback) {
 }
 
 /**
-    * Function that shows the admin badge (a gold prize)
-    */
-function showAdminBadge(id_session, number_in) {
-
-    return v_showAdminBadge(id_session, number_in);
-}
-
-/**
-    * Function to update the List of Admins in the modal
-    */
-function updateAdminListModal(number_in, id_session, callback) {
-
-    if (number_in == 1) {
-        content = fs.readFileSync(path.join(__dirname + "/file_html/elem_list_modal1.html"), 'utf-8');
-    } else {
-        content = fs.readFileSync(path.join(__dirname + "/file_html/elem_list_modal1.html"), 'utf-8');
-    }
-
-    //We fill modal1 with the list of the admins and the buttons to delete admins only if you are the AdminMaster
-    m_obtainIdUserAdminMaster(id_session, function (id_masteradmin) {
-        m_obtainUsername(id_masteradmin, function (username_masteradmin) {
-            m_obtainAdmins(id_session, id_masteradmin, function (data_admins) {
-                t1 = `<tr>
-                    <td class='text-center'>
-                        <div class='icon icon-success mb-2'>
-                            <i class='tim-icons icon-trophy'></i>
-                        </div>
-                    </td>
-                    <td>
-                        ${username_masteradmin}
-                    </td>
-                    <td>
-                        <button class='btn btn-danger btn-fab btn-icon btn-sm' disabled>
-                            <i class='tim-icons icon-trash-simple'></i>
-                        </button>
-                    </td>
-                    </tr>`;
-
-                data_admins.forEach(function (elem) {
-                    username_admin = m_obtainUsername(elem["id_user"]);
-
-                    aux = content.replace("##username_admin##", username_admin)
-
-                    t1 = t1.concat(aux);
-                });
-
-                callback(t1);
-            });
-        });
-    });
-}
-
-
-
-/**
     * Function to check if the actual username and the new username typed 
     * by the user are equal or not
     */
@@ -1285,15 +1209,6 @@ function checkUsername(username, req, callback) {
     } else {
         callback(2);
     }
-}
-
-/**
-    * Function to obtain the type of the session
-    */
-function checkTypeSession(id_session, callback) {
-    m_obtainTypeSession(id_session, function (result) {
-        callback(result);
-    });
 }
 
 /**
@@ -1353,9 +1268,9 @@ function checkEmail(email, callback) {
     });
 }
 
-function checkLinkEmail(cadena,callback){
-    connection.query(`SELECT id_user FROM users WHERE randomstring='${cadena}'`,function(error,results,fields){
-        if(error || results == undefined || Object.keys(results).length == 0){
+function checkLinkEmail(cadena, callback) {
+    connection.query(`SELECT id_user FROM users WHERE randomstring='${cadena}'`, function (error, results, fields) {
+        if (error || results == undefined || Object.keys(results).length == 0) {
             callback(-1);
         } else {
             callback(1);
@@ -1363,29 +1278,29 @@ function checkLinkEmail(cadena,callback){
     });
 }
 
-function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
+function checkNewPasswordUser(pass_user, pass_user2, id_user, cad, callback) {
 
-    var pass_user = pass_user.replace(/ /g,"");
-    var pass_user2 = pass_user2.replace(/ /g,"");
+    var pass_user = pass_user.replace(/ /g, "");
+    var pass_user2 = pass_user2.replace(/ /g, "");
 
-    connection.query(`SELECT id_user FROM users WHERE randomstring='${cad}'`,function(error,results,fields){
-        if(error || results == undefined || Object.keys(results).length == 0){
+    connection.query(`SELECT id_user FROM users WHERE randomstring='${cad}'`, function (error, results, fields) {
+        if (error || results == undefined || Object.keys(results).length == 0) {
             callback(2);
         } else {
-            if(pass_user.length < 5){
+            if (pass_user.length < 5) {
                 callback(3);
-            } else if ( pass_user.localeCompare(pass_user2) != 0){
+            } else if (pass_user.localeCompare(pass_user2) != 0) {
                 callback(4);
-            } else if(id_user.localeCompare(results[0].id_user) == 0){ //Everything is correct
+            } else if (id_user.localeCompare(results[0].id_user) == 0) { //Everything is correct
                 var pass = md5(pass_user);
-                connection.query(`UPDATE users SET pass_user='${pass}' WHERE id_user='${id_user}'`,function(error2,results2,fields2){
-                    if(error){
+                connection.query(`UPDATE users SET pass_user='${pass}' WHERE id_user='${id_user}'`, function (error2, results2, fields2) {
+                    if (error) {
                         callback(5);
                     } else {
                         //We create another string to avoid anyone changing the pass
                         var string = randomstring.generate(100);
-                        connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${id_user}'`,function(error3,results3,fields3){
-                            if(error){
+                        connection.query(`UPDATE users SET randomstring='${string}' WHERE id_user='${id_user}'`, function (error3, results3, fields3) {
+                            if (error) {
                                 callback(5);
                             } else {
                                 callback(1);
@@ -1397,11 +1312,8 @@ function checkNewPasswordUser(pass_user,pass_user2,id_user,cad,callback){
                 callback(5);
             }
         }
-    });    
+    });
 }
-
-
-/**********  VISTA ***********/
 
 /**
  * Function that shows in a paragraph the username of the current session
@@ -1738,9 +1650,6 @@ function v_showNavbarSession(id_session, req, callback) {
                             }
                         });
                     });
-
-
-
                 });
             });
         });
