@@ -279,9 +279,9 @@ function exitSession() {
         success: function (result) { //We received the information from the server
             result = result["result"];
             if (result == -1) { //It's not registered
-                window.location = "/index.html";
+                window.location = "/";
             } else { //It's registered
-                window.location = "/menu.html";
+                window.location = "/menu";
             }
         }
     });

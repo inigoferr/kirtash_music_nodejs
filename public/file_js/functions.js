@@ -39,10 +39,8 @@ function checkSignUp() {
             } else if (result == 1) {
                 let params = new URLSearchParams(location.search);
                 if (params.get('id_session') != null) {
-                    window.location = "/public/session.html?id_session=" + params.get('id_session');
-                    //$.get("/session",{id_session: params.get('id_session')});
+                    window.location = "/session.html?id_session=" + params.get('id_session');
                 } else {
-                    //window.location = "/menu.html";
                     window.location = "/menu";
                 }
             }
@@ -73,7 +71,7 @@ function checkSignIn() {
                 if (params.get('id_session') != null) {
                     window.location = "/session.html?id_session=" + params.get('id_session');
                 } else {
-                    window.location = "/menu.html";
+                    window.location = "/menu";
                 }
             }
         },
@@ -88,7 +86,7 @@ function openSession(id_session) {
 }
 
 function createSessionMenu() {
-    window.location = "/create_session.html";
+    window.location = "/create_session";
 }
 
 function createSession() {
@@ -114,8 +112,7 @@ function createSession() {
             } else if (result == -5) {
                 $('#result').html("Minimum Votes must be less or equal to Minimum Users");
             } else if (result == 1) {
-                //location.href = "menu.php";
-                window.location = "/menu.html";
+                window.location = "/menu";
             } else {
                 $('#result').html("Try again, something went wrong");
             }
@@ -177,7 +174,7 @@ function deleteSession(id_session) {
 }
 
 function cancelCreation() {
-    window.location = "/menu.html";
+    window.location = "/menu";
 }
 
 function unfollowSessionFromMenu(id_session) {
@@ -258,7 +255,7 @@ function deleteAdmin(username_admin) {
 }
 
 function goToProfile() {
-    window.location = "profile.html";
+    window.location = "/profile";
 }
 
 function editProfile() {

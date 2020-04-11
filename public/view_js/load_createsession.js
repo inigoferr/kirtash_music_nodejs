@@ -17,7 +17,7 @@ window.onload = function(){
                     }
                 });
             } else {
-                window.location = "/index.html";
+                window.location = "/";
             }
         }
     });
