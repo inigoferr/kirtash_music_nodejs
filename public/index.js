@@ -380,7 +380,12 @@ router.get('/', function (req, res, next) {
 
 /* MENU PAGE*/
 router.get('/menu', function (req, res, next) {
-    res.sendFile(path.join(__dirname + "/menu.html"));
+    if (req.session.username == undefined && req.session.id_user == undefined) {
+        res.sendFile(path.join(__dirname + "/index.html"));
+    } else {
+        res.sendFile(path.join(__dirname + "/menu.html"));
+    }
+    
 });
 
 /* PROFILE PAGE*/
