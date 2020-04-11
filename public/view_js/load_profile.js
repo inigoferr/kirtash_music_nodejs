@@ -25,7 +25,6 @@ window.onload = function () {
         type: "post",
         url: "/v_showInfoSessionsUser",
         success: function (response) {
-            console.log("Response = " + response + "/");
             $('#info_sessions_user').html(response);
         }
     });

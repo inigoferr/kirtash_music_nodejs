@@ -124,6 +124,7 @@ function createSession() {
 }
 
 function closeSession() {
+    console.log("Cerrando...");
     $.ajax({
         url: "/close_session",
         type: "post",
