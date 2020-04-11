@@ -46,11 +46,8 @@ router.post('/create_session', function (req, res, next) {
 });
 
 router.post('/close_session', function (req, res, next) {
-    /*close_session(req, function (result) {
-        res.send({ "result": 1 });
-    });*/
     m_close_session(req, function (result) {
-        res.send({ "result": 1 });
+        res.send({ "result": result });
     });
 });
 
@@ -473,6 +470,11 @@ function m_close_session(req, callback) {
         }
     });*/
     req.session = null;
+    if (req.session == null){
+        callback(1);
+    } else {
+        callback(-1);
+    }
 }
 
 function m_obtainListSessions(req, callback) {
@@ -1010,15 +1012,6 @@ function sign_up(username, pass_user, pass_user2, email, req, callback) {
  */
 function sign_in(username, pass_user, req, callback) {
     m_signin(username, pass_user, req, function (result) {
-        callback(result);
-    });
-}
-
-/**
- * Function to close session
- */
-function close_session(req, callback) {
-    m_close_session(req, function (result) {
         callback(result);
     });
 }
