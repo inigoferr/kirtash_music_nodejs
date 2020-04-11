@@ -28,10 +28,6 @@ router.post('/checksignup', function (req, res, next) {
 });
 
 router.post('/checksignin', function (req, res, next) {
-    /*sign_in(req.body.username, req.body.pass_user, req, function (result) {
-        answer = { "result": result };
-        res.send(answer);
-    });*/
     m_signin(req.body.username, req.body.pass_user, req, function (result) {
         answer = { "result": result };
         res.send(answer);
@@ -58,9 +54,9 @@ router.post('/deletesession', function (req, res, next) {
 });
 
 router.post('/unfollowSession', function (req, res, next) {
-    unfollowSession(req.body.id_session, req, function (result) {
+    m_unfollowSession(req.body.id_session, req, function (result) {
         res.send({ "result": result });
-    })
+    });
 });
 
 router.post('/searchTextAdmins', function (req, res, next) {
@@ -88,31 +84,35 @@ router.post('/checkUsername', function (req, res, next) {
 });
 
 router.post('/checkActualPassword', function (req, res, next) {
-    checkActualPassword(req.body.pass_actual, req, function (result) {
+    m_checkActualPassword(req.body.actual_pass, req.session.id_user, function (result) {
         res.send({ "result": result });
     });
 });
 
 router.post('/modifyPassword', function (req, res, next) {
-    modifyPassword(req.body.new_pass, req, function (result) {
+    m_modifyPassword(req.body.new_pass,req.session.id_user, function (result) {
         res.send({ "result": result });
-    })
+    });
 });
 
 router.post('/modifyDescription', function (req, res, next) {
-    modifyDescription(req.body.description, req, function (result) {
+    m_modifyDescription(req.body.description,  req.session.id_user, function (result) {
         res.send({ "result": result });
     });
 });
 
 router.post('/checkNameSession', function (req, res, next) {
-    checkNameSession(req.body.name_session, req.body.id_session, function (result) {
+    m_modifyNameSession(req.body.new_namesession, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
 
+/**
+    * Function to check if the password of the session typed by the user, 
+    * it's the correct one
+*/
 router.post('/enterPasswordSession', function (req, res, next) {
-    enterPasswordSession(req.body.pass, req.body.id_session, function (result) {
+    m_checkPasswordSession(req.body.pass, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
@@ -137,12 +137,6 @@ router.post('/modifyTypeSession', function (req, res, next) {
 
 router.post('/modifyProportion', function (req, res, next) {
     modifyProportion(req.body.min_votes, req.body.min_users, req.body.id_session, function (result) {
-        res.send({ "result": result });
-    });
-});
-
-router.post('/enterPasswordSession', function (req, res, next) {
-    enterPasswordSession(req.body.pass, req.body.id_session, function (result) {
         res.send({ "result": result });
     });
 });
@@ -374,13 +368,6 @@ var connection = mysql.createConnection({
     database: "dbkirtash"
 });
 
-/*
-var connection = mysql.createConnection({
-    host : "localhost",
-    user : "root",
-    password : "tfg",
-    database : "tfg"
-});*/
 connection.connect(function (err) {
     if (err) {
         console.log(err.stack);
@@ -462,13 +449,6 @@ function m_signin(username, pass_user, req, callback) {
 }
 
 function m_close_session(req, callback) {
-    /*req.session.destroy((err) => {
-        if (err) {
-            callback(-1);
-        } else {
-            callback(1);
-        }
-    });*/
     req.session = null;
     if (req.session == null){
         callback(1);
@@ -1008,15 +988,6 @@ function sign_up(username, pass_user, pass_user2, email, req, callback) {
 }
 
 /**
- * Function to login 
- */
-function sign_in(username, pass_user, req, callback) {
-    m_signin(username, pass_user, req, function (result) {
-        callback(result);
-    });
-}
-
-/**
  * Function to create a new session
  */
 function create_session(name_session, pass_user, pass_user2, description, min_votes, min_users, type_session, req, callback) {
@@ -1191,15 +1162,6 @@ function followSession(id_session, req, callback) {
 }
 
 /**
-    * Function to unfollow a session (by a user)
-    */
-function unfollowSession(id_session, req, callback) {
-    m_unfollowSession(id_session, req, function (result) {
-        callback(result);
-    });
-}
-
-/**
     * Function that shows the Follow Button with CSS,HTML...
     */
 function showFollowButton(id_session, req, callback) {
@@ -1359,50 +1321,6 @@ function checkUsername(username, req, callback) {
 }
 
 /**
-    * Function that checks if the password typed by the user is the correct one or not
-    */
-function checkActualPassword(actual_pass, req, callback) {
-    id_user = req.session.id_user;
-
-    m_checkActualPassword(actual_pass, id_user, function (result) {
-        callback(result);
-    });
-}
-
-/**
-    * Function that modifies the password of a particular user
-    */
-function modifyPassword(new_pass, req, callback) {
-    id_user = req.session.id_user;
-
-    m_modifyPassword(new_pass, id_user, function (result) {
-        callback(result);
-    });
-}
-
-/**
-    * Function that modifies the description of a particular user
-    */
-function modifyDescription(description, req, callback) {
-    id_user = req.session.id_user;
-
-    m_modifyDescription(description, id_user, function (result) {
-        callback(result);
-    });
-}
-
-/**
-    * Function that checks if the actual name of the session and the new name
-    * are equal or not. If they aren't equal, it'll change the name of the session
-    */
-function checkNameSession(new_namesession, id_session, callback) {
-
-    m_modifyNameSession(new_namesession, id_session, function (result) {
-        callback(result);
-    });
-}
-
-/**
     * Function that modifies the type of the session
     * Type = 1 --> Session
     * Type = 2 --> Private Session
@@ -1428,17 +1346,6 @@ function checkTypeSession(id_session, callback) {
     */
 function isAdmin(req, callback) {
     callback(req.session.admin);
-}
-
-/**
-    * Function to check if the password of the session typed by the user, 
-    * it's the correct one
-    */
-function enterPasswordSession(try_pass, id_session, callback) {
-
-    m_checkPasswordSession(try_pass, id_session, function (result) {
-        callback(result);
-    });
 }
 
 /**

@@ -124,12 +124,10 @@ function createSession() {
 }
 
 function closeSession() {
-    console.log("Cerrando...");
     $.ajax({
         url: "/close_session",
         type: "post",
         success: function (result) { //We received the information from the server
-            console.log("Result = " + result);
             if (result["result"] == 1) {
                 window.location = "/";
             }
