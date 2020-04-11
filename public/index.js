@@ -398,7 +398,7 @@ router.get('/profile', function (req, res, next) {
 });
 
 /* CREATE SESSION PAGE*/
-router.get('/createsession', function (req, res, next) {
+router.get('/create_session', function (req, res, next) {
     if (req.session.username == undefined && req.session.id_user == undefined) {
         res.sendFile(path.join(__dirname + "/index.html"));
     } else {
