@@ -465,13 +465,14 @@ function m_signin(username, pass_user, req, callback) {
 }
 
 function m_close_session(req, callback) {
-    req.session.destroy((err) => {
+    /*req.session.destroy((err) => {
         if (err) {
             callback(-1);
         } else {
             callback(1);
         }
-    });
+    });*/
+    req.session = null;
 }
 
 function m_obtainListSessions(req, callback) {
