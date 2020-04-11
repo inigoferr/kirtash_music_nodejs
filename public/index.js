@@ -412,6 +412,11 @@ router.get('/session', function (req, res, next) {
     //res.redirect('/session?id_session='+number);
 });
 
+/* Log & Register page*/
+router.get('/log', function (req, res, next) {
+    res.sendFile(path.join(__dirname + "/log.html"));
+});
+
 /************************ MODELO.JS FUNCIONES  *************************/
 var md5 = require('md5');
 
