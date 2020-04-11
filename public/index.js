@@ -46,7 +46,10 @@ router.post('/create_session', function (req, res, next) {
 });
 
 router.post('/close_session', function (req, res, next) {
-    close_session(req, function (result) {
+    /*close_session(req, function (result) {
+        res.send({ "result": 1 });
+    });*/
+    m_close_session(req, function (result) {
         res.send({ "result": 1 });
     });
 });
