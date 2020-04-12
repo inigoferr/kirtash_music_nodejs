@@ -385,7 +385,6 @@ window.onload = function () {
                                         success: function (response) {
                                             $('#name_session').html(response);
 
-
                                             $('#theprogressbar').attr('aria-valuenow', 50);
                                             $('#theprogressbar').attr('style', "width: 50%;");
                                             $('#theprogressbar_value').html("50%");
@@ -508,7 +507,6 @@ function onYouTubeIframeAPIReady() {
             obj = result;
             result = result["result"];
             if (result == -1) {
-                console.log("Enter 1");
                 no_song = 1;
                 no_player = 1;
 
@@ -517,9 +515,8 @@ function onYouTubeIframeAPIReady() {
                 $('#player').html("<img src='/assets/img/black_player.png' alt='' ></img>");
 
             } else if (result == -3 || result == -4) {
-                console.log("ERROR");
+                console.log("Error");
             } else {
-                console.log("Enter 2");
                 no_song = 0;
                 no_player = 0;
 
@@ -566,7 +563,6 @@ function onPlayerStateChange(event) {
             type: "post",
             success: function (result) {
                 result = result["result"];
-                console.log("Deleted first song");
                 if (result == 1) { //The first song has being deleted
                     //We need to obtain the next song and update the page
                     $.ajax({
@@ -577,7 +573,6 @@ function onPlayerStateChange(event) {
                             obj = result;
                             result = result["result"];
                             if (result == -1) { //There aren't songs to play in the playlist
-                                console.log("Enter 3");
                                 no_song = 1;
                                 $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
                                 //We destroy the player
@@ -593,9 +588,8 @@ function onPlayerStateChange(event) {
                                 socket.emit('no_song_in_player', { "room": room });
 
                             } else if (result == -3 || result == -4) {
-                                console.log("ERROR -----");
+                                console.log("Error");
                             } else { //There are songs to play in the playlist
-                                console.log("Enter 4");
                                 no_song = 0;
                                 no_player = 0; //aqui
 
@@ -614,13 +608,12 @@ function onPlayerStateChange(event) {
                         }
                     });
                 } else {
-                    console.log("ERROR DELETING FIRST SONG");
+                    console.log("Error");
                 }
             }
         });
     }
     else if (event.data == YT.PlayerState.PLAYING) {
-        console.log("EMEPZAMOS A PLAYEAAARR");
         currentState = "Playing";
     }
     else if (event.data == YT.PlayerState.PAUSED) {
@@ -644,7 +637,6 @@ function onPlayerStateChange(event) {
 function noSong_SongAdded() {
     let params = new URLSearchParams(location.search);
     if (no_song == 1) { //No Song in the player
-        console.log("Enter 5");
 
         $.ajax({
             url: "/obtainFirstVideo",
@@ -654,12 +646,11 @@ function noSong_SongAdded() {
                 obj = result;
                 result = result["result"];
                 if (result == -3 || result == -4) {
-                    console.log("ERROR = " + result);
+                    console.log("Error");
                     no_song = 1;
                 }
 
                 if (result == -1) { //No songs in the playlist
-                    console.log("Enter 6");
                     no_song = 1;
                     no_player = 1;
                     $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
@@ -669,7 +660,6 @@ function noSong_SongAdded() {
                     //We replace the player
                     $('#player').html("<img src='/assets/img/black_player.png'></img>");
                 } else {
-                    console.log("Enter 7");
                     no_song = 0;
 
                     $('#title_video_playing').html("<small class='text-muted'>Playing: </small>" + obj["title"]);
@@ -677,7 +667,6 @@ function noSong_SongAdded() {
                     id_cancion = obj["id_cancion"];
 
                     if (no_player == 1) {
-                        console.log("Enter 8");
                         player = new YT.Player('player', {
                             // Set Player height and width
                             height: '390',
@@ -694,7 +683,6 @@ function noSong_SongAdded() {
                         room = "session" + params.get('id_session');
                         socket.emit('new_song_in_player', { "room": room });
                     } else {
-                        console.log("Enter 9");
                         player.loadVideoById(videoId);
                         player.playVideo();
 
@@ -710,7 +698,6 @@ function noSong_SongAdded() {
             }
         });
     } else { //A song is being played
-        console.log("Enter 10");
         updatePlaylist();
         room = "session" + params.get('id_session');
         socket.emit('new_song', { "room": room });
@@ -743,7 +730,7 @@ function retireActualSong() {
                     "</div>";
                 $('#span_alert').html($alert);
             } else if (result == -1) {
-                console.log("Error deleting actual song");
+                console.log("Error");
             } else if (result == 1) {
                 //We need to obtain the next song and update the page
                 $.ajax({
@@ -768,7 +755,7 @@ function retireActualSong() {
                             socket.emit('song_retired_no_more_songs', { "room": room });
 
                         } else if (result == -3 || result == -4) {
-                            console.log("ERROR AQUI");
+                            console.log("Error");
                         } else { //There are songs to play in the playlist    
                             no_song = 0;
 
@@ -796,7 +783,6 @@ function retireActualSong() {
  * User has to update his playlist
  */
 socket.on('update_playlist', function (data) {
-    console.log("Tengo que actualizar playlist = " + data);
     updatePlaylist();
 });
 
@@ -805,9 +791,6 @@ socket.on('update_playlist', function (data) {
  */
 socket.on('ask_time_player', function (data) {
     if (no_player == 0) { //There is a player, so time to tell
-        //answer = player.getCurrentTime();
-        //room = "session" + params.get("id_session");
-        //data = { "time": answer, "room": room };
         socket.emit('answer_time_player', { "time": player.getCurrentTime(), "room": "session" + params.get("id_session") });
     }
 });
@@ -816,7 +799,6 @@ socket.on('ask_time_player', function (data) {
  * User receives the time of the player
  */
 socket.on('time_player', function (time) {
-    console.log("Recibiendo tiempo de player...");
     player.seekTo(time);
 });
 
@@ -824,8 +806,6 @@ socket.on('time_player', function (time) {
  * User has to put the black box because there are no more songs
  */
 socket.on('no_more_songs_black_image', function (data) {
-    console.log("Actualizando porque no hay mas canciones");
-
     no_song = 1;
     $('#title_video_playing').html("<small class='text-muted'>Waiting your music... </small>");
     //We destroy the player
@@ -840,7 +820,6 @@ socket.on('no_more_songs_black_image', function (data) {
  * User can leaves the waiting room
  */
 socket.on('leave_waiting_room', function (data) {
-    console.log("Solicitando abandonar waiting_room");
     params = new URLSearchParams(location.search);
     waiting_room = "room" + params.get('id_session') + "_waiting";
     socket.emit('leave_room', waiting_room);
@@ -850,7 +829,6 @@ socket.on('leave_waiting_room', function (data) {
  * User has to update the player
  */
 socket.on('update_player', function (data) {
-    console.log("Actualizando player...");
     noSong_SongAdded();
 });
 
@@ -858,7 +836,6 @@ socket.on('update_player', function (data) {
  * User has to update the player but knowing there are no more songs to play
  */
 socket.on('update_player_no_song', function (data) {
-    console.log("Actualizando player sabiendo que no hay mas canciones...");
     no_song = 1; //We update the value of no_song, if not it'll try to play the next song (but there is any song)
     noSong_SongAdded();
 });
@@ -874,7 +851,6 @@ socket.on('proportion_correct',function(data){
         type: "post",
         success: function (result) {
             result = result["result"];
-            console.log("Deleted first song");
             if (result == 1) { //The first song has being deleted
                 //We need to obtain the next song and update the page
                 $.ajax({
@@ -885,7 +861,6 @@ socket.on('proportion_correct',function(data){
                         obj = result;
                         result = result["result"];
                         if (result == -1) { //There aren't songs to play in the playlist
-                            console.log("Enter 3");
                             no_song = 1;
                             $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
                             //We destroy the player
@@ -901,9 +876,8 @@ socket.on('proportion_correct',function(data){
                             socket.emit('no_song_in_player', { "room": room });
 
                         } else if (result == -3 || result == -4) {
-                            console.log("ERROR -----");
+                            console.log("Error");
                         } else { //There are songs to play in the playlist
-                            console.log("Enter 4");
                             no_song = 0;
                             no_player = 0; //aqui
 
@@ -922,7 +896,7 @@ socket.on('proportion_correct',function(data){
                     }
                 });
             } else {
-                console.log("ERROR DELETING FIRST SONG");
+                console.log("Error");
             }
         }
     });

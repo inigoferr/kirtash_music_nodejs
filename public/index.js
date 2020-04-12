@@ -17,7 +17,6 @@ router.use(session({
     saveUninitialized: true,
     resave: true
 }));
-/*************/
 
 router.post('/checksignup', function (req, res, next) {
     sign_up(req.body.username, req.body.pass_user, req.body.pass_user2, req.body.email, req, function (result) {
@@ -344,7 +343,7 @@ router.post('/v_showSpacePassSession', function (req, res, next) {
 });
 
 router.post('/v_showNameSession', function (req, res, next) {
-    v_showNameSession(req.body.id_session, function (result) {
+    m_obtainNameSession(req.body.id_session, function (result) {
         res.send(result);
     });
 });
@@ -409,7 +408,6 @@ router.get('/create_session', function (req, res, next) {
 /* SESSION PAGE*/
 router.get('/session', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/session.html"));
-    //res.redirect('/session?id_session='+number);
 });
 
 /* Log & Register page*/
@@ -1488,13 +1486,6 @@ function v_showButtonSignOut(req, callback) {
 function v_showSpacePassSession(callback) {
     content = fs.readFileSync(path.join(__dirname + "/file_html/space_pass_session.html"), 'utf-8');
     callback(content);
-}
-
-
-function v_showNameSession(id_session, callback) {
-    m_obtainNameSession(id_session, function (result) {
-        callback(result);
-    });
 }
 
 function v_showNavbarSession(id_session, req, callback) {

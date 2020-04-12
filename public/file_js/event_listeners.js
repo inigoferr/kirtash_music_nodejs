@@ -16,7 +16,6 @@ function onYouTubeIframeAPIReady() {
       obj = result;
       result = result["result"];
       if(result == -1){
-        console.log("Enter 1");
         no_song = 1;
         no_player = 1;
 
@@ -25,9 +24,8 @@ function onYouTubeIframeAPIReady() {
         $('#player').html("<img src='/assets/img/black_player.png'></img>");
 
       } else if( result == -3 || result == -4){
-        console.log("ERROR");
+        console.log("Error");
       } else {
-        console.log("Enter 2");
         no_song = 0;
         no_player = 0;
 
@@ -84,7 +82,6 @@ function onPlayerStateChange(event){
                   obj = result;
                   result = result["result"];
                   if (result == -1){ //There aren't songs to play in the playlist
-                    console.log("Enter 3");
                     no_song = 1;
                     $('#title_video_playing').html("<small class='text-muted'>Waiting your music... </small>");
                     //We destroy the player
@@ -95,9 +92,8 @@ function onPlayerStateChange(event){
                     $('#player').html("<img src='/assets/img/black_player.png'></img>");
 
                   } else  if (result == -3  || result == -4){
-                      console.log("ERROR -----");
+                      console.log("Error");
                   } else { //There are songs to play in the playlist
-                    console.log("Enter 4");
                     no_song = 0;
                     no_player = 0; //aqui
 
@@ -111,7 +107,7 @@ function onPlayerStateChange(event){
               }
             });
         } else {
-          console.log("ERROR DELETING FIRST SONG");
+          console.log("Error");
         }
       }
     });
@@ -139,7 +135,6 @@ function onPlayerStateChange(event){
 
 function noSong_SongAdded(){
   if (no_song == 1){ //No Song in the player
-    console.log("Enter 5");
     let params = new URLSearchParams(location.search);
     $.ajax({
       url: "/obtainFirstVideo",
@@ -148,17 +143,15 @@ function noSong_SongAdded(){
       success: function(result){ //We received the information from the server
           result = result["result"];
           if (result == -3  || result == -4){
-            console.log("ERROR");
+            console.log("Error");
             no_song = 1;
           }
           if (result == -1){ //No songs in the playlist
-            console.log("Enter 6");
             no_song = 1;
             $('#title_video_playing').html("<small class='text-muted'>Paused, waiting your music... </small>");
             $('#player').html("<img src='/assets/img/black_player.png'></img>");
 
           } else {
-            console.log("Enter 7");
             no_song = 0;
 
             obj = result;
@@ -167,7 +160,6 @@ function noSong_SongAdded(){
             id_cancion = obj["id_cancion"];
 
             if (no_player == 1){
-              console.log("Enter 8");
               player = new YT.Player('player', {
                 // Set Player height and width
                 height: '390',
@@ -180,7 +172,6 @@ function noSong_SongAdded(){
                 }
               });
             } else {
-              console.log("Enter 9");
               player.loadVideoById(videoId);
               player.playVideo();
             }
@@ -189,7 +180,6 @@ function noSong_SongAdded(){
       }
     });  
   } else { //A song is being played
-    console.log("Enter 10");
     updatePlaylist();
   }
 }
@@ -220,7 +210,7 @@ function retireActualSong(){
                   "</div>";
           $('#span_alert').html($alert);
         } else if (result == -1){
-           console.log("Error deleting actual song");
+           console.log("Error");
         } else if (result == 1){
           //We need to obtain the next song and update the page
           $.ajax({
@@ -240,7 +230,7 @@ function retireActualSong(){
                   $('#player').html("<img src='/assets/img/black_player.png'></img>");
 
                 } else if (result == -3  || result == -4){
-                  console.log("ERROR AQUI");
+                  console.log("Error");
                 } else { //There are songs to play in the playlist    
                   no_song = 0;
                   obj = JSON.parse(result);

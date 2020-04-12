@@ -76,7 +76,7 @@ function checkSignIn() {
             }
         },
         error: function (result) {
-            console.log(result);
+            
         }
     });
 }
@@ -243,7 +243,6 @@ function addAdmins() {
 function deleteAdmin(username_admin) {
     let params = new URLSearchParams(location.search);
 
-    console.log(username_admin);
     $.ajax({
         url: "/deleteAdmin",
         data: { username: username_admin, id_session: params.get('id_session') },
@@ -809,7 +808,6 @@ function newPasswordUser() {
         data: { pass_user: pass_user, pass_user2: pass_user2, id_user: params.get("id_user"), cadena: params.get("cad") },
         success: function (result) {
             result = result["result"];
-            console.log("Result = " + result);
 
             var msg1 = `<div class="alert alert-info alert-with-icon">
                                     <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
