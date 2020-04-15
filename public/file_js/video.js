@@ -355,7 +355,7 @@ window.onload = function () {
             $.ajax({
                 type: "post",
                 url: "/showButtons",
-                data: "data",
+                data: { "id_session": params.get('id_session') },
                 success: function (response) {
 
                     button_username_guest = response["button_username_guest"];

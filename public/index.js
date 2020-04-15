@@ -333,8 +333,8 @@ router.post("/showButtons", function (req, res, next) {
                         "button_username_guest": button_username_guest,
                         "button_signout": button_signout,
                         "space_pass_session": space_pass_session,
-                        "name_session": name_session
-                    });
+                        "name_session": name_session}
+                        );
                 });
             });
         });
