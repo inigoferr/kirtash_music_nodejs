@@ -324,18 +324,6 @@ router.post('/v_showfollowedsessions', function (req, res, next) {
     });
 });
 
-/*router.post('/v_showButtonUsernameGuest', function (req, res, next) {
-    v_showButtonUsernameGuest(req, function (result) {
-        res.send(result);
-    });
-});
-
-router.post('/v_showButtonSignOut', function (req, res, next) {
-    v_showButtonSignOut(req, function (result) {
-        res.send(result);
-    });
-});*/
-
 router.post("/showButtons",function(req,res,next){
     v_showButtonUsernameGuest(req, function (button_username_guest) {
         v_showButtonSignOut(req, function (button_signout){

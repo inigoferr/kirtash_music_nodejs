@@ -352,18 +352,6 @@ window.onload = function () {
             $('#theprogressbar').attr('style', "width: 5%;");
             $('#theprogressbar_value').html("5%");
 
-            //$view->v_showButtonUsernameGuest();
-            /*$.ajax({
-                type: "post",
-                url: "/v_showButtonUsernameGuest",
-                success: function (response) {
-                    $('#profile_session').html(response);
-                    $.ajax({
-                        type: "post",
-                        url: "/v_showButtonSignOut",
-                        data: "data",
-                        success: function (response) {*/
-
             $.ajax({
                 type: "post",
                 url: "/showButtons",
@@ -402,7 +390,7 @@ window.onload = function () {
                                     $('#theprogressbar').attr('style', "width: 50%;");
                                     $('#theprogressbar_value').html("50%");
 
-                                    //v_showNavbarSession($_GET["id_session"],1);
+                                    //v_showNavbarSession();
                                     $.ajax({
                                         type: "post",
                                         url: "/v_showNavbarSession",
