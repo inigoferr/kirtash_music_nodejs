@@ -395,80 +395,78 @@ window.onload = function () {
                         success: function (response) {
                             $('#navbarsession').html(response);*/
 
-                            $('#theprogressbar').attr('aria-valuenow', 70);
-                            $('#theprogressbar').attr('style', "width: 70%;");
-                            $('#theprogressbar_value').html("70%");
+                    $('#theprogressbar').attr('aria-valuenow', 70);
+                    $('#theprogressbar').attr('style', "width: 70%;");
+                    $('#theprogressbar_value').html("70%");
 
-                            let params = new URLSearchParams(location.search);
-                            $.ajax({
-                                url: "/checkSession",
-                                data: { id_session: params.get('id_session') },
-                                type: "post",
-                                success: function (result) {
-                                    result = result["result"];
+                    let params = new URLSearchParams(location.search);
+                    $.ajax({
+                        url: "/checkSession",
+                        data: { id_session: params.get('id_session') },
+                        type: "post",
+                        success: function (result) {
+                            result = result["result"];
 
-                                    $('#theprogressbar').attr('aria-valuenow', 90);
-                                    $('#theprogressbar').attr('style', "width: 90%;");
-                                    $('#theprogressbar_value').html("90%");
+                            $('#theprogressbar').attr('aria-valuenow', 90);
+                            $('#theprogressbar').attr('style', "width: 90%;");
+                            $('#theprogressbar_value').html("90%");
 
-                                    if (result == -1) { //The session doesn't exist
-                                        $.ajax({
-                                            url: "/showNoSession",
-                                            data: { id_session: params.get('id_session') },
-                                            type: "post",
-                                            success: function (result) {
-                                                //Hide the progress Bar
-                                                $('#progress_bar').hide();
+                            if (result == -1) { //The session doesn't exist
+                                $.ajax({
+                                    url: "/showNoSession",
+                                    data: { id_session: params.get('id_session') },
+                                    type: "post",
+                                    success: function (result) {
+                                        //Hide the progress Bar
+                                        $('#progress_bar').hide();
 
-                                                $('#body-section').html(result);
-                                                $('#body-section').show();
-                                            }
-                                        });
-                                    } else { //The session exists but we have to check if it's public or private
-                                        $.ajax({
-                                            url: "/checkTypeSession",
-                                            data: { id_session: params.get('id_session') },
-                                            type: "post",
-                                            success: function (result) {
-                                                result = result["result"];
+                                        $('#body-section').html(result);
+                                        $('#body-section').show();
+                                    }
+                                });
+                            } else { //The session exists but we have to check if it's public or private
+                                $.ajax({
+                                    url: "/checkTypeSession",
+                                    data: { id_session: params.get('id_session') },
+                                    type: "post",
+                                    success: function (result) {
+                                        result = result["result"];
 
-                                                $('#theprogressbar').attr('aria-valuenow', 95);
-                                                $('#theprogressbar').attr('style', "width: 95%;");
-                                                $('#theprogressbar_value').html("95%");
+                                        $('#theprogressbar').attr('aria-valuenow', 95);
+                                        $('#theprogressbar').attr('style', "width: 95%;");
+                                        $('#theprogressbar_value').html("95%");
 
-                                                if (result == 2) { //Session is private
-                                                    //We see if the user is Admin or not
-                                                    $.ajax({
-                                                        url: "/isAdmin",
-                                                        type: "post",
-                                                        success: function (result) {
-                                                            result = result["result"];
-                                                            //Hide the progress Bar
-                                                            $('#progress_bar').hide();
-
-                                                            if (result == 0) { //User not admin, he needs password to enter
-                                                                //We hide everything until, he enters the correct password
-                                                                $('#body-section').hide();
-                                                                $('#space_pass_session').show();
-                                                            } else {
-                                                                $('#body-section').show();
-                                                            }
-                                                        }
-                                                    });
-                                                } else {
+                                        if (result == 2) { //Session is private
+                                            //We see if the user is Admin or not
+                                            $.ajax({
+                                                url: "/isAdmin",
+                                                type: "post",
+                                                success: function (result) {
+                                                    result = result["result"];
                                                     //Hide the progress Bar
                                                     $('#progress_bar').hide();
 
-                                                    $('#body-section').show();
-
-                                                    var room = 'session' + params.get('id_session');
-                                                    socket.emit('join_room', room);
+                                                    if (result == 0) { //User not admin, he needs password to enter
+                                                        //We hide everything until, he enters the correct password
+                                                        $('#body-section').hide();
+                                                        $('#space_pass_session').show();
+                                                    } else {
+                                                        $('#body-section').show();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        } else {
+                                            //Hide the progress Bar
+                                            $('#progress_bar').hide();
+
+                                            $('#body-section').show();
+
+                                            var room = 'session' + params.get('id_session');
+                                            socket.emit('join_room', room);
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     });
                 }
