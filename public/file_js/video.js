@@ -368,7 +368,6 @@ window.onload = function () {
                 type: "post",
                 url: "/showButtons",
                 data: "data",
-                dataType: "dataType",
                 success: function (response) {
 
                     button_username_guest = response["button_username_guest"];
