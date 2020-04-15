@@ -680,6 +680,7 @@ function m_deleteSession(id_session, callback) {
 }
 
 function m_obtainNameSession(id_session, callback) {
+    console.log("Id_session = " + id_session);
     connection.query("SELECT nombre_sesion FROM sesion WHERE id_sesion ='" + id_session + "'", function (error, results, fields) {
         callback(results[0].nombre_sesion);
     });
