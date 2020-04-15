@@ -327,16 +327,21 @@ router.post('/v_showfollowedsessions', function (req, res, next) {
 router.post("/showButtons",function(req,res,next){
     v_showButtonUsernameGuest(req, function (button_username_guest) {
         v_showButtonSignOut(req, function (button_signout){
-            res.send({"button_username_guest": button_username_guest, "button_signout": button_signout});
+            v_showSpacePassSession(function (space_pass_session) {
+                m_obtainNameSession(req.body.id_session, function (name_session) {
+                    res.send({"button_username_guest": button_username_guest, 
+                              "button_signout": button_signout,
+                              "space_pass_session": space_pass_session,
+                              "name_session": name_session});
         });
     });
 });
 
-router.post('/v_showSpacePassSession', function (req, res, next) {
+/*router.post('/v_showSpacePassSession', function (req, res, next) {
     v_showSpacePassSession(function (result) {
         res.send(result);
     });
-});
+});*/
 
 router.post('/v_showNameSession', function (req, res, next) {
     m_obtainNameSession(req.body.id_session, function (result) {
