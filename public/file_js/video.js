@@ -362,6 +362,7 @@ window.onload = function () {
                     button_signout = response["button_signout"];
                     space_pass_session = response["space_pass_session"];
                     name_session = response["name_session"];
+                    navbar_session = response["navbar_session"];
 
                     //ButtonUsernameGuest
                     $('#profile_session').html(button_username_guest);
@@ -377,19 +378,6 @@ window.onload = function () {
                     //v_showSpacePassSession
                     $('#space_pass_session').html(space_pass_session);
 
-                    /*$.ajax({
-                        type: "post",
-                        url: "/v_showSpacePassSession",
-                        success: function (response) {
-                            $('#space_pass_session').html(response);*/
-
-                    //v_showNameSession
-                    /*$.ajax({
-                        type: "post",
-                        data: { "id_session": params.get('id_session') },
-                        url: "/v_showNameSession",
-                        success: function (response) {*/
-
                     //v_showNameSession
                     $('#name_session').html(name_session);
 
@@ -398,12 +386,14 @@ window.onload = function () {
                     $('#theprogressbar_value').html("50%");
 
                     //v_showNavbarSession();
-                    $.ajax({
+                    $('#navbarsession').html(navbar_session);
+
+                    /*$.ajax({
                         type: "post",
                         url: "/v_showNavbarSession",
                         data: { "id_session": params.get('id_session') },
                         success: function (response) {
-                            $('#navbarsession').html(response);
+                            $('#navbarsession').html(response);*/
 
                             $('#theprogressbar').attr('aria-valuenow', 70);
                             $('#theprogressbar').attr('style', "width: 70%;");
