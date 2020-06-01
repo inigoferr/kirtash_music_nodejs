@@ -2,6 +2,7 @@
   "name": "kirtash-music-node",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://github.com/inigoferr/kirtash_music_nodejs#readme",
   "scripts": {
     "start": "node ./bin/www"
   },
