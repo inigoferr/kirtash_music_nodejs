@@ -345,12 +345,6 @@ router.post("/showButtons", function (req, res, next) {
     });
 });
 
-router.post('/v_showNavbarSession', function (req, res, next) {
-    v_showNavbarSession(req.body.id_session, req, function (data) {
-        res.send(data);
-    });
-});
-
 router.post('/v_showDescriptionUser', function (req, res, next) {
     v_showDescriptionUser(req.session.username, function (result) {
         res.send(result);

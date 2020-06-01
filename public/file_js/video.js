@@ -388,13 +388,6 @@ window.onload = function () {
                     //v_showNavbarSession();
                     $('#navbarsession').html(navbar_session);
 
-                    /*$.ajax({
-                        type: "post",
-                        url: "/v_showNavbarSession",
-                        data: { "id_session": params.get('id_session') },
-                        success: function (response) {
-                            $('#navbarsession').html(response);*/
-
                     $('#theprogressbar').attr('aria-valuenow', 70);
                     $('#theprogressbar').attr('style', "width: 70%;");
                     $('#theprogressbar_value').html("70%");
