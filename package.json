@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "homepage": "https://github.com/inigoferr/kirtash_music_nodejs#readme",
+  "description": "Trabajo de Fin de Grado [TFG]: Playlist online colaborativa",
   "author" : {
     "name" : "Iñigo Fernández Arrizabalaga",
     "email" : "fernandezinigo5@yahoo.es"
