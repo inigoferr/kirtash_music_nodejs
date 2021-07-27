@@ -1,15 +1,15 @@
 # Kirtash Music
 
-Trabajo Fin de Grado [TFG] de Iñigo Fernández Arrizabalaga, estudiante de Ingeniería Informática de la Universidad Pública de Navarra [UPNA]. 
+Final Degree Project [TFG] of Iñigo Fernández Arrizabalaga, student of Computer Engineering at the Public University of Navarra [UPNA]. 
 
-Implementado durante el curso 2019/2020.
+Implemented during the 2019/2020 academic year.
 
-Trabajo propuesto por la Navarra Lan Party [NLP].
+Project proposed by the Navarra Lan Party [NLP].
 
-## Implementación
+## Implementation
 
-El proyecto está implementado utilizando Node.js, JavaScript, jQuery, Bootstrap, CSS y HTML5.
+The project is implemented using Node.js, JavaScript, jQuery, Bootstrap, CSS and HTML5.
 
-## Despliegue
+## Deployment
 
-El proyecto está desplegado en www.kirtash-music.me. 
+The project is deployed at www.kirtash-music.me. 
