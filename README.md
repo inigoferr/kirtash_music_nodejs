@@ -1,5 +1,7 @@
 # Kirtash Music
 
+Design, development and deployment of a collaborative playlist web service.
+
 Final Degree Project [TFG] of Iñigo Fernández Arrizabalaga, student of Computer Engineering at the Public University of Navarra [UPNA]. 
 
 Implemented during the 2019/2020 academic year.
